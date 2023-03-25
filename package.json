@@ -1,0 +1,18 @@
+{
+  "name": "sunaqu",
+  "version": "1.0.0",
+  "description": "使用 rsapck 进行封装.",
+  "scripts": {
+    "watch": "tsbb watch --disable-babel --file-names src/main.ts",
+    "build": "tsbb build --disable-babel --file-names src/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SunLxy/sunaqu"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "devDependencies": {
+    "tsbb": "^3.7.9"
+  }
+}
