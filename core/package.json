@@ -1,0 +1,28 @@
+{
+  "name": "sunaqu",
+  "version": "0.0.0",
+  "description": "使用 rspack 进行封装.",
+  "author": "SunLxy <1011771396@qq.com>",
+  "files": [
+    "lib",
+    "src",
+    "bin"
+  ],
+  "scripts": {
+    "watch": "tsbb watch --disable-babel --file-names src/main.ts --file-names src/scripts/index.ts",
+    "build": "tsbb build --disable-babel --file-names src/main.ts --file-names src/scripts/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SunLxy/sunaqu.git"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {
+    "@rspack/core": "~0.1.2",
+    "minimist": "~1.2.8"
+  },
+  "devDependencies": {
+    "tsbb": "~3.7.9"
+  }
+}

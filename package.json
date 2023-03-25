@@ -1,27 +1,40 @@
 {
-  "name": "sunaqu",
-  "version": "1.0.0",
-  "description": "使用 rsapck 进行封装.",
-  "files": [
-    "lib",
-    "src",
-    "bin"
-  ],
-  "scripts": {
-    "watch": "tsbb watch --disable-babel --file-names src/main.ts --file-names src/scripts/index.ts",
-    "build": "tsbb build --disable-babel --file-names src/main.ts --file-names src/scripts/index.ts"
-  },
+  "name": "root",
+  "author": "SunLxy <1011771396@qq.com>",
+  "private": true,
+  "description": "使用 rspack 进行封装.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SunLxy/sunaqu"
+    "url": "https://github.com/SunLxy/sunaqu.git"
   },
-  "keywords": [],
-  "license": "MIT",
+  "scripts": {
+    "prepare": "husky install",
+    "----sunaqu👇🏻----": "--------start-------",
+    "build": "npm run-script build --workspace sunaqu",
+    "watch": "npm run-script watch --workspace sunaqu",
+    "----sunaqu👆🏻----": "--------end-------",
+    "----website👇🏻----": "--------start-------",
+    "website:build": "npm run-script build --workspace website",
+    "website:watch": "npm run-script watch --workspace website",
+    "----website👆🏻----": "--------end-------",
+    "version": "lerna version --force-publish=* --no-changelog --no-git-tag-version --no-push",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\""
+  },
   "dependencies": {
-    "@rspack/core": "~0.1.2",
-    "minimist": "~1.2.8"
+    "husky": "~8.0.0",
+    "lerna": "~5.4.0",
+    "prettier": "~2.7.0",
+    "pretty-quick": "~3.1.3",
+    "lint-staged": "~13.0.0"
   },
-  "devDependencies": {
-    "tsbb": "~3.7.9"
-  }
+  "lint-staged": {
+    "*.{js,jsx,tsx,ts,less,md,json}": "prettier --write"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "workspaces": [
+    "core",
+    "website"
+  ]
 }
