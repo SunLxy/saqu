@@ -1,4 +1,11 @@
 /**
  * rspack server 配置
  */
-export const getRspackDevServerConfig = () => {};
+import { DevServer } from '@rspack/core';
+
+export const getRspackDevServerConfig = (): DevServer => {
+  return {
+    hot: true,
+    port: 3000,
+  };
+};

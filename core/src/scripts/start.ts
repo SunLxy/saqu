@@ -5,6 +5,7 @@ import { RspackDevServer } from '@rspack/dev-server';
 import { getLoadConfig } from './../config';
 import { getRspackConfig } from './../rspack.config';
 import { rspack } from '@rspack/core';
+import { getRspackDevServerConfig } from './../rspack.config/devServer';
 export const rspackStart = async () => {
   try {
     process.env.NODE_ENV = 'development';
@@ -15,13 +16,7 @@ export const rspackStart = async () => {
 
     const compiler = rspack(lastConfig);
 
-    const server = new RspackDevServer(
-      {
-        hot: true,
-        port: 3000,
-      },
-      compiler,
-    );
+    const server = new RspackDevServer(getRspackDevServerConfig(), compiler);
     await server.start();
   } catch (error) {
     console.error(error);
