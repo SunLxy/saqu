@@ -5,6 +5,7 @@ import { getLoadConfig } from './../config';
 import { getRspackConfig } from './../rspack.config';
 import { rspack } from '@rspack/core';
 export const rspackBuild = async () => {
+  process.env.NODE_ENV = 'production';
   console.time('build');
   /**加载自动配置*/
   const loadConfig = await getLoadConfig();

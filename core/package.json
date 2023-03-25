@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "使用 rspack 进行封装.",
   "author": "SunLxy <1011771396@qq.com>",
+  "bin": {
+    "sunaqu": "./bin/sunaqu"
+  },
   "files": [
     "lib",
     "src",

@@ -4,19 +4,18 @@
   "description": "案例",
   "private": true,
   "scripts": {
-    "start": "kktp start",
-    "build": "kktp build"
+    "start": "sunaqu start",
+    "build": "sunaqu build"
   },
-  "repository": "https://github.com/kktjs/kkt-pro",
   "license": "MIT",
-  "devDependencies": {
-    "@kkt/pro": "^1.0.10"
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "devDependencies": {
+    "sunaqu": "0.0.0",
+    "@types/react": "^18.0.29",
+    "@types/react-dom": "^18.0.11"
   },
   "browserslist": {
     "production": [
