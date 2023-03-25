@@ -2,6 +2,11 @@
   "name": "sunaqu",
   "version": "1.0.0",
   "description": "使用 rsapck 进行封装.",
+  "files": [
+    "lib",
+    "src",
+    "bin"
+  ],
   "scripts": {
     "watch": "tsbb watch --disable-babel --file-names src/main.ts --file-names src/scripts/index.ts",
     "build": "tsbb build --disable-babel --file-names src/main.ts --file-names src/scripts/index.ts"
