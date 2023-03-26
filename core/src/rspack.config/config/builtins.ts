@@ -7,14 +7,18 @@ export const getRspackBuiltinsConfig = (
   builtins?: RspackOptions['builtins'],
 ): RspackOptions['builtins'] => {
   return {
+    ...builtins,
     define: {
       // User defined `process.env.NODE_ENV` always has highest priority than default define
       'process.env.NODE_ENV': JSON.stringify(env),
+      ...builtins?.define,
     },
     html: [
-      {
-        template: path.join(process.cwd(), 'public', 'index.html'),
-      },
+      ...(builtins?.html || [
+        {
+          template: path.join(process.cwd(), 'public', 'index.html'),
+        },
+      ]),
     ],
   };
 };

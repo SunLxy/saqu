@@ -4,8 +4,8 @@
   "description": "案例",
   "private": true,
   "scripts": {
-    "start": "sunaqu start",
-    "build": "sunaqu build"
+    "start": "saqu start",
+    "build": "saqu build"
   },
   "license": "MIT",
   "dependencies": {
@@ -13,7 +13,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "sunaqu": "0.0.0",
+    "saqu": "0.0.0",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11"
   },

@@ -2,7 +2,7 @@
  * rspack 执行配置
  */
 import { RspackOptions } from '@rspack/core';
-import { SunAquConfig } from './../interface';
+import { SAquConfig } from './../interface';
 import { getRspackEntryConfig } from './config/entry';
 import { getRspackBuiltinsConfig } from './config/builtins';
 import { getRspackOutputConfig } from './config/output';
@@ -10,7 +10,7 @@ import { getRspackModolesConfig } from './config/modules';
 export const getRspackConfig = async (
   env: 'development' | 'production',
   type: 'server' | 'client',
-  loadConfigs: SunAquConfig,
+  loadConfigs: SAquConfig,
 ) => {
   /**加载需要重写的配置*/
   const { overridesRspack, ...loadConfig } = loadConfigs;
@@ -18,8 +18,9 @@ export const getRspackConfig = async (
   const isEnvProduction = env === 'production';
 
   const initConfig: RspackOptions = {
-    target: type === 'client' ? 'browserslist' : 'node',
+    target: type === 'client' ? ['web', 'browserslist'] : 'node',
     mode: env,
+    stats: 'errors-warnings',
     devtool: isEnvProduction ? false : 'cheap-module-source-map',
     entry: getRspackEntryConfig(env, type, loadConfig.entry),
     builtins: getRspackBuiltinsConfig(env, type, loadConfig.builtins),

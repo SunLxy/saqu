@@ -5,14 +5,14 @@
   "description": "使用 rspack 进行封装.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SunLxy/sunaqu.git"
+    "url": "https://github.com/SunLxy/saqu.git"
   },
   "scripts": {
     "prepare": "husky install",
-    "----sunaqu👇🏻----": "--------start-------",
-    "build": "npm run-script build --workspace sunaqu",
-    "watch": "npm run-script watch --workspace sunaqu",
-    "----sunaqu👆🏻----": "--------end-------",
+    "----saqu👇🏻----": "--------start-------",
+    "build": "npm run-script build --workspace saqu",
+    "watch": "npm run-script watch --workspace saqu",
+    "----saqu👆🏻----": "--------end-------",
     "----website👇🏻----": "--------start-------",
     "website:build": "npm run-script build --workspace website",
     "website:start": "npm run-script start --workspace website",

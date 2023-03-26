@@ -1,10 +1,10 @@
 {
-  "name": "sunaqu",
+  "name": "saqu",
   "version": "0.0.0",
   "description": "使用 rspack 进行封装.",
   "author": "SunLxy <1011771396@qq.com>",
   "bin": {
-    "sunaqu": "./bin/sunaqu"
+    "saqu": "./bin/saqu"
   },
   "files": [
     "lib",
@@ -17,11 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SunLxy/sunaqu.git"
+    "url": "https://github.com/SunLxy/saqu.git"
   },
   "keywords": [],
   "license": "MIT",
   "dependencies": {
+    "mocker-api": "~2.9.5",
     "@discoveryjs/json-ext": "~0.5.7",
     "@babel/core": "~7.21.3",
     "@babel/node": "~7.20.7",
