@@ -1,7 +1,11 @@
 import { RspackOptions } from '@rspack/core';
 import path from 'path';
 
-export const getRspackBuiltinsConfig = (env: 'development' | 'production'): RspackOptions['builtins'] => {
+export const getRspackBuiltinsConfig = (
+  env: 'development' | 'production',
+  type: 'server' | 'client',
+  builtins?: RspackOptions['builtins'],
+): RspackOptions['builtins'] => {
   return {
     define: {
       // User defined `process.env.NODE_ENV` always has highest priority than default define

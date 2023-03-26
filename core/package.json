@@ -22,6 +22,7 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
+    "@discoveryjs/json-ext": "~0.5.7",
     "@babel/core": "~7.21.3",
     "@babel/node": "~7.20.7",
     "@babel/preset-typescript": "~7.21.0",
@@ -33,9 +34,10 @@
     "@rspack/postcss-loader": "~0.1.2",
     "@rspack/dev-server": "~0.1.2",
     "@rspack/core": "~0.1.2",
-    "minimist": "~1.2.8"
+    "fs-extra": "~11.1.0",
+    "chalk": "4.1.2"
   },
   "devDependencies": {
-    "tsbb": "~3.7.9"
+    "@types/fs-extra": "~11.0.1"
   }
 }

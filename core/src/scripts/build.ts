@@ -4,6 +4,8 @@
 import { getLoadConfig } from './../config';
 import { getRspackConfig } from './../rspack.config';
 import { rspack } from '@rspack/core';
+import FS from 'fs-extra';
+import jsonext from '@discoveryjs/json-ext';
 export const rspackBuild = async () => {
   process.env.NODE_ENV = 'production';
   console.time('build');
@@ -13,6 +15,16 @@ export const rspackBuild = async () => {
   const lastConfig = await getRspackConfig('production', 'client', loadConfig);
   const compiler = rspack(lastConfig);
   compiler.run((err, Stats) => {
+    if (Stats) {
+      // FS.writeFile('./a.json', JSON.stringify(Stats?.toJson(compiler.options.stats)), {
+      //   flag: 'w+',
+      //   encoding: 'utf-8',
+      // });
+    }
+
+    if (err) {
+      console.error(err);
+    }
     console.timeEnd('build');
   });
 };

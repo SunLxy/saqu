@@ -5,7 +5,7 @@ import { RspackDevServer } from '@rspack/dev-server';
 import { getLoadConfig } from './../config';
 import { getRspackConfig } from './../rspack.config';
 import { rspack } from '@rspack/core';
-import { getRspackDevServerConfig } from './../rspack.config/devServer';
+import { getRspackDevServerConfig } from './../rspack.config/config/devServer';
 export const rspackStart = async () => {
   try {
     process.env.NODE_ENV = 'development';
