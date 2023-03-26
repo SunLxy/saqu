@@ -10,9 +10,9 @@ export const getRspackDevServerConfig = (config: SAquConfig): DevServer => {
   return {
     compress: true,
     hot: true,
+    open: true,
+    proxy: config.proxy,
     ...devServer,
-    // open: devServer?.open || true,
-    proxy: devServer?.proxy || config.proxy,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': '*',
@@ -24,7 +24,6 @@ export const getRspackDevServerConfig = (config: SAquConfig): DevServer => {
         errors: true,
         warnings: false,
       },
-      progress: true,
       ...(typeof devServer?.client !== 'boolean' ? devServer?.client : {}),
     },
     setupMiddlewares: (middlewares, server) => {
