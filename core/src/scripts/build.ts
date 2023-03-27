@@ -10,7 +10,7 @@ export const rspackBuild = async () => {
   process.env.NODE_ENV = 'production';
   console.time('build');
   /**加载自动配置*/
-  const loadConfig = await getLoadConfig();
+  const { loadConfig } = await getLoadConfig();
   /**最终配置*/
   const lastConfig = await getRspackConfig('production', 'client', loadConfig);
   const compiler = rspack(lastConfig);

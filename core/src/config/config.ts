@@ -1,5 +1,6 @@
 import rc from '@proload/plugin-rc';
 import json from '@proload/plugin-json';
+const presets = ['@babel/preset-env', '@babel/preset-typescript'];
 const defaultConfig = [
   rc,
   json,
@@ -11,7 +12,7 @@ const defaultConfig = [
       if (/\.(js|jsx|ts|tsx?)$/.test(fileName)) {
         registers({
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
-          presets: ['@babel/preset-env', '@babel/preset-typescript'],
+          presets: presets,
           ignore: [/\/(node_modules)\//],
         });
       } else if (/\.([cm]ts|tsx?)$/.test(fileName)) {
@@ -19,14 +20,14 @@ const defaultConfig = [
           registers({
             format: 'cjs',
             extensions: ['.cts'],
-            presets: ['@babel/preset-env'],
+            presets: presets,
             ignore: [/\/(node_modules)\//],
           });
         } else {
           registers({
             extensions: ['.ts', '.tsx', '.mts'],
             ignore: [/\/(node_modules)\//],
-            presets: ['@babel/preset-env'],
+            presets: presets,
           });
         }
       }

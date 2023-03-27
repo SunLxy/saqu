@@ -36,7 +36,8 @@
     "@rspack/dev-server": "~0.1.2",
     "@rspack/core": "~0.1.2",
     "fs-extra": "~11.1.0",
-    "chalk": "4.1.2"
+    "chalk": "4.1.2",
+    "chokidar": "~3.5.3"
   },
   "devDependencies": {
     "@types/fs-extra": "~11.0.1"
