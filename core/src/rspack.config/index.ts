@@ -20,13 +20,20 @@ export const getRspackConfig = async (
   const initConfig: RspackOptions = {
     target: type === 'client' ? ['web', 'browserslist'] : 'node',
     mode: env,
-    stats: 'errors-warnings',
+    stats: {
+      preset: 'errors-warnings',
+      colors: true,
+      ...(typeof loadConfig.stats === 'object' ? { ...loadConfig.stats } : {}),
+    },
     devtool: isEnvProduction ? false : 'cheap-module-source-map',
     entry: getRspackEntryConfig(env, type, loadConfig.entry),
     builtins: getRspackBuiltinsConfig(env, type, loadConfig.builtins),
     output: getRspackOutputConfig(env, type, loadConfig.output),
     module: getRspackModolesConfig(env, type, loadConfig.module),
   };
+  if (isEnvProduction) {
+  }
+
   /**判断是否重新配置*/
   if (overridesRspack) {
     return overridesRspack(initConfig, env, type);

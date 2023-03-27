@@ -20,8 +20,8 @@ export const rspackStart = async () => {
       const serverConfig = getRspackDevServerConfig(config);
       if (server) {
         await server.stop();
-        serverConfig.open = false;
       }
+      serverConfig.open = false;
       const compiler = rspack(lastConfig);
       server = new RspackDevServer(serverConfig, compiler);
       await server.start();
