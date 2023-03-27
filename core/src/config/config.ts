@@ -14,6 +14,7 @@ const defaultConfig = [
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
           presets: presets,
           ignore: [/\/(node_modules)\//],
+          cache: false,
         });
       } else if (/\.([cm]ts|tsx?)$/.test(fileName)) {
         if (fileName.endsWith('.cts')) {
@@ -22,12 +23,14 @@ const defaultConfig = [
             extensions: ['.cts'],
             presets: presets,
             ignore: [/\/(node_modules)\//],
+            cache: false,
           });
         } else {
           registers({
             extensions: ['.ts', '.tsx', '.mts'],
             ignore: [/\/(node_modules)\//],
             presets: presets,
+            cache: false,
           });
         }
       }
