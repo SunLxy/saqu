@@ -7,8 +7,8 @@ import { getRspackConfig } from './../rspack.config';
 import { rspack } from '@rspack/core';
 import { getRspackDevServerConfig } from './../rspack.config/config/devServer';
 import chokidar from 'chokidar';
-import { SAquConfig } from './../interface';
-export const rspackStart = async () => {
+import { SAquConfig, SAquArgvOptions } from './../interface';
+export const rspackStart = async (argvOptions: SAquArgvOptions) => {
   try {
     process.env.NODE_ENV = 'development';
     let server: RspackDevServer;
@@ -16,7 +16,7 @@ export const rspackStart = async () => {
     const { loadConfig, filePath } = await getLoadConfig();
     const rspackRun = async (config: SAquConfig) => {
       /**最终配置*/
-      const lastConfig = await getRspackConfig('development', 'client', config);
+      const lastConfig = await getRspackConfig('development', 'client', argvOptions, config);
       const serverConfig = getRspackDevServerConfig(config);
       if (server) {
         await server.stop();

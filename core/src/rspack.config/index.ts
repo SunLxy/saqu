@@ -2,14 +2,17 @@
  * rspack 执行配置
  */
 import { RspackOptions } from '@rspack/core';
-import { SAquConfig } from './../interface';
+import { SAquConfig, SAquArgvOptions } from './../interface';
 import { getRspackEntryConfig } from './config/entry';
 import { getRspackBuiltinsConfig } from './config/builtins';
 import { getRspackOutputConfig } from './config/output';
 import { getRspackModolesConfig } from './config/modules';
+import { getRspackPluginsConfig } from './config/plugins';
+
 export const getRspackConfig = async (
   env: 'development' | 'production',
   type: 'server' | 'client',
+  argvOptions: SAquArgvOptions,
   loadConfigs: SAquConfig,
 ) => {
   /**加载需要重写的配置*/
@@ -30,6 +33,7 @@ export const getRspackConfig = async (
     builtins: getRspackBuiltinsConfig(env, type, loadConfig.builtins),
     output: getRspackOutputConfig(env, type, loadConfig.output),
     module: getRspackModolesConfig(env, type, loadConfig.module),
+    plugins: getRspackPluginsConfig(env, type, argvOptions, loadConfig.plugins),
   };
   if (isEnvProduction) {
   }

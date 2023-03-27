@@ -2,6 +2,7 @@ import { RspackOptions } from '@rspack/core';
 import express from 'express';
 import { MockerProxyRoute, MockerOption } from 'mocker-api';
 import { DevServer } from '@rspack/core';
+import yargsParser from 'yargs-parser';
 
 export interface SAquConfig extends Omit<RspackOptions, 'entry'> {
   proxy?: DevServer['proxy'];
@@ -20,4 +21,9 @@ export interface SAquConfig extends Omit<RspackOptions, 'entry'> {
     env: 'development' | 'production',
     type: 'server' | 'client',
   ) => Promise<RspackOptions> | RspackOptions;
+}
+
+export interface SAquArgvOptions extends yargsParser.Arguments {
+  /**使用 webpack-bundle-analyzer*/
+  analyze?: boolean;
 }
