@@ -5,6 +5,8 @@ import { getLoadConfig } from './../config';
 import { getRspackConfig } from './../rspack.config';
 import { rspack } from '@rspack/core';
 import { SAquArgvOptions } from '../interface';
+import { printFileSizes } from './../utils';
+
 export const rspackBuild = async (argvOptions: SAquArgvOptions) => {
   /**设置环境变量值*/
   process.env.NODE_ENV = 'production';
@@ -16,12 +18,9 @@ export const rspackBuild = async (argvOptions: SAquArgvOptions) => {
   const compiler = rspack(lastConfig);
   compiler.run((err, Stats) => {
     if (Stats) {
-      // FS.writeFile('./a.json', JSON.stringify(Stats?.toJson(compiler.options.stats)), {
-      //   flag: 'w+',
-      //   encoding: 'utf-8',
-      // });
+      const newStats = Array.isArray(compiler.options) ? (Stats as any).children : Stats;
+      printFileSizes(newStats, lastConfig.output.path);
     }
-
     if (err) {
       console.error(err);
     }

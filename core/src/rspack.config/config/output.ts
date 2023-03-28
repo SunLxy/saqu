@@ -14,7 +14,9 @@ export const getRspackOutputConfig = (
   if (type === 'server') {
     newOutPut.library = output.library || { type: 'commonjs2' };
     newOutPut.filename = output.filename || 'server.js';
-    newOutPut.path = (output.path || 'dist').replace(/\/$/, '') + '/server';
+    newOutPut.path = (output?.path || 'dist').replace(/\/$/, '') + '/server';
+  } else {
+    newOutPut.path = output?.path || 'dist';
   }
   return { ...newOutPut };
 };
