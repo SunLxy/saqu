@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-export * from './printFileSizes';
+// export * from './printFileSizes';
 /**
  * 如果存在返回匹配的 URL
  */
