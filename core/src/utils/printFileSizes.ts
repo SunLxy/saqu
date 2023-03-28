@@ -1,3 +1,12 @@
+/***
+ *  使用的依赖包
+ *  "strip-ansi": "~6.0.1",
+ *  "gzip-size": "~6.0.0",
+ *  "filesize": "~9.0.11"
+ *  "fs-extra": "~11.1.0",
+ *  "chalk": "4.1.2",
+ * */
+
 // import stripAnsi from 'strip-ansi';
 // import gzipSize from 'gzip-size';
 // import filesize from 'filesize';
