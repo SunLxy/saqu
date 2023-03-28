@@ -6,7 +6,7 @@ import { getRspackConfig } from './../rspack.config';
 import { rspack } from '@rspack/core';
 import { SAquArgvOptions } from '../interface';
 import { printFileSizes } from './../utils';
-
+import FS from 'fs-extra';
 export const rspackBuild = async (argvOptions: SAquArgvOptions) => {
   /**设置环境变量值*/
   process.env.NODE_ENV = 'production';
@@ -15,6 +15,10 @@ export const rspackBuild = async (argvOptions: SAquArgvOptions) => {
   const { loadConfig } = await getLoadConfig();
   /**最终配置*/
   const lastConfig = await getRspackConfig('production', 'client', argvOptions, loadConfig);
+  /**置空输出文件夹*/
+  if (lastConfig.output.path) {
+    FS.emptyDirSync(lastConfig.output.path);
+  }
   const compiler = rspack(lastConfig);
   compiler.run((err, Stats) => {
     if (Stats) {
