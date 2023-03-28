@@ -10,9 +10,11 @@ export const getRspackOutputConfig = (
 ): RspackOptions['output'] => {
   /**是否是生产*/
   const isEnvProduction = env === 'production';
-  const newOutPut: RspackOptions['output'] = {};
+  const newOutPut: RspackOptions['output'] = { ...output };
   if (type === 'server') {
-    newOutPut.library = { type: 'commonjs2' };
+    newOutPut.library = output.library || { type: 'commonjs2' };
+    newOutPut.filename = output.filename || 'server.js';
+    newOutPut.path = (output.path || 'dist').replace(/\/$/, '') + '/server';
   }
   return { ...newOutPut };
 };

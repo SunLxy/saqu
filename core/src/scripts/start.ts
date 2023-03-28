@@ -10,24 +10,31 @@ import chokidar from 'chokidar';
 import { SAquConfig, SAquArgvOptions } from './../interface';
 export const rspackStart = async (argvOptions: SAquArgvOptions) => {
   try {
+    /**设置环境变量值*/
     process.env.NODE_ENV = 'development';
+
     let server: RspackDevServer;
     /**加载自动配置*/
     const { loadConfig, filePath } = await getLoadConfig();
     const rspackRun = async (config: SAquConfig) => {
       /**最终配置*/
       const lastConfig = await getRspackConfig('development', 'client', argvOptions, config);
+      /**服务配置*/
       const serverConfig = getRspackDevServerConfig(config);
       if (server) {
+        /**执行服务停止*/
         await server.stop();
+        /**不打开新的窗口*/
+        serverConfig.open = false;
       }
-      serverConfig.open = false;
       const compiler = rspack(lastConfig);
       server = new RspackDevServer(serverConfig, compiler);
+      /**启动服务*/
       await server.start();
     };
     rspackRun(loadConfig);
     if (filePath) {
+      /**监听配置变化重新执行命令*/
       chokidar.watch(filePath).on('change', async () => {
         /**清除缓存，防止读取老的文件内容*/
         delete require.cache[require.resolve(filePath)];

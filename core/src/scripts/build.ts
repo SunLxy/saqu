@@ -5,9 +5,8 @@ import { getLoadConfig } from './../config';
 import { getRspackConfig } from './../rspack.config';
 import { rspack } from '@rspack/core';
 import { SAquArgvOptions } from '../interface';
-import FS from 'fs-extra';
-import jsonext from '@discoveryjs/json-ext';
 export const rspackBuild = async (argvOptions: SAquArgvOptions) => {
+  /**设置环境变量值*/
   process.env.NODE_ENV = 'production';
   console.time('build');
   /**加载自动配置*/

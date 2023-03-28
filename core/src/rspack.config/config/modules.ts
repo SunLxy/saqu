@@ -8,5 +8,6 @@ export const getRspackModolesConfig = (
   type: 'server' | 'client',
   module?: RspackOptions['module'],
 ): RspackOptions['module'] => {
-  return {};
+  const newModules = { ...module };
+  return { ...newModules };
 };
