@@ -1,23 +1,37 @@
-import { RspackOptions } from '@rspack/core';
+import { RspackOptions, Builtins } from '@rspack/core';
 import path from 'path';
 
 export const getRspackBuiltinsConfig = (
   env: 'development' | 'production',
   type: 'server' | 'client',
-  builtins?: RspackOptions['builtins'],
-): RspackOptions['builtins'] => {
+  builtins?: Builtins,
+): Builtins => {
+  const newBuiltins: Builtins = builtins || {};
+
   return {
-    ...builtins,
+    ...newBuiltins,
     progress: true,
     define: {
       // User defined `process.env.NODE_ENV` always has highest priority than default define
       'process.env.NODE_ENV': JSON.stringify(env),
-      ...builtins?.define,
+      ...newBuiltins?.define,
+    },
+    copy: {
+      ...newBuiltins?.copy,
+      patterns: [
+        {
+          from: 'public',
+          globOptions: {
+            ignore: ['**/index.html'],
+          },
+        },
+        ...(newBuiltins?.copy?.patterns || []),
+      ] as Builtins['copy']['patterns'],
     },
     html: [
-      ...(builtins?.html || [
+      ...(newBuiltins?.html || [
         {
-          template: path.join(process.cwd(), 'public', 'index.html'),
+          template: './public/index.html',
         },
       ]),
     ],

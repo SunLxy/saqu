@@ -10,7 +10,16 @@ export const getRspackOutputConfig = (
 ): RspackOptions['output'] => {
   /**是否是生产*/
   const isEnvProduction = env === 'production';
-  const newOutPut: RspackOptions['output'] = { ...output };
+  const newOutPut: RspackOptions['output'] = {
+    path: 'dist',
+    publicPath: '/',
+    filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js',
+    chunkFilename: isEnvProduction ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js',
+    assetModuleFilename: 'static/media/[name].[hash][ext]',
+    cssFilename: 'static/css/[name].[contenthash:8].css',
+    cssChunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+    ...output,
+  };
   if (type === 'server') {
     newOutPut.library = output.library || { type: 'commonjs2' };
     newOutPut.filename = output.filename || 'server.js';
