@@ -1,6 +1,5 @@
 import rc from '@proload/plugin-rc';
 import json from '@proload/plugin-json';
-const presets = ['@babel/preset-env', '@babel/preset-typescript'];
 const defaultConfig = [
   rc,
   json,
@@ -8,29 +7,19 @@ const defaultConfig = [
     name: '@proload/plugin-export-js',
     extensions: ['js', 'jsx', 'ts', 'tsx', 'cts', 'mts'],
     async register(fileName: string) {
-      const registers = require('@babel/register');
+      const { register } = require('@swc-node/register/register');
       if (/\.(js|jsx|ts|tsx?)$/.test(fileName)) {
-        registers({
+        register({
+          esModuleInterop: true,
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
-          presets: presets,
-          ignore: [/\/(node_modules)\//],
-          cache: false,
         });
       } else if (/\.([cm]ts|tsx?)$/.test(fileName)) {
         if (fileName.endsWith('.cts')) {
-          registers({
-            format: 'cjs',
-            extensions: ['.cts'],
-            presets: presets,
-            ignore: [/\/(node_modules)\//],
-            cache: false,
-          });
+          register({ format: 'cjs', extensions: ['.cts'] });
         } else {
-          registers({
+          register({
+            esModuleInterop: true,
             extensions: ['.ts', '.tsx', '.mts'],
-            ignore: [/\/(node_modules)\//],
-            presets: presets,
-            cache: false,
           });
         }
       }
