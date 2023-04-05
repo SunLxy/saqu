@@ -22,6 +22,8 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
+    "@svgr/webpack": "~7.0.0",
+    "file-loader": "~6.2.0",
     "webpack-node-externals": "~3.0.0",
     "webpack-bundle-analyzer": "~4.8.0",
     "mocker-api": "~2.9.5",
