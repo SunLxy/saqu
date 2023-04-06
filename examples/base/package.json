@@ -1,11 +1,11 @@
 {
   "name": "base",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "saqu": "^0.0.1"
+    "saqu": "^0.0.2"
   },
   "scripts": {
     "start": "saqu start",
