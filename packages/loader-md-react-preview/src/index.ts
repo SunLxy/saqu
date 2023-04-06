@@ -1,6 +1,4 @@
 import React from 'react';
-import { PluginItem } from '@babel/core';
-import { Options as RIOptions } from 'babel-plugin-transform-remove-imports';
 import { getProcessor, getCodeBlock } from './utils';
 import { LoaderDefinitionFunction } from 'webpack';
 export * from './utils';
