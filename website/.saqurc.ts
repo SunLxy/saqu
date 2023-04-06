@@ -5,4 +5,13 @@ export default {
       path: path.join(__dirname, './mocker/index.js'),
     };
   },
+  module: {
+    rules: [
+      {
+        test: /\.md$/,
+        use: '@saqu/loader-md-react-preview',
+        type: 'typescript',
+      },
+    ],
+  },
 };

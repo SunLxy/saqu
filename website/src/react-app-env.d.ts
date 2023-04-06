@@ -5,6 +5,7 @@ declare module '*.module.less' {
   export default classes;
 }
 declare var VERSION: string;
+declare module '*.md';
 
 declare module '*.jpg' {
   const classes: string;

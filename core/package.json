@@ -12,8 +12,8 @@
     "bin"
   ],
   "scripts": {
-    "watch": "tsbb watch --disable-babel --file-names src/main.ts --file-names src/scripts/index.ts",
-    "build": "tsbb build --disable-babel --file-names src/main.ts --file-names src/scripts/index.ts"
+    "watch": "tsbb watch src/main.ts src/scripts/index.ts",
+    "build": "tsbb build src/main.ts src/scripts/index.ts"
   },
   "repository": {
     "type": "git",

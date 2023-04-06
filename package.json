@@ -10,13 +10,18 @@
   "scripts": {
     "prepare": "husky install",
     "----saqu👇🏻----": "--------start-------",
-    "build": "npm run-script build --workspace saqu",
-    "watch": "npm run-script watch --workspace saqu",
+    "build:core": "npm run-script build --workspace saqu",
+    "watch:core": "npm run-script watch --workspace saqu",
     "----saqu👆🏻----": "--------end-------",
+    "----loader-md-react-preview👇🏻----": "--------start-------",
+    "build:md": "npm run-script build --workspace @saqu/loader-md-react-preview",
+    "watch:md": "npm run-script watch --workspace @saqu/loader-md-react-preview",
+    "----loader-md-react-preview👆🏻----": "--------end-------",
     "----website👇🏻----": "--------start-------",
     "website:build": "npm run-script build --workspace website",
     "website:start": "npm run-script start --workspace website",
     "----website👆🏻----": "--------end-------",
+    "build": "lerna exec --ignore=website -- npm run build",
     "version": "lerna version --force-publish=* --no-changelog --no-git-tag-version --no-push",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "remove": "lerna exec \"rm -rf node_modules build  package-lock.json\"",
@@ -28,7 +33,7 @@
     "prettier": "~2.7.0",
     "pretty-quick": "~3.1.3",
     "lint-staged": "~13.0.0",
-    "tsbb": "~3.7.9"
+    "tsbb": "~4.1.3"
   },
   "lint-staged": {
     "*.{js,jsx,tsx,ts,less,md,json}": "prettier --write"
@@ -37,6 +42,7 @@
     "node": ">=16.0.0"
   },
   "workspaces": [
+    "packages/*",
     "core",
     "website"
   ]
