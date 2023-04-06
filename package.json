@@ -21,6 +21,9 @@
     "website:build": "npm run-script build --workspace website",
     "website:start": "npm run-script start --workspace website",
     "----website👆🏻----": "--------end-------",
+    "----examples👇🏻----": "--------start-------",
+    "base:build": "npm run-script build --workspace base",
+    "----examples👆🏻----": "--------end-------",
     "build": "lerna exec --ignore=website -- npm run build",
     "version": "lerna version --force-publish=* --no-changelog --no-git-tag-version --no-push",
     "publish": "lerna publish",
@@ -43,6 +46,7 @@
     "node": ">=16.0.0"
   },
   "workspaces": [
+    "examples/*",
     "packages/*",
     "core",
     "website"

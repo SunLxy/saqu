@@ -14,6 +14,14 @@ export const getRspackModolesConfig = (
     ...newModules,
     rules: [
       {
+        test: /\.js$/,
+        type: 'jsx',
+      },
+      {
+        test: /\.ts$/,
+        type: 'tsx',
+      },
+      {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         parser: {
           dataUrlCondition: {
