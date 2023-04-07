@@ -1,7 +1,7 @@
 /**
  * rspack modules 配置
  */
-import { RspackOptions, RuleSetRules } from '@rspack/core';
+import { RspackOptions, RuleSetRule } from '@rspack/core';
 interface FefaultRulesProps {
   imageInlineSizeLimit: number;
 }
@@ -15,14 +15,19 @@ export const getRspackModolesConfig = (
   const newModules = { ...module };
   return {
     ...newModules,
-    rules: [...defaultModolesRules({ imageInlineSizeLimit }), ...(newModules?.rules || [])],
+    rules: [
+      {
+        oneOf: [...defaultModolesRules({ imageInlineSizeLimit })],
+      },
+      ...(newModules?.rules || []),
+    ],
   };
 };
 
 /**
  * 默认 loader 配置
  */
-export const defaultModolesRules = (props: FefaultRulesProps): RuleSetRules => [
+export const defaultModolesRules = (props: FefaultRulesProps): RuleSetRule[] => [
   {
     test: /\.js$/,
     type: 'jsx',
