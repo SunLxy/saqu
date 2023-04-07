@@ -41,36 +41,41 @@ const replaceClassStr = (props: ClassDeclaration) => {
 };
 
 export const getTransformValue = (str: string, filename: string) => {
-  const options: SWCoptions = {
-    filename,
-    jsc: {
-      target: 'esnext', // 输出js的规范
-      parser: {
-        // 除了 ecmascript，还支持 typescript
-        syntax: 'typescript',
-        tsx: true,
-        // 是否支持装饰器，对应插件 @babel/plugin-syntax-decorators
-        decorators: true,
-        // 是否支持动态导入，对应插件 @babel/plugin-syntax-dynamic-import
-        dynamicImport: true,
+  try {
+    const options: SWCoptions = {
+      filename,
+      jsc: {
+        target: 'esnext', // 输出js的规范
+        parser: {
+          // 除了 ecmascript，还支持 typescript
+          syntax: 'typescript',
+          tsx: true,
+          // 是否支持装饰器，对应插件 @babel/plugin-syntax-decorators
+          decorators: true,
+          // 是否支持动态导入，对应插件 @babel/plugin-syntax-dynamic-import
+          dynamicImport: true,
+        },
       },
-    },
-    module: { type: 'commonjs' },
-    minify: true,
-    plugin: (m) => {
-      const { body, ...rest } = m;
-      const newBody = body.map((item) => {
-        if (item.type === 'ExportDefaultDeclaration' && item.decl) {
-          return replaceClassStr(item.decl as unknown as ClassDeclaration);
-        } else if (item.type === 'ExportDefaultExpression') {
-          const { span, expression } = item;
-          return replaceStr(span, expression);
-        }
-        return item;
-      });
-      return { ...rest, body: newBody } as Program;
-    },
-  };
-  const res = transformSync(str, options);
-  return `${res.code}\nreturn BaseCode_Export__default__value;\n`;
+      module: { type: 'commonjs' },
+      minify: true,
+      plugin: (m) => {
+        const { body, ...rest } = m;
+        const newBody = body.map((item) => {
+          if (item.type === 'ExportDefaultDeclaration' && item.decl) {
+            return replaceClassStr(item.decl as unknown as ClassDeclaration);
+          } else if (item.type === 'ExportDefaultExpression') {
+            const { span, expression } = item;
+            return replaceStr(span, expression);
+          }
+          return item;
+        });
+        return { ...rest, body: newBody } as Program;
+      },
+    };
+    const res = transformSync(str, options);
+    return `${res.code}\nreturn BaseCode_Export__default__value;\n`;
+  } catch (err) {
+    console.error('打印错误===>', filename, str);
+    throw new Error(err);
+  }
 };
