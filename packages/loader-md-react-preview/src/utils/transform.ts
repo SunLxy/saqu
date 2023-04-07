@@ -75,7 +75,7 @@ export const getTransformValue = (str: string, filename: string) => {
     const res = transformSync(str, options);
     return `${res.code}\nreturn BaseCode_Export__default__value;\n`;
   } catch (err) {
-    console.error('打印错误===>', filename, str);
+    console.error('打印错误===>', filename, str, err);
     throw new Error(err);
   }
 };
