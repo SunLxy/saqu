@@ -15,12 +15,7 @@ export const getRspackModolesConfig = (
   const newModules = { ...module };
   return {
     ...newModules,
-    rules: [
-      {
-        oneOf: [...defaultModolesRules({ imageInlineSizeLimit })],
-      },
-      ...(newModules?.rules || []),
-    ],
+    rules: [...defaultModolesRules({ imageInlineSizeLimit }), ...(newModules?.rules || [])],
   };
 };
 
