@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.5",
   "packages": ["website", "packages/*", "core", "examples/*"],
   "useWorkspaces": true
 }
