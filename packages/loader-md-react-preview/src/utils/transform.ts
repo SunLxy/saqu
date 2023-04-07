@@ -5,6 +5,7 @@ import {
   VariableDeclarator,
   ClassDeclaration,
   Program,
+  FunctionDeclaration,
 } from '@swc/core';
 
 const replaceStr = (span: VariableDeclarator['span'], expression: VariableDeclarator['init']): VariableDeclaration => ({
@@ -29,6 +30,16 @@ const replaceStr = (span: VariableDeclarator['span'], expression: VariableDeclar
   ],
 });
 
+const replaceFunctionStr = (props: FunctionDeclaration) => {
+  return {
+    ...props,
+    identifier: {
+      ...props.identifier,
+      value: 'BaseCode_Export__default__value',
+    },
+    type: 'FunctionDeclaration',
+  };
+};
 const replaceClassStr = (props: ClassDeclaration) => {
   return {
     ...props,
@@ -62,6 +73,10 @@ export const getTransformValue = (str: string, filename: string) => {
         const { body, ...rest } = m;
         const newBody = body.map((item) => {
           if (item.type === 'ExportDefaultDeclaration' && item.decl) {
+            // 判断是否是 function 导出
+            if (item.decl && item.decl.type === 'FunctionExpression') {
+              return replaceFunctionStr(item.decl as unknown as FunctionDeclaration);
+            }
             return replaceClassStr(item.decl as unknown as ClassDeclaration);
           } else if (item.type === 'ExportDefaultExpression') {
             const { span, expression } = item;
