@@ -70,4 +70,14 @@ export const defaultModolesRules = (props: FefaultRulesProps): RuleSetRule[] => 
     ],
     issuer: { and: [/\.(ts|tsx|js|jsx|md|mdx)$/] },
   },
+  {
+    test: /\.less$/,
+    use: 'less-loader',
+    type: 'css',
+  },
+  {
+    test: /\.module\.less$/,
+    use: 'less-loader',
+    type: 'css/module',
+  },
 ];
