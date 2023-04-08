@@ -19,9 +19,8 @@
     "jsx": "react-jsx",
     "noEmit": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@@/*": ["./src/.kktp/*"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src", ".kktprc.ts"]
+  "include": ["src", ".saqurc.ts"]
 }

@@ -14,10 +14,10 @@ export const getRspackOutputConfig = (
     path: 'dist',
     publicPath: '/',
     filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js',
-    chunkFilename: isEnvProduction ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js',
+    chunkFilename: isEnvProduction ? 'static/js/[name].[chunkhash].chunk.js' : 'static/js/[name].chunk.js',
     assetModuleFilename: 'static/media/[name].[hash][ext]',
     cssFilename: 'static/css/[name].[contenthash:8].css',
-    cssChunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+    cssChunkFilename: 'static/css/[name].[chunkhash].chunk.css',
     ...output,
   };
   if (type === 'server') {

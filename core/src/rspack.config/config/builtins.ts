@@ -1,5 +1,4 @@
-import { RspackOptions, Builtins } from '@rspack/core';
-import path from 'path';
+import { Builtins } from '@rspack/core';
 
 export const getRspackBuiltinsConfig = (
   env: 'development' | 'production',

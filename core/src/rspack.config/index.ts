@@ -9,6 +9,7 @@ import { getRspackBuiltinsConfig } from './config/builtins';
 import { getRspackOutputConfig } from './config/output';
 import { getRspackModolesConfig } from './config/modules';
 import { getRspackPluginsConfig } from './config/plugins';
+import { getRspackResolveConfig } from './config/resolve';
 
 export const getRspackConfig = async (
   env: 'development' | 'production',
@@ -37,6 +38,7 @@ export const getRspackConfig = async (
     output: getRspackOutputConfig(env, type, loadConfig.output),
     module: getRspackModolesConfig(env, type, loadConfig.module),
     plugins: getRspackPluginsConfig(env, type, argvOptions, loadConfig.plugins),
+    resolve: getRspackResolveConfig(env, type, loadConfig.resolve),
   };
   if (type === 'server') {
     initConfig.externals = loadConfig.externals || [nodeExternals() as ExternalItem];
