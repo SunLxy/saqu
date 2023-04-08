@@ -41,11 +41,9 @@ export const getRspackConfig = async (
   if (type === 'server') {
     initConfig.externals = loadConfig.externals || [nodeExternals() as ExternalItem];
   }
-  if (isEnvProduction) {
-  }
   /**判断是否重新配置*/
   if (overridesRspack) {
-    return overridesRspack(initConfig, env, type);
+    return overridesRspack(initConfig, env, argvOptions, type);
   }
   return initConfig;
 };

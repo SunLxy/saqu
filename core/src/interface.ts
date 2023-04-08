@@ -19,6 +19,7 @@ export interface SAquConfig extends Omit<RspackOptions, 'entry'> {
   overridesRspack?: (
     config: RspackOptions,
     env: 'development' | 'production',
+    argvOptions: SAquArgvOptions,
     type: 'server' | 'client',
   ) => Promise<RspackOptions> | RspackOptions;
 }

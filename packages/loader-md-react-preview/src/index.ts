@@ -1,6 +1,7 @@
 import React from 'react';
 import { getProcessor, getCodeBlock } from './utils';
 import { LoaderDefinitionFunction } from 'webpack';
+import { TransformOptions } from './utils/transform';
 export * from './utils';
 
 export type CodeBlockItem = {
@@ -29,7 +30,7 @@ export type Options = {
    * Language to parse code blocks, default: `["jsx","tsx"]`
    */
   lang?: string[];
-};
+} & TransformOptions;
 
 const codePreviewLoader: LoaderDefinitionFunction = function (source) {
   const options: Options = this.getOptions();

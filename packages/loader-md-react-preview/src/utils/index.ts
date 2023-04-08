@@ -71,7 +71,7 @@ export function getCodeBlock(
   opts: Options = {},
   resourcePath?: string,
 ): CodeBlockData['data'] {
-  const { lang = ['jsx', 'tsx'] } = opts;
+  const { lang = ['jsx', 'tsx'], ...rest } = opts;
   // 获取渲染部分
   const codeBlock: Record<string | number, CodeBlockItem> = {};
   child.forEach((item) => {
@@ -81,7 +81,7 @@ export function getCodeBlock(
       if (isMeta(item.meta)) {
         let name = metaId || line;
         const funName = `${resourcePath}.${FUNNAME_PREFIX}${name}`;
-        const returnCode = getTransformValue(item.value, `${funName}.${item.lang}`);
+        const returnCode = getTransformValue(item.value, `${funName}.${item.lang}`, rest);
         codeBlock[name] = {
           name,
           meta: getURLParameters(item.meta),

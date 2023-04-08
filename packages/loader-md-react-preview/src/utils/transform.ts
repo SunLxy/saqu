@@ -6,8 +6,12 @@ import {
   ClassDeclaration,
   Program,
   FunctionDeclaration,
+  plugins,
+  Plugin,
+  TsParserConfig,
 } from '@swc/core';
 
+/**默认导出 变量替换 */
 const replaceStr = (span: VariableDeclarator['span'], expression: VariableDeclarator['init']): VariableDeclaration => ({
   type: 'VariableDeclaration',
   kind: 'const',
@@ -30,6 +34,7 @@ const replaceStr = (span: VariableDeclarator['span'], expression: VariableDeclar
   ],
 });
 
+/**默认导出 Function 替换 */
 const replaceFunctionStr = (props: FunctionDeclaration) => {
   return {
     ...props,
@@ -40,6 +45,7 @@ const replaceFunctionStr = (props: FunctionDeclaration) => {
     type: 'FunctionDeclaration',
   };
 };
+/**默认导出 类替换 */
 const replaceClassStr = (props: ClassDeclaration) => {
   return {
     ...props,
@@ -51,12 +57,19 @@ const replaceClassStr = (props: ClassDeclaration) => {
   };
 };
 
-export const getTransformValue = (str: string, filename: string) => {
+/**代码转换*/
+export interface TransformOptions extends Omit<SWCoptions, 'plugin' | 'filename'> {
+  plugin?: Plugin[];
+}
+
+export const getTransformValue = (str: string, filename: string, otherOptions: TransformOptions = {}) => {
   try {
     const options: SWCoptions = {
-      filename,
+      minify: true,
+      ...otherOptions,
       jsc: {
         target: 'esnext', // 输出js的规范
+        ...otherOptions?.jsc,
         parser: {
           // 除了 ecmascript，还支持 typescript
           syntax: 'typescript',
@@ -65,28 +78,36 @@ export const getTransformValue = (str: string, filename: string) => {
           decorators: true,
           // 是否支持动态导入，对应插件 @babel/plugin-syntax-dynamic-import
           dynamicImport: true,
+          ...(otherOptions?.jsc?.parser as TsParserConfig),
         },
       },
-      module: { type: 'commonjs' },
-      minify: true,
-      plugin: (m) => {
-        const { body, ...rest } = m;
-        const newBody = body.map((item) => {
-          if (item.type === 'ExportDefaultDeclaration' && item.decl) {
-            // 判断是否是 function 导出
-            if (item.decl && item.decl.type === 'FunctionExpression') {
-              return replaceFunctionStr(item.decl as unknown as FunctionDeclaration);
-            }
-            return replaceClassStr(item.decl as unknown as ClassDeclaration);
-          } else if (item.type === 'ExportDefaultExpression') {
-            const { span, expression } = item;
-            return replaceStr(span, expression);
-          }
-          return item;
-        });
-        return { ...rest, body: newBody } as Program;
+      module: {
+        type: 'commonjs',
+        ...otherOptions?.module,
       },
+      filename,
+      plugin: plugins([
+        (m) => {
+          const { body, ...rest } = m;
+          const newBody = body.map((item) => {
+            if (item.type === 'ExportDefaultDeclaration' && item.decl) {
+              // 判断是否是 function 导出
+              if (item.decl && item.decl.type === 'FunctionExpression') {
+                return replaceFunctionStr(item.decl as unknown as FunctionDeclaration);
+              }
+              return replaceClassStr(item.decl as unknown as ClassDeclaration);
+            } else if (item.type === 'ExportDefaultExpression') {
+              const { span, expression } = item;
+              return replaceStr(span, expression);
+            }
+            return item;
+          });
+          return { ...rest, body: newBody } as Program;
+        },
+        ...otherOptions?.plugin,
+      ]),
     };
+    /**代码转换*/
     const res = transformSync(str, options);
     return `${res.code}\nreturn BaseCode_Export__default__value;\n`;
   } catch (err) {
