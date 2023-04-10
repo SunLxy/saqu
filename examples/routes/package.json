@@ -1,13 +1,13 @@
 {
   "name": "@examples/routes",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "6.10.0",
     "react-router-dom": "6.10.0",
-    "saqu": "^0.0.10"
+    "saqu": "^0.0.11"
   },
   "scripts": {
     "start": "saqu start",

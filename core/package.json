@@ -1,6 +1,6 @@
 {
   "name": "saqu",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "使用 rspack 进行封装.",
   "author": "SunLxy <1011771396@qq.com>",
   "bin": {
@@ -22,7 +22,6 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
-    "yargs-parser": "~21.1.1",
     "@proload/plugin-json": "~0.3.1",
     "@proload/plugin-rc": "~0.2.1",
     "@rspack/core": "~0.1.2",
@@ -38,7 +37,8 @@
     "less-loader": "~11.1.0",
     "mocker-api": "~2.9.5",
     "webpack-bundle-analyzer": "~4.8.0",
-    "webpack-node-externals": "~3.0.0"
+    "webpack-node-externals": "~3.0.0",
+    "yargs-parser": "~21.1.1"
   },
   "devDependencies": {
     "@types/fs-extra": "~11.0.1",
