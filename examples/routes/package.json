@@ -9,7 +9,9 @@
     "react-router-dom": "6.10.0"
   },
   "devDependencies": {
-    "saqu": "^0.0.11"
+    "saqu": "^0.0.11",
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11"
   },
   "scripts": {
     "start": "saqu start",
