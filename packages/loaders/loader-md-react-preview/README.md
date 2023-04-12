@@ -1,10 +1,11 @@
 # `@saqu/loader-md`
 
 ```tsx mdx:preview
-
 import React from "react"
+import * as doms from "test-doc"
 
 const Demo = ()=>{
+  console.log("doms",doms)
 
   const getList = ()=>{
     console.log(33)

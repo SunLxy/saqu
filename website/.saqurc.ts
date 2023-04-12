@@ -1,4 +1,5 @@
 import path from 'path';
+import transformPluginAlias from '@saqu/transform-plugin-import-replace-alias';
 export default {
   proxySetup: () => {
     return {
@@ -9,7 +10,20 @@ export default {
     rules: [
       {
         test: /\.md$/,
-        use: '@saqu/loader-md-react-preview',
+        use: [
+          {
+            loader: '@saqu/loader-md-react-preview',
+            options: {
+              plugin: [
+                (m: any) => {
+                  return new transformPluginAlias({
+                    alias: [{ libraryName: 'test-doc', alias: 'react' }],
+                  }).visitProgram(m);
+                },
+              ],
+            },
+          },
+        ],
         type: 'typescript',
       },
     ],

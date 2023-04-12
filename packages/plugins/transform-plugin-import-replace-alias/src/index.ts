@@ -12,8 +12,7 @@ class ImportReplaceAlias extends Visitor {
     super();
     this.alias = props.alias || [];
   }
-
-  ImportDeclaration(n: ImportDeclaration): ImportDeclaration {
+  visitImportDeclaration(n: ImportDeclaration): ImportDeclaration {
     const value = n.source.value;
     const finx = this.alias.find((ite) => ite.libraryName === value);
     if (finx) {
