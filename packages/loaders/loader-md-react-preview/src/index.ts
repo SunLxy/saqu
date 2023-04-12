@@ -1,8 +1,17 @@
 import React from 'react';
 import { getProcessor, getCodeBlock } from './utils';
-import { LoaderDefinitionFunction } from 'webpack';
 import { TransformOptions } from './utils/transform';
+import { LoaderContext } from '@rspack/core';
+import { SourceMap, AdditionalData } from '@rspack/core/dist/config/adapter-rule-use';
 export * from './utils';
+
+export declare interface LoaderFunction {
+  (this: LoaderContext, content: string, sourceMap?: string | SourceMap, additionalData?: AdditionalData | undefined):
+    | string
+    | void
+    | Buffer
+    | Promise<string | Buffer>;
+}
 
 export type CodeBlockItem = {
   /** The code after the source code conversion. **/
@@ -32,9 +41,8 @@ export type Options = {
   lang?: string[];
 } & TransformOptions;
 
-const codePreviewLoader: LoaderDefinitionFunction = function (source) {
+const codePreviewLoader: LoaderFunction = function (source) {
   const options: Options = this.getOptions();
-
   let components = '';
   let codeBlock = {} as CodeBlockData['data'];
   try {

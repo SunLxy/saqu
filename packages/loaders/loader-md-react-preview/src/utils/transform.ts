@@ -104,7 +104,7 @@ export const getTransformValue = (str: string, filename: string, otherOptions: T
           });
           return { ...rest, body: newBody } as Program;
         },
-        ...otherOptions?.plugin,
+        ...(otherOptions?.plugin || []),
       ]),
     };
     /**代码转换*/

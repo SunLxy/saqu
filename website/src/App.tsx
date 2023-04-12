@@ -4,7 +4,16 @@ import scgs from './svgs.svg';
 import MDs from '@saqu/loader-md-react-preview/README.md';
 import styles from './styles.module.less';
 const APP = () => {
-  console.log('MDs', styles);
+  console.log('MDs', MDs);
+
+  useEffect(() => {
+    // const getda = async () => {
+    //   // @ts-ignore
+    //   const result = await import("README/doc/index.tsx")
+    //   console.log(result)
+    // }
+  }, []);
+
   return (
     <div className={styles.layoutWrap}>
       app测试页面

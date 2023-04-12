@@ -17,6 +17,10 @@
     "build:md": "npm run-script build --workspace @saqu/loader-md-react-preview",
     "watch:md": "npm run-script watch --workspace @saqu/loader-md-react-preview",
     "----loader-md-react-preview👆🏻----": "--------end-------",
+    "----transform-plugin-import-replace-alias👇🏻----": "--------start-------",
+    "build:i": "npm run-script build --workspace @saqu/transform-plugin-import-replace-alias",
+    "watch:i": "npm run-script watch --workspace @saqu/transform-plugin-import-replace-alias",
+    "----transform-plugin-import-replace-alias👆🏻----": "--------end-------",
     "----website👇🏻----": "--------start-------",
     "website:build": "npm run-script build --workspace website",
     "website:start": "npm run-script start --workspace website",
@@ -48,7 +52,8 @@
   },
   "workspaces": [
     "examples/*",
-    "packages/*",
+    "packages/loaders/*",
+    "packages/plugins/*",
     "core",
     "website"
   ]

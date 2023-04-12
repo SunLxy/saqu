@@ -13,6 +13,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@saqu/transform-plugin-import-replace-alias": "^0.0.11",
     "@saqu/loader-md-react-preview": "^0.0.11",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
