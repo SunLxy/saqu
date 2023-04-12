@@ -1,17 +1,3 @@
-# `@saqu/loader-md`
+# `@saqu/loader-md-react-preview`
 
-```tsx mdx:preview
-import React from "react"
-import * as doms from "test-doc"
-
-const Demo = ()=>{
-  console.log("doms",doms)
-
-  const getList = ()=>{
-    console.log(33)
-  }
-  return<div><button onClick={getList} >3232</button></div>
-}
-export default Demo;
-
-```
+`md`文档里面代码块转换
