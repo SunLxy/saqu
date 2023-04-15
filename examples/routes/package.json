@@ -1,6 +1,6 @@
 {
   "name": "@examples/routes",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
@@ -11,7 +11,7 @@
   "devDependencies": {
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
-    "saqu": "^0.0.12"
+    "saqu": "^0.0.13"
   },
   "scripts": {
     "start": "saqu start",
