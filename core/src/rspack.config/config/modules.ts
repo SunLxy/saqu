@@ -32,47 +32,61 @@ export const defaultModolesRules = (props: FefaultRulesProps): RuleSetRule[] => 
     type: 'tsx',
   },
   {
-    test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-    parser: {
-      dataUrlCondition: {
-        // Modules less than or equal to 4kb and ending in `.png` will be Base64 encoded
-        maxSize: props.imageInlineSizeLimit,
-      },
-    },
-    type: 'asset/resource',
-  },
-  {
-    test: /\.svg$/,
-    use: [
+    oneOf: [
       {
-        loader: require.resolve('@svgr/webpack'),
-        options: {
-          prettier: false,
-          svgo: false,
-          svgoConfig: {
-            plugins: [{ removeViewBox: false }],
+        test: [/\.avif$/],
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: props.imageInlineSizeLimit,
           },
-          titleProp: true,
-          ref: true,
         },
       },
       {
-        loader: require.resolve('file-loader'),
-        options: {
-          name: 'static/media/[name].[hash].[ext]',
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        parser: {
+          dataUrlCondition: {
+            // Modules less than or equal to 4kb and ending in `.png` will be Base64 encoded
+            maxSize: props.imageInlineSizeLimit,
+          },
         },
+        type: 'asset/resource',
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: require.resolve('@svgr/webpack'),
+            options: {
+              prettier: false,
+              svgo: false,
+              svgoConfig: {
+                plugins: [{ removeViewBox: false }],
+              },
+              titleProp: true,
+              ref: true,
+            },
+          },
+          {
+            loader: require.resolve('file-loader'),
+            options: {
+              name: 'static/media/[name].[hash].[ext]',
+            },
+          },
+        ],
+        issuer: { and: [/\.(ts|tsx|js|jsx|md|mdx)$/] },
+      },
+
+      {
+        test: /\.less$/,
+        use: 'less-loader',
+        type: 'css',
+      },
+      {
+        test: /\.module\.less$/,
+        use: 'less-loader',
+        type: 'css/module',
       },
     ],
-    issuer: { and: [/\.(ts|tsx|js|jsx|md|mdx)$/] },
-  },
-  {
-    test: /\.less$/,
-    use: 'less-loader',
-    type: 'css',
-  },
-  {
-    test: /\.module\.less$/,
-    use: 'less-loader',
-    type: 'css/module',
   },
 ];
