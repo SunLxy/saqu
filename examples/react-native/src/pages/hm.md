@@ -4,7 +4,7 @@
 ```tsx mdx:preview:demo
 import React from "react"
 import { View,Text } from "react-native"
-import Button from "@uiw/react-native/lib/Button"
+import {Button} from "@uiw/react-native/lib"
 
 const Demo = ()=>{
   return <View>

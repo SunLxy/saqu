@@ -28,4 +28,9 @@ export default {
       },
     ],
   },
+  builtins: {
+    define: {
+      __DEV__: JSON.stringify(true),
+    },
+  },
 };
