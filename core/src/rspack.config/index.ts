@@ -22,15 +22,17 @@ export const getRspackConfig = async (
   const loadConfig = { ...rest, proxy, proxySetup };
   /**是否是生产*/
   const isEnvProduction = env === 'production';
-
   const initConfig: RspackOptions = {
     ...rest,
-    target: type === 'client' ? ['web', 'browserslist'] : 'node',
+    target: type === 'client' ? 'web' : 'node',
     mode: env,
     stats: {
       preset: 'errors-warnings',
       colors: true,
       ...(typeof loadConfig.stats === 'object' ? { ...loadConfig.stats } : {}),
+    },
+    optimization: {
+      minimize: isEnvProduction,
     },
     devtool: isEnvProduction ? false : 'cheap-module-source-map',
     entry: getRspackEntryConfig(env, type, loadConfig.entry),

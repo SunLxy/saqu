@@ -27,6 +27,7 @@
     "----website👆🏻----": "--------end-------",
     "----examples👇🏻----": "--------start-------",
     "base:build": "npm run-script build --workspace @examples/base",
+    "base:start": "npm run-script start --workspace @examples/base",
     "route:start": "npm run-script start --workspace @examples/routes",
     "----examples👆🏻----": "--------end-------",
     "build": "lerna exec --ignore=website --ignore=@examples/* -- npm run build",

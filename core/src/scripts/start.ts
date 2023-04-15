@@ -27,7 +27,7 @@ export const rspackStart = async (argvOptions: SAquArgvOptions) => {
         /**不打开新的窗口*/
         serverConfig.open = false;
       }
-      const compiler = rspack(lastConfig);
+      const compiler = rspack({ ...lastConfig, devServer: serverConfig });
       server = new RspackDevServer(serverConfig, compiler);
       /**启动服务*/
       await server.start();
