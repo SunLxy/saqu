@@ -1,0 +1,38 @@
+{
+  "name": "@examples/react-native",
+  "version": "0.0.13",
+  "private": true,
+  "dependencies": {
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0",
+    "react-router": "6.10.0",
+    "react-router-dom": "6.10.0",
+    "@uiw/react-native": "3.2.3",
+    "react-native-web": "0.18.10",
+    "react-native": "0.69.7",
+    "react-native-reanimated": "2.13.0"
+  },
+  "devDependencies": {
+    "@saqu/loader-md-react-preview": "^0.0.14",
+    "@saqu/transform-plugin-import-replace-alias": "^0.0.14",
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "saqu": "^0.0.14"
+  },
+  "scripts": {
+    "start": "saqu start",
+    "build": "saqu build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

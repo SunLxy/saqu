@@ -29,6 +29,7 @@
     "base:build": "npm run-script build --workspace @examples/base",
     "base:start": "npm run-script start --workspace @examples/base",
     "route:start": "npm run-script start --workspace @examples/routes",
+    "native:start": "npm run-script start --workspace @examples/react-native",
     "----examples👆🏻----": "--------end-------",
     "build": "lerna exec --ignore=website --ignore=@examples/* -- npm run build",
     "version": "lerna version --force-publish=* --no-changelog --no-git-tag-version --no-push",
@@ -36,6 +37,13 @@
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "remove": "lerna exec \"rm -rf node_modules build  package-lock.json\"",
     "clean": "lerna clean --yes && npm run remove"
+  },
+  "overrides": {
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0",
+    "react-native-web": "0.18.10",
+    "react-native": "0.69.7",
+    "react-native-reanimated": "~2.13.0"
   },
   "dependencies": {
     "husky": "~8.0.0",
