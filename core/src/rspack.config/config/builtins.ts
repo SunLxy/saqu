@@ -18,6 +18,8 @@ export const getRspackBuiltinsConfig = (
     define: {
       // User defined `process.env.NODE_ENV` always has highest priority than default define
       'process.env.NODE_ENV': JSON.stringify(env),
+      // react-native 组件中使用
+      __DEV__: JSON.stringify(env),
       ...newBuiltins?.define,
     },
     copy: {
