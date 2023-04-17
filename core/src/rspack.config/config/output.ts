@@ -5,6 +5,21 @@ import { RspackOptions } from '@rspack/core';
 import { getPublicUrlOrPath } from '../../utils/getPublicUrlOrPath';
 import { resolveApp } from './../paths';
 
+/**对打包输出文件进行配置*/
+const getFileNames = (type: 'server' | 'client', isEnvProduction: boolean) => {
+  let pre = '';
+  if (type === 'server') {
+    pre = 'server/';
+  }
+  return {
+    filename: isEnvProduction ? pre + 'static/js/[name].[contenthash:8].js' : pre + 'static/js/[name].js',
+    chunkFilename: isEnvProduction ? pre + 'static/js/[name].[chunkhash].chunk.js' : pre + 'static/js/[name].chunk.js',
+    assetModuleFilename: pre + 'static/media/[name].[hash][ext]',
+    cssFilename: pre + 'static/css/[name].[contenthash:8].css',
+    cssChunkFilename: pre + 'static/css/[name].[chunkhash].chunk.css',
+  };
+};
+
 export const getRspackOutputConfig = (
   env: 'development' | 'production',
   type: 'server' | 'client',
@@ -23,19 +38,13 @@ export const getRspackOutputConfig = (
   const newOutPut: RspackOptions['output'] = {
     path: 'dist',
     publicPath: publicPath,
-    filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js',
-    chunkFilename: isEnvProduction ? 'static/js/[name].[chunkhash].chunk.js' : 'static/js/[name].chunk.js',
-    assetModuleFilename: 'static/media/[name].[hash][ext]',
-    cssFilename: 'static/css/[name].[contenthash:8].css',
-    cssChunkFilename: 'static/css/[name].[chunkhash].chunk.css',
     ...output,
+    ...getFileNames(type, isEnvProduction),
   };
   if (type === 'server') {
     newOutPut.library = output.library || { type: 'commonjs2' };
     newOutPut.filename = output.filename || 'server.js';
-    newOutPut.path = (output?.path || 'dist').replace(/\/$/, '') + '/server';
-  } else {
-    newOutPut.path = output?.path || 'dist';
+    newOutPut.path = newOutPut.path.replace(/\/$/, '') + '/server';
   }
   return { ...newOutPut };
 };
