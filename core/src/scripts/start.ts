@@ -37,12 +37,14 @@ export const rspackStart = async (argvOptions: SAquArgvOptions) => {
     const loopWatch = (filePath: string, loadConfig: SAquConfig, preFilePath?: string) => {
       rspackRun(loadConfig);
       if (watch) {
+        // 先卸载文件监听
         watch.unwatch(preFilePath || filePath);
       }
+      // 判断是否存在文件地址
       if (filePath) {
         /**监听配置变化重新执行命令*/
         watch = chokidar.watch(filePath);
-        watch.on('change', async () => {
+        const watchConfig = async () => {
           /**清除缓存，防止读取老的文件内容*/
           delete require.cache[require.resolve(filePath)];
           const result = await getLoadConfig();
@@ -51,7 +53,9 @@ export const rspackStart = async (argvOptions: SAquArgvOptions) => {
           } else {
             rspackRun(result.loadConfig);
           }
-        });
+        };
+        watch.on('unlink', watchConfig);
+        watch.on('change', watchConfig);
       }
     };
     loopWatch(filePath, loadConfig);
