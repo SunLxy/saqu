@@ -32,16 +32,28 @@ export const rspackStart = async (argvOptions: SAquArgvOptions) => {
       /**启动服务*/
       await server.start();
     };
-    rspackRun(loadConfig);
-    if (filePath) {
-      /**监听配置变化重新执行命令*/
-      chokidar.watch(filePath).on('change', async () => {
-        /**清除缓存，防止读取老的文件内容*/
-        delete require.cache[require.resolve(filePath)];
-        const result = await getLoadConfig();
-        rspackRun(result.loadConfig);
-      });
-    }
+    let watch: chokidar.FSWatcher;
+    const loopWatch = (filePath: string, loadConfig: SAquConfig, preFilePath?: string) => {
+      rspackRun(loadConfig);
+      if (watch) {
+        watch.unwatch(preFilePath || filePath);
+      }
+      if (filePath) {
+        /**监听配置变化重新执行命令*/
+        watch = chokidar.watch(filePath);
+        watch.on('change', async () => {
+          /**清除缓存，防止读取老的文件内容*/
+          delete require.cache[require.resolve(filePath)];
+          const result = await getLoadConfig();
+          if (result.filePath !== filePath) {
+            loopWatch(result.filePath, result.loadConfig, filePath);
+          } else {
+            rspackRun(result.loadConfig);
+          }
+        });
+      }
+    };
+    loopWatch(filePath, loadConfig);
   } catch (error) {
     console.error(error);
     process.exit(2);
