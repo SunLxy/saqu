@@ -33,6 +33,7 @@ export const rspackStart = async (argvOptions: SAquArgvOptions) => {
       await server.start();
     };
     let watch: chokidar.FSWatcher;
+    // 用于变更配置文件路径变更处理配置监听
     const loopWatch = (filePath: string, loadConfig: SAquConfig, preFilePath?: string) => {
       rspackRun(loadConfig);
       if (watch) {
