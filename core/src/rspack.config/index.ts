@@ -22,6 +22,16 @@ export const getRspackConfig = async (
   const loadConfig = { ...rest, proxy, proxySetup };
   /**是否是生产*/
   const isEnvProduction = env === 'production';
+
+  // 输出配置
+  const output = getRspackOutputConfig(env, type, loadConfig.output);
+
+  /**额外 define 参数*/
+  const otherDefine = {
+    'process.env.PUBLIC_URL': JSON.stringify(output.publicPath.slice(0, -1)),
+  };
+
+  // 配置
   const initConfig: RspackOptions = {
     ...rest,
     target: type === 'client' ? 'web' : 'node',
@@ -31,13 +41,11 @@ export const getRspackConfig = async (
       colors: true,
       ...(typeof loadConfig.stats === 'object' ? { ...loadConfig.stats } : {}),
     },
-    optimization: {
-      minimize: isEnvProduction,
-    },
+    output,
+    optimization: { minimize: isEnvProduction },
     devtool: isEnvProduction ? false : 'cheap-module-source-map',
     entry: getRspackEntryConfig(env, type, loadConfig.entry),
-    builtins: getRspackBuiltinsConfig(env, type, loadConfig.builtins),
-    output: getRspackOutputConfig(env, type, loadConfig.output),
+    builtins: getRspackBuiltinsConfig(env, type, loadConfig.builtins, { define: otherDefine }),
     module: getRspackModolesConfig(env, type, loadConfig.module),
     plugins: getRspackPluginsConfig(env, type, argvOptions, loadConfig.plugins),
     resolve: getRspackResolveConfig(env, type, loadConfig.resolve),

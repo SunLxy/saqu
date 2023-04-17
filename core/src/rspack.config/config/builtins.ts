@@ -1,9 +1,14 @@
 import { Builtins } from '@rspack/core';
 
+interface OtherConfigProps {
+  define?: Record<string, string>;
+}
+
 export const getRspackBuiltinsConfig = (
   env: 'development' | 'production',
   type: 'server' | 'client',
   builtins?: Builtins,
+  otherConfig?: OtherConfigProps,
 ): Builtins => {
   const newBuiltins: Builtins = builtins || {};
   const isEnvDevelopment = env === 'development';
@@ -20,6 +25,7 @@ export const getRspackBuiltinsConfig = (
       'process.env.NODE_ENV': JSON.stringify(env),
       // react-native 组件中使用
       __DEV__: JSON.stringify(env),
+      ...otherConfig?.define,
       ...newBuiltins?.define,
     },
     copy: {
