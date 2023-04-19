@@ -4,7 +4,7 @@
   "description": "案例",
   "private": true,
   "scripts": {
-    "start": "saqu --help",
+    "start": "saqu start",
     "build": "saqu build"
   },
   "license": "MIT",
