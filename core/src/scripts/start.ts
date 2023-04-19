@@ -20,7 +20,7 @@ export const rspackStart = async (argvOptions: SAquArgvOptions) => {
       /**最终配置*/
       const lastConfig = await getRspackConfig('development', 'client', argvOptions, config);
       /**服务配置*/
-      const serverConfig = getRspackDevServerConfig(config);
+      const serverConfig = getRspackDevServerConfig(config, lastConfig.output.publicPath);
       if (server) {
         /**执行服务停止*/
         await server.stop();
