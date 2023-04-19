@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 // export * from './printFileSizes';
 /**
- * 如果存在返回匹配的 URL
+ * @description 如果存在返回匹配的 URL
  */
 export function fileExists(fileName: string = ''): string | boolean {
   const [matchStr, extnames] = fileName.match(/{(.*?)}$/) || [];

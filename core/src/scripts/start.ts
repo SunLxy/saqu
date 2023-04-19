@@ -1,6 +1,3 @@
-/**
- * 执行开发
- */
 import { RspackDevServer } from '@rspack/dev-server';
 import { getLoadConfig } from './../config';
 import { getRspackConfig } from './../rspack.config';
@@ -8,6 +5,9 @@ import { rspack } from '@rspack/core';
 import { getRspackDevServerConfig } from './../rspack.config/config/devServer';
 import chokidar from 'chokidar';
 import { SAquConfig, SAquArgvOptions } from './../interface';
+/**
+ * @description 执行开发
+ */
 export const rspackStart = async (argvOptions: SAquArgvOptions) => {
   try {
     /**设置环境变量值*/

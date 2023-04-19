@@ -1,5 +1,8 @@
 import { URL } from 'url';
 
+/**
+ * @description 获取引用资源的URL前缀
+ */
 export const getPublicUrlOrPath = (isEnvDevelopment: boolean, homepage: string = '', envPublicUrl: string = '') => {
   if (envPublicUrl) {
     // ensure last slash exists

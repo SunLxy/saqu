@@ -7,7 +7,9 @@ import { rspack } from '@rspack/core';
 import { SAquArgvOptions } from '../interface';
 import FS from 'fs-extra';
 import path from 'path';
-
+/**
+ * @description 执行打包
+ */
 export const rspackBuild = async (argvOptions: SAquArgvOptions) => {
   /**设置环境变量值*/
   process.env.NODE_ENV = 'production';

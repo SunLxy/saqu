@@ -16,6 +16,7 @@ export const getRspackDevServerConfig = (config: SAquConfig, publicUrlOrPath: st
     open: true,
     /**
      * @description 配置代理，可用于解决跨域等问题
+     * @example
      * proxy: {
      *  '/api': {
      *    target: 'http://localhost:3000',
