@@ -3,6 +3,8 @@
   "version": "0.0.16",
   "description": "使用 rspack 进行封装.",
   "author": "SunLxy <1011771396@qq.com>",
+  "main": "lib/main.js",
+  "types": "lib/main.d.ts",
   "bin": {
     "saqu": "./bin/saqu"
   },

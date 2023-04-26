@@ -1,6 +1,7 @@
 import path from 'path';
 import transformPluginAlias from '@saqu/transform-plugin-import-replace-alias';
-export default {
+import { defineConfig } from 'saqu';
+export default defineConfig({
   proxySetup: () => {
     return {
       path: path.join(__dirname, './mocker/index.js'),
@@ -28,4 +29,4 @@ export default {
       },
     ],
   },
-};
+});
