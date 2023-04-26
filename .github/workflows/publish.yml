@@ -63,6 +63,7 @@ jobs:
       with:
         token: ${{ secrets.NPM_TOKEN }}
         workspaces: | 
+          !packages/plugins/auto-create-routes
           packages/loaders/*
           packages/plugins/*
           core
