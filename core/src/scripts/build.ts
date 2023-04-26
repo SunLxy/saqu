@@ -15,7 +15,7 @@ export const rspackBuild = async (argvOptions: SAquArgvOptions) => {
   process.env.NODE_ENV = 'production';
   console.time('build');
   /**加载自动配置*/
-  const { loadConfig } = await getLoadConfig();
+  const { loadConfig } = await getLoadConfig('production', argvOptions);
   /**最终配置*/
   const lastConfig = await getRspackConfig('production', 'client', argvOptions, loadConfig);
   /**置空输出文件夹*/

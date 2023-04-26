@@ -15,7 +15,8 @@ export const rspackStart = async (argvOptions: SAquArgvOptions) => {
 
     let server: RspackDevServer;
     /**加载自动配置*/
-    const { loadConfig, filePath } = await getLoadConfig();
+    const { loadConfig, filePath } = await getLoadConfig('development', argvOptions);
+
     const rspackRun = async (config: SAquConfig) => {
       /**最终配置*/
       const lastConfig = await getRspackConfig('development', 'client', argvOptions, config);
@@ -47,7 +48,7 @@ export const rspackStart = async (argvOptions: SAquArgvOptions) => {
         const watchConfig = async () => {
           /**清除缓存，防止读取老的文件内容*/
           delete require.cache[require.resolve(filePath)];
-          const result = await getLoadConfig();
+          const result = await getLoadConfig('development', argvOptions);
           if (result.filePath !== filePath) {
             loopWatch(result.filePath, result.loadConfig, filePath);
           } else {
