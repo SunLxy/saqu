@@ -1,9 +1,12 @@
 import { Compiler } from '@rspack/core';
 import FS from 'fs-extra';
 import path from 'path';
-import { getFilesPath, Ignores, GetFilesPathProps, getRoutesConfig } from './utils';
+import chokidar from 'chokidar';
+import { getFilesPath, Ignores, GetFilesPathProps, getRoutesConfig, getRouterPath } from './utils';
 
-interface AutoCreateRoutesProps extends GetFilesPathProps {}
+interface AutoCreateRoutesProps extends GetFilesPathProps {
+  isDefault?: boolean;
+}
 
 // 插件执行顺序
 
@@ -37,32 +40,76 @@ class AutoCreateRoutes {
   fileExt?: string;
   /**自定义规则*/
   ignores?: Ignores;
+  isDefault?: boolean = false;
+  private tempRoutesPathsMap: Map<
+    string,
+    {
+      // 组件名称
+      componentName: string;
+      // 加载文件地址
+      newFilePath: string;
+      // 跳转路由地址
+      pathName: string;
+    }
+  > = new Map([]);
 
   constructor(props: AutoCreateRoutesProps = {}) {
     this.fileExt = props.fileExt;
     this.ignores = props.ignores;
+    this.isDefault = props.isDefault || this.isDefault;
   }
+
+  /**创建配置文件*/
+  _create_config = () => {
+    const writeFilePath = path.join(process.cwd(), 'src', '.cache', 'routes_config.jsx');
+    // 设置缓存文件，把收集的进行存储
+    FS.ensureFileSync(writeFilePath);
+    const routes_config = getRoutesConfig(this.tempRoutesPathsMap, this.isDefault);
+    FS.writeFileSync(writeFilePath, routes_config, { flag: 'w+', encoding: 'utf-8' });
+  };
 
   /**
    * 获取 src/pages/** index.{tsx|jsx|js}
    */
   _getRoutesPath = async () => {
     const pagesPath = path.join(process.cwd(), 'src', 'pages');
-    const routesPaths = await getFilesPath(pagesPath, {
+    const tempRoutesPaths = await getFilesPath(pagesPath, {
       fileExt: this.fileExt,
       ignores: this.ignores,
     });
-    const writeFilePath = path.join(process.cwd(), 'src', '.cache', 'routes_config.jsx');
-    // 设置缓存文件，把收集的进行存储
-    FS.ensureFileSync(writeFilePath);
-    const routes_config = getRoutesConfig(routesPaths);
-    FS.writeFileSync(writeFilePath, routes_config, { flag: 'w+', encoding: 'utf-8' });
+    tempRoutesPaths.forEach((filePath) => {
+      const { pathName, ...rest } = getRouterPath(filePath);
+      this.tempRoutesPathsMap.set(pathName, { ...rest, pathName });
+    });
+    this._create_config();
   };
+
+  /**添加路由*/
+  _addRoute = (filePath: string) => {
+    const { pathName, ...rest } = getRouterPath(filePath);
+    this.tempRoutesPathsMap.set(pathName, { ...rest, pathName });
+    this._create_config();
+  };
+  /**删除路由*/
+  _unlinkRoute = (filePath: string) => {
+    const { pathName } = getRouterPath(filePath);
+    this.tempRoutesPathsMap.delete(pathName);
+    this._create_config();
+  };
+
+  /**监听文件*/
+  watch() {
+    const pagesPath = path.join(process.cwd(), 'src', 'pages');
+    const watch = chokidar.watch(pagesPath);
+    watch.on('add', this._addRoute);
+    watch.on('unlink', this._unlinkRoute);
+  }
 
   apply(compiler: Compiler) {
     /**在开始编译之前执行，只执行一次*/
     compiler.hooks.afterPlugins.tap('AutoCreateRoutes', () => {
       this._getRoutesPath();
+      this.watch();
     });
   }
 }

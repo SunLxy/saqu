@@ -1,7 +1,8 @@
 import { useRoutes, RouteObject, Outlet } from 'react-router';
-import Home from './pages/home/index';
-import About from './pages/about/index';
+// import Home from './pages/home/index';
+// import About from './pages/about/index';
 import React from 'react';
+// @ts-ignore
 import router_config from '@/.cache/routes_config';
 const config: any[] = [
   // {

@@ -41,7 +41,7 @@ export const toPascalCase = (str: string = '') =>
     ?.map((x) => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase())
     .join('');
 
-const getRouterPath = (filePath: string) => {
+export const getRouterPath = (filePath: string) => {
   // 1. 跳转地址
   // 2. 引入名称
   const rootDir = path.resolve(process.cwd(), 'src');
@@ -53,26 +53,37 @@ const getRouterPath = (filePath: string) => {
     .replace(/\/index$/, '');
   const componentName = toPascalCase(newFilePath.replace(path.sep, ' '));
   const pathName = newFilePath.replace('pages', '');
-
   return {
     componentName,
     newFilePath: `@/` + newFilePath,
-    pathName,
+    pathName: pathName || '/',
   };
 };
 
-export const getRoutesConfig = (paths: string[]) => {
+export const getRoutesConfig = (
+  paths: Map<
+    string,
+    {
+      componentName: string;
+      newFilePath: string;
+      pathName: string;
+    }
+  >,
+  isDefault: boolean,
+) => {
   let configStr = '';
   let importStr = '';
   let otherStr = '';
   let importLazyStr = '';
-
-  paths.forEach((filePath, index) => {
-    const { pathName, componentName, newFilePath } = getRouterPath(filePath);
-    const ComName = componentName + `${index + 1}`;
+  let index = 0;
+  paths.forEach((rowItem) => {
+    index++;
+    const { pathName, componentName, newFilePath } = rowItem;
+    const ComName = componentName + `${index}`;
     importStr += `import * as ${ComName} from "${newFilePath}";\n`;
     otherStr += `const { default:${ComName}Default,...${ComName}Other  } = ${ComName};\n`;
-    configStr += `{ path:"${pathName}",element:<${ComName}Default />,...${ComName}Other },\n`;
+    const elementStr = isDefault ? `,element:<${ComName}Default />` : '';
+    configStr += `\t{ path:"${pathName}"${elementStr},...${ComName}Other },\n`;
   });
   return `${importStr}\n${otherStr}\n${importLazyStr}\nexport default [\n${configStr}];\n`;
 };
