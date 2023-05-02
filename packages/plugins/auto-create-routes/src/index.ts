@@ -4,7 +4,7 @@ import path from 'path';
 import chokidar from 'chokidar';
 import { getFilesPath, Ignores, GetFilesPathProps, getRoutesConfig, getRouterPath } from './utils';
 
-interface AutoCreateRoutesProps extends GetFilesPathProps {
+export interface AutoCreateRoutesProps extends GetFilesPathProps {
   isDefault?: boolean;
 }
 
