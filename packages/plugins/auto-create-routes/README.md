@@ -18,8 +18,6 @@ interface AutoCreateRoutesProps{
 
 ```
 
-## 使用
-
 ### 生产路由文件导出内容方式
 
 **默认导出**
