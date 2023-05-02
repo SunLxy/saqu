@@ -4,7 +4,6 @@ import APP from './routes';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <HashRouter>
-    {' '}
     <APP />
   </HashRouter>,
 );

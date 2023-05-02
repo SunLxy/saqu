@@ -9,6 +9,7 @@
     "react-router-dom": "6.10.0"
   },
   "devDependencies": {
+    "@saqu/auto-create-routes": "0.0.17",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "saqu": "^0.0.17"

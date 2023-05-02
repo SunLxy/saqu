@@ -1,17 +1,20 @@
 import { useRoutes, RouteObject, Outlet } from 'react-router';
-import Home from './pages/home';
-import About from './pages/about';
+import Home from './pages/home/index';
+import About from './pages/about/index';
 import React from 'react';
-const config: RouteObject[] = [
-  {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/about',
-    element: <About />,
-  },
+import router_config from '@/.cache/routes_config';
+const config: any[] = [
+  // {
+  //   path: '/',
+  //   element: <Home />,
+  // },
+  // {
+  //   path: '/about',
+  //   element: <About />,
+  // },
+  ...router_config,
 ];
+console.log(router_config);
 
 const Route = () => {
   const render = useRoutes(config);
