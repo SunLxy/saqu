@@ -8,9 +8,15 @@ export type IgnoreFunction = (file: string, stats: FS.Stats) => boolean;
 export type Ignores = ReadonlyArray<string | IgnoreFunction>;
 
 interface AutoCreateRoutesProps{
-  /**文件是否是默认导出*/
+  /**
+   * 文件是否是默认导出
+   * @default false 
+  */
   isDefault?: boolean;
-  /**匹配文件后缀*/
+  /**
+   * 匹配文件后缀
+   * @default 'tsx|js|jsx'
+  */
   fileExt?: string;
   /**自定义规则*/
   ignores?: Ignores;

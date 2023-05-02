@@ -36,10 +36,17 @@ export interface AutoCreateRoutesProps extends GetFilesPathProps {
 // 注意：以上执行顺序仅供参考，具体执行顺序可能会因为不同的配置和插件而有所不同。
 
 class AutoCreateRoutes {
-  /**匹配文件后缀*/
+  /**
+   * 匹配文件后缀
+   * @default 'tsx|js|jsx'
+   */
   fileExt?: string;
   /**自定义规则*/
   ignores?: Ignores;
+  /**
+   * 文件是否是默认导出
+   * @default false
+   */
   isDefault?: boolean = false;
   private tempRoutesPathsMap: Map<
     string,
