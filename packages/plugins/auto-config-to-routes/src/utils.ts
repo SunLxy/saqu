@@ -1,5 +1,5 @@
 import { Visitor } from '@swc/core/Visitor';
-import { ObjectExpression } from '@swc/core';
+import { ImportDefaultSpecifier, ImportSpecifier, ObjectExpression, parseSync, printSync, Program } from '@swc/core';
 import types from '@saqu/swc-types';
 
 export const toPascalCase = (str: string = '') =>
@@ -15,10 +15,41 @@ export const toPascalCase = (str: string = '') =>
 
 export class RouteAst extends Visitor {
   /**地址值*/
-  elements: Map<string, { componentName: string; path: string }>;
-  constructor() {
-    super();
+  elements: Map<string, { componentName: string; path: string }> = new Map([]);
+  /**引入组件*/
+  imports: string = ``;
+  /**解构导入的其他参数*/
+  constValues: string = ``;
+  /**是否已经导入 React*/
+  isImportReact: boolean = false;
+  _init(value: string) {
+    this.isImportReact = false;
+    this.imports = '';
+    this.constValues = '';
+    this.elements = new Map([]);
+    // 先转换成ast
+    const ast = parseSync(value, {
+      syntax: 'typescript',
+      tsx: true,
+      decorators: true,
+    });
+    const newAst = this.visitProgram(ast);
+    const { body, ...rest } = newAst;
+    const importBody = body.filter((item) => item.type === 'ImportDeclaration');
+    const otherBody = body.filter((item) => item.type !== 'ImportDeclaration');
+    const importCode = printSync({ ...rest, body: importBody } as Program);
+    const otherCode = printSync({ ...rest, body: otherBody } as Program);
+    const reactStr = this.isImportReact ? '' : `import React from "react";\n`;
+    return `${reactStr}${importCode}${this.imports}${this.constValues}${otherCode}`;
   }
+
+  visitImportDefaultSpecifier(node: ImportDefaultSpecifier): ImportSpecifier {
+    if (node.local.value === 'React') {
+      this.isImportReact = true;
+    }
+    return node;
+  }
+
   visitObjectExpression(n: ObjectExpression) {
     const element = n.properties.find(
       (ite) => ite.type === 'KeyValueProperty' && ite.key.type === 'Identifier' && ite.key.value === 'element',
@@ -32,8 +63,14 @@ export class RouteAst extends Visitor {
     ) {
       const value = element.value.value;
       const componentName = toPascalCase(value.replace('@/pages/', '').replace('/', ' '));
+      this.imports += `import * as ${componentName}All from "${value}";\n`;
+      this.constValues += `const { default: ${componentName}Default,...${componentName}Other } = ${componentName}All;\n`;
       this.elements.set(element.value.value, { componentName, path: value });
-      n.properties.push(types.SpreadElement(types.Identifier('rest')));
+      element.value = types.JSXElement(
+        types.JSXOpeningElement(types.Identifier(`${componentName}Default`), [], true),
+        [],
+      );
+      n.properties.push(types.SpreadElement(types.Identifier(`${componentName}Other`)));
     }
     return n;
   }

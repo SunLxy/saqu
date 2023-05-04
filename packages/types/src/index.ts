@@ -1,4 +1,16 @@
-import { SpreadElement, Identifier, Span, Expression } from '@swc/core';
+import {
+  SpreadElement,
+  Identifier,
+  Span,
+  Expression,
+  JSXElement,
+  JSXOpeningElement,
+  JSXElementChild,
+  JSXClosingElement,
+  JSXElementName,
+  JSXAttributeOrSpread,
+  TsTypeParameterInstantiation,
+} from '@swc/core';
 
 class createSwcAstTypes {
   _span(): Span {
@@ -9,11 +21,11 @@ class createSwcAstTypes {
     };
   }
 
-  Identifier(value: string): Identifier {
+  Identifier(value: string, optional: boolean = false): Identifier {
     return {
       type: 'Identifier',
       value,
-      optional: false,
+      optional,
       span: this._span(),
     };
   }
@@ -23,6 +35,32 @@ class createSwcAstTypes {
       type: 'SpreadElement',
       spread: this._span(),
       arguments: expression,
+    };
+  }
+
+  JSXOpeningElement(
+    name: JSXElementName,
+    attributes: JSXAttributeOrSpread[],
+    selfClosing: boolean,
+    typeArguments?: TsTypeParameterInstantiation,
+  ): JSXOpeningElement {
+    return {
+      type: 'JSXOpeningElement',
+      span: this._span(),
+      name,
+      attributes,
+      selfClosing,
+      typeArguments,
+    };
+  }
+
+  JSXElement(opening: JSXOpeningElement, children: JSXElementChild[], closing?: JSXClosingElement): JSXElement {
+    return {
+      type: 'JSXElement',
+      span: this._span(),
+      opening,
+      children,
+      closing,
     };
   }
 }

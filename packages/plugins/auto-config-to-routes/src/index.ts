@@ -2,6 +2,7 @@ import { Compiler } from '@rspack/core';
 import FS from 'fs-extra';
 import path from 'path';
 import chokidar from 'chokidar';
+import { RouteAst } from './utils';
 
 export interface AutoCreateRoutesProps {
   /**
@@ -44,7 +45,6 @@ class AutoConfigToRoutes {
    * @default false
    */
   isDefault?: boolean = false;
-
   /**路由配置地址*/
   config_route_path: string = '';
   /**配置文件内容*/
@@ -55,6 +55,7 @@ class AutoConfigToRoutes {
   root_config_path: string = path.join(process.cwd(), 'config');
   /**监听文件方法*/
   watch: chokidar.FSWatcher;
+  fileExt: string = '';
 
   constructor(props: AutoCreateRoutesProps = {}) {
     this.isDefault = props.isDefault || this.isDefault;
@@ -100,9 +101,13 @@ class AutoConfigToRoutes {
     this.is_update_routes = true;
     if (this.config_route_path) {
       /**读取文件内容*/
-      const config_content = FS.readFileSync(this.config_route_path, 'utf-8');
+      let config_content = FS.readFileSync(this.config_route_path, 'utf-8');
+      if (this.fileExt === 'json') {
+        config_content = `export default ${config_content}`;
+      }
       if (config_content !== this.config_content) {
-        // crate_routes_content
+        this.config_content = config_content;
+        this.crate_routes_content = new RouteAst()._init(config_content);
       } else {
         this.is_update_routes = false;
       }
