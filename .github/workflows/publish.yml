@@ -54,6 +54,8 @@ jobs:
           ```bash
           npm i saqu@${{steps.create_tag.outputs.version}}
           npm i @saqu/loader-md-react-preview@${{steps.create_tag.outputs.version}}
+          npm i @saqu/transform-plugin-import-replace-alias@${{steps.create_tag.outputs.version}}
+          npm i @saqu/auto-create-routes@${{steps.create_tag.outputs.version}}
           ```
           ${{ steps.changelog.outputs.compareurl }}
           ${{ steps.changelog.outputs.changelog }}
