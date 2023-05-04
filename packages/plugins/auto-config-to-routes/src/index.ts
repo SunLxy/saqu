@@ -55,11 +55,16 @@ class AutoConfigToRoutes {
   root_config_path: string = path.join(process.cwd(), 'config');
   /**监听文件方法*/
   watch: chokidar.FSWatcher;
+  /**记录文件后缀*/
   fileExt: string = '';
+
+  /**为了解决 首次加载会触发 add 监听事件*/
+  firstRead: boolean = false;
 
   constructor(props: AutoCreateRoutesProps = {}) {
     this.isDefault = props.isDefault || this.isDefault;
     this._addRoute();
+    this.firstRead = true;
   }
 
   /**创建配置文件*/
@@ -118,28 +123,48 @@ class AutoConfigToRoutes {
         this.is_update_routes = false;
       }
     } else {
-      this.crate_routes_content = 'export default []';
+      let str = 'export default []';
+      if (this.config_content !== str) {
+        this.config_content = str;
+        this.crate_routes_content = str;
+      }
     }
   };
 
   /**添加路由*/
   _addRoute = () => {
+    if (this.firstRead) {
+      this.firstRead = false;
+      return;
+    }
     this.config_route_path = this._getFile();
-    this.watch?.close();
-    // this._watch();
+    if (this.watch) {
+      this.watch.close();
+      this._watch();
+    }
     this._readFile();
     this._create_config();
   };
   _changeRoute = () => {
+    if (this.firstRead) {
+      this.firstRead = false;
+      return;
+    }
     this._readFile();
     this._create_config();
   };
   /**删除路由*/
   _unlinkRoute = () => {
+    if (this.firstRead) {
+      this.firstRead = false;
+      return;
+    }
     //1. 进行重新获取监听文件
     this.config_route_path = this._getFile();
-    this.watch?.close();
-    // this._watch();
+    if (this.watch) {
+      this.watch.close();
+      this._watch();
+    }
     this._readFile();
     this._create_config();
   };
@@ -154,8 +179,9 @@ class AutoConfigToRoutes {
 
   apply(compiler: Compiler) {
     /**在开始编译之前执行，只执行一次*/
-    compiler.hooks.afterPlugins.tap('AutoCreateRoutes', () => {
-      // this._watch();
+    compiler.hooks.afterPlugins.tap('AutoConfigToRoutes', () => {
+      console.log('AutoConfigToRoutes');
+      this._watch();
     });
   }
 }

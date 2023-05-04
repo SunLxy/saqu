@@ -8,6 +8,10 @@
     "element": "@/pages/about"
   },
   {
+    "path": "/doc",
+    "element": "@/pages/doc"
+  },
+  {
     "path": "/home",
     "element": "@/pages/home"
   }

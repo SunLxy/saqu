@@ -4,6 +4,7 @@ import { useRoutes, RouteObject, Outlet } from 'react-router';
 import React from 'react';
 // @ts-ignore
 import router_config from '@/.cache/routes_config';
+console.log('router_config', router_config);
 const config: any[] = [
   // {
   //   path: '/',
