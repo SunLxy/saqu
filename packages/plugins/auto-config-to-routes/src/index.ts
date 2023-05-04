@@ -98,6 +98,7 @@ class AutoConfigToRoutes {
       this.fileExt = 'jsx';
       return jsxPath;
     }
+    this.fileExt = '';
     return undefined;
   };
 
