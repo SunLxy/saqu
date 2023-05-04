@@ -59,7 +59,7 @@ class AutoConfigToRoutes {
 
   constructor(props: AutoCreateRoutesProps = {}) {
     this.isDefault = props.isDefault || this.isDefault;
-    this.config_route_path = this._getFile();
+    this._addRoute();
   }
 
   /**创建配置文件*/
@@ -113,7 +113,7 @@ class AutoConfigToRoutes {
       }
       if (config_content !== this.config_content) {
         this.config_content = config_content;
-        this.crate_routes_content = new RouteAst()._init(config_content);
+        this.crate_routes_content = new RouteAst(this.isDefault)._init(config_content);
       } else {
         this.is_update_routes = false;
       }
@@ -124,9 +124,9 @@ class AutoConfigToRoutes {
 
   /**添加路由*/
   _addRoute = () => {
-    this._getFile();
-    this.watch.close();
-    this._watch();
+    this.config_route_path = this._getFile();
+    this.watch?.close();
+    // this._watch();
     this._readFile();
     this._create_config();
   };
@@ -137,9 +137,9 @@ class AutoConfigToRoutes {
   /**删除路由*/
   _unlinkRoute = () => {
     //1. 进行重新获取监听文件
-    this._getFile();
-    this.watch.close();
-    this._watch();
+    this.config_route_path = this._getFile();
+    this.watch?.close();
+    // this._watch();
     this._readFile();
     this._create_config();
   };
@@ -155,7 +155,7 @@ class AutoConfigToRoutes {
   apply(compiler: Compiler) {
     /**在开始编译之前执行，只执行一次*/
     compiler.hooks.afterPlugins.tap('AutoCreateRoutes', () => {
-      this._watch();
+      // this._watch();
     });
   }
 }

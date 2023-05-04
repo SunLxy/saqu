@@ -64,6 +64,7 @@ class AutoCreateRoutes {
     this.fileExt = props.fileExt;
     this.ignores = props.ignores;
     this.isDefault = props.isDefault || this.isDefault;
+    this._getRoutesPath();
   }
 
   /**创建配置文件*/
@@ -115,7 +116,6 @@ class AutoCreateRoutes {
   apply(compiler: Compiler) {
     /**在开始编译之前执行，只执行一次*/
     compiler.hooks.afterPlugins.tap('AutoCreateRoutes', () => {
-      this._getRoutesPath();
       this.watch();
     });
   }

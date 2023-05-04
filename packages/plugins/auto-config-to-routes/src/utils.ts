@@ -22,6 +22,12 @@ export class RouteAst extends Visitor {
   constValues: string = ``;
   /**是否已经导入 React*/
   isImportReact: boolean = false;
+  isDefault = false;
+  constructor(isDefault: boolean) {
+    super();
+    this.isDefault = isDefault || false;
+  }
+
   _init(value: string) {
     this.isImportReact = false;
     this.imports = '';
@@ -40,7 +46,7 @@ export class RouteAst extends Visitor {
     const importCode = printSync({ ...rest, body: importBody } as Program);
     const otherCode = printSync({ ...rest, body: otherBody } as Program);
     const reactStr = this.isImportReact ? '' : `import React from "react";\n`;
-    return `${reactStr}${importCode}${this.imports}${this.constValues}${otherCode}`;
+    return `${reactStr}${importCode.code}${this.imports}${this.constValues}${otherCode.code}`;
   }
 
   visitImportDefaultSpecifier(node: ImportDefaultSpecifier): ImportSpecifier {
@@ -52,12 +58,15 @@ export class RouteAst extends Visitor {
 
   visitObjectExpression(n: ObjectExpression) {
     const element = n.properties.find(
-      (ite) => ite.type === 'KeyValueProperty' && ite.key.type === 'Identifier' && ite.key.value === 'element',
+      (ite) =>
+        ite.type === 'KeyValueProperty' &&
+        (ite.key.type === 'Identifier' || ite.key.type === 'StringLiteral') &&
+        ite.key.value === 'element',
     );
     if (
       element &&
       element.type === 'KeyValueProperty' &&
-      element.key.type === 'Identifier' &&
+      (element.key.type === 'Identifier' || element.key.type === 'StringLiteral') &&
       element.key.value === 'element' &&
       element.value.type === 'StringLiteral'
     ) {
@@ -66,10 +75,21 @@ export class RouteAst extends Visitor {
       this.imports += `import * as ${componentName}All from "${value}";\n`;
       this.constValues += `const { default: ${componentName}Default,...${componentName}Other } = ${componentName}All;\n`;
       this.elements.set(element.value.value, { componentName, path: value });
-      element.value = types.JSXElement(
-        types.JSXOpeningElement(types.Identifier(`${componentName}Default`), [], true),
-        [],
-      );
+      if (this.isDefault) {
+        element.value = types.JSXElement(
+          types.JSXOpeningElement(types.Identifier(`${componentName}Default`), [], true),
+          [],
+        );
+      } else {
+        n.properties = n.properties.filter(
+          (ite) =>
+            !(
+              ite.type === 'KeyValueProperty' &&
+              (ite.key.type === 'Identifier' || ite.key.type === 'StringLiteral') &&
+              ite.key.value === 'element'
+            ),
+        );
+      }
       n.properties.push(types.SpreadElement(types.Identifier(`${componentName}Other`)));
     }
     return n;
