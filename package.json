@@ -61,6 +61,7 @@
   },
   "workspaces": [
     "examples/*",
+    "packages/types",
     "packages/loaders/*",
     "packages/plugins/*",
     "core",
