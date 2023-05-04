@@ -79,18 +79,23 @@ class AutoConfigToRoutes {
     const jsPath = path.resolve(this.root_config_path, 'routes.js');
     const jsxPath = path.resolve(this.root_config_path, 'routes.jsx');
     if (FS.existsSync(jsonPath)) {
+      this.fileExt = 'json';
       return jsonPath;
     }
     if (FS.existsSync(tsPath)) {
+      this.fileExt = 'ts';
       return tsPath;
     }
     if (FS.existsSync(tsxPath)) {
+      this.fileExt = 'tsx';
       return tsxPath;
     }
     if (FS.existsSync(jsPath)) {
+      this.fileExt = 'js';
       return jsPath;
     }
     if (FS.existsSync(jsxPath)) {
+      this.fileExt = 'jsx';
       return jsxPath;
     }
     return undefined;
