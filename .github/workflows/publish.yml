@@ -69,4 +69,5 @@ jobs:
         workspaces: | 
           packages/loaders/*
           packages/plugins/*
+          packages/types
           core
