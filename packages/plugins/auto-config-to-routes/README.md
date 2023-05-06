@@ -1,6 +1,19 @@
 # `@saqu/auto-config-to-routes`
 
-自动生成路由配置
+通过配置文件自动生成路由配置
+
+在项目根目录下创建`config/routes.json`路由配置文件
+
+```json
+[
+  {
+    "path":"home",// 跳转路由地址
+    "element":"@/pages/home" // 页面文件地址
+  }
+]
+```
+
+
 ## 参数
 
 ```ts
