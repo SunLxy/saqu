@@ -1,38 +1,29 @@
-# `@saqu/auto-create-routes`
+# `@saqu/auto-config-to-routes`
 
 自动生成路由配置
 ## 参数
 
 ```ts
-export type IgnoreFunction = (file: string, stats: FS.Stats) => boolean;
-export type Ignores = ReadonlyArray<string | IgnoreFunction>;
 
-interface AutoCreateRoutesProps{
+export interface AutoConfigToRoutesProps {
   /**
    * 文件是否是默认导出
-   * @default false 
-  */
+   * @default false
+   */
   isDefault?: boolean;
-  /**
-   * 匹配文件后缀
-   * @default 'tsx|js|jsx'
-  */
-  fileExt?: string;
-  /**自定义规则*/
-  ignores?: Ignores;
 }
 
 ```
 
-### 生产路由文件导出内容方式
+### 生成路由文件导出内容方式
 
 **默认导出**
 
 ```tsx
 // 配置使用方式 .saqurc.ts
-import autoCreateRoutes from '@saqu/auto-create-routes';
+import configCreateRoutes from '@saqu/auto-config-to-routes';
 export default {
-  plugins: [new autoCreateRoutes({isDefault:true})],
+  plugins: [new configCreateRoutes({isDefault:true})],
 }
 
 // 路由加载文件 src/pages/about/index.tsx
@@ -46,9 +37,9 @@ export default ()=>{
 
 ```tsx
 // 配置使用方式 .saqurc.ts
-import autoCreateRoutes from '@saqu/auto-create-routes';
+import configCreateRoutes from '@saqu/auto-config-to-routes';
 export default {
-  plugins: [new autoCreateRoutes()],
+  plugins: [new configCreateRoutes()],
 }
 
 // 路由加载文件  src/pages/about/index.tsx
@@ -64,9 +55,9 @@ export const element = <Index />;
 
 ```tsx
 // 配置使用方式 .saqurc.ts
-import autoCreateRoutes from '@saqu/auto-create-routes';
+import configCreateRoutes from '@saqu/auto-config-to-routes';
 export default {
-  plugins: [new autoCreateRoutes()],
+  plugins: [new configCreateRoutes()],
 }
 
 // 路由加载文件 src/pages/about/index.tsx

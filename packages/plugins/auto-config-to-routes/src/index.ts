@@ -4,7 +4,7 @@ import path from 'path';
 import chokidar from 'chokidar';
 import { RouteAst } from './utils';
 
-export interface AutoCreateRoutesProps {
+export interface AutoConfigToRoutesProps {
   /**
    * 文件是否是默认导出
    * @default false
@@ -61,7 +61,7 @@ class AutoConfigToRoutes {
   /**为了解决 首次加载会触发 add 监听事件*/
   firstRead: boolean = false;
 
-  constructor(props: AutoCreateRoutesProps = {}) {
+  constructor(props: AutoConfigToRoutesProps = {}) {
     this.isDefault = props.isDefault || this.isDefault;
     this._addRoute();
     this.firstRead = true;
