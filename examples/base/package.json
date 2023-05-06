@@ -1,13 +1,13 @@
 {
   "name": "@examples/base",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "saqu": "^0.0.17"
+    "saqu": "^0.0.18"
   },
   "scripts": {
     "start": "saqu start",
