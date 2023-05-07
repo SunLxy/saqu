@@ -110,7 +110,6 @@ export const getRoutesConfig = (
   paths.forEach((rowItem) => {
     index++;
     const { pathName, componentName, newFilePath } = rowItem;
-    console.log('rowItem', rowItem);
     /**直接自定义生成配置*/
     if (render && typeof render === 'function') {
       const result = render({ ...rowItem, index });
