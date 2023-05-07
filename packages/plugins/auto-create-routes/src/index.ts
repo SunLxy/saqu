@@ -10,6 +10,7 @@ import {
   getRouterPath,
   RouteItemConfigType,
   RenderReturnType,
+  isCheckIgnoresFile,
 } from './utils';
 
 export interface AutoCreateRoutesProps extends GetFilesPathProps {
@@ -56,7 +57,7 @@ class AutoCreateRoutes {
    * 匹配文件后缀
    * @default 'tsx|js|jsx'
    */
-  fileExt?: string;
+  fileExt?: string = 'tsx|js|jsx';
   /**自定义规则*/
   ignores?: Ignores;
   /**
@@ -71,7 +72,7 @@ class AutoCreateRoutes {
   private tempRoutesPathsMap: Map<string, RouteItemConfigType> = new Map([]);
 
   constructor(props: AutoCreateRoutesProps = {}) {
-    this.fileExt = props.fileExt;
+    this.fileExt = props.fileExt || 'tsx|js|jsx';
     this.ignores = props.ignores;
     this.isDefault = props.isDefault || this.isDefault;
     this.renderConfig = props.renderConfig;
@@ -111,6 +112,9 @@ class AutoCreateRoutes {
 
   /**添加路由*/
   _addRoute = (filePath: string) => {
+    if (!isCheckIgnoresFile(filePath, this.fileExt, this.ignores)) {
+      return;
+    }
     const { pathName, ...rest } = getRouterPath(filePath);
     this.tempRoutesPathsMap.set(pathName, { ...rest, pathName });
     this._create_config();

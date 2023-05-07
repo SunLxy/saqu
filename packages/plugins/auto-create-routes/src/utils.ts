@@ -7,8 +7,9 @@ export type Ignores = ReadonlyArray<string | IgnoreFunction>;
 
 const ignoreFunc = (fileExt: string, file: string, stats: FS.Stats) => {
   const rgx = new RegExp(`index.(${fileExt})$`);
-
-  if ((rgx.test(file) && stats.isFile) || stats.isDirectory()) {
+  if (rgx.test(file) && stats.isFile()) {
+    return false;
+  } else if (stats.isDirectory()) {
     return false;
   }
   return true;
@@ -26,13 +27,38 @@ export const getFilesPath = (currentPath: string, props: GetFilesPathProps = {})
   if (Array.isArray(ignores) && ignores.length > 0) {
     newIgnores = ignores;
   }
-
   return new Promise((resolve, reject) => {
     recursive(currentPath, newIgnores, (err, files) => {
       if (err) return reject(err);
       resolve(files);
     });
   });
+};
+
+export const isCheckIgnoresFile = (filePath: string, fileExt: string = 'tsx|js|jsx', ignores: Ignores) => {
+  const stats = FS.statSync(filePath);
+  if (ignores) {
+    const result = ignores.map((item) => {
+      if (typeof item === 'string') {
+        const rgx = new RegExp(`${item}`);
+        return rgx.test(filePath);
+      }
+      if (typeof item === 'function') {
+        return item(filePath, stats);
+      }
+      return true;
+    });
+    // 表示文件忽略
+    if (result.includes(true)) {
+      return false;
+    }
+  }
+  const rgx = new RegExp(`index.(${fileExt})$`);
+  if (rgx.test(filePath) && stats.isFile()) {
+    return true;
+  }
+  // 表示文件忽略
+  return false;
 };
 
 export const toPascalCase = (str: string = '') =>
