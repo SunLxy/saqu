@@ -51,12 +51,14 @@ export const getRouterPath = (filePath: string) => {
     .replace(/\\/g, '/')
     .replace(/^\//, '')
     .replace(/\/index$/, '');
+  const oFilePath = filePath.replace(rootDir, '').replace(/\\/g, '/').replace(/^\//, '');
   const componentName = toPascalCase(newFilePath.replace(path.sep, ' '));
   const pathName = newFilePath.replace('pages', '');
   return {
     componentName,
     newFilePath: `@/` + newFilePath,
     pathName: pathName || '/',
+    oFilePath: `@/` + oFilePath,
   };
 };
 
@@ -67,6 +69,8 @@ export type RouteItemConfigType = {
   newFilePath: string;
   /**路由跳转地址*/
   pathName: string;
+  /**未处理后缀之类的页面引入地址*/
+  oFilePath: string;
   /**在当前生成路由的数组中下标位置*/
   index?: number;
 };
@@ -106,6 +110,7 @@ export const getRoutesConfig = (
   paths.forEach((rowItem) => {
     index++;
     const { pathName, componentName, newFilePath } = rowItem;
+    console.log('rowItem', rowItem);
     /**直接自定义生成配置*/
     if (render && typeof render === 'function') {
       const result = render({ ...rowItem, index });
