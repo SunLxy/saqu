@@ -60,30 +60,46 @@ export const getRouterPath = (filePath: string) => {
   };
 };
 
+export type RouteItemConfigType = {
+  componentName: string;
+  newFilePath: string;
+  pathName: string;
+  index?: number;
+};
+export type RenderReturnType = {
+  importStr?: string;
+  otherStr?: string;
+  configStr?: string;
+};
+
 export const getRoutesConfig = (
-  paths: Map<
-    string,
-    {
-      componentName: string;
-      newFilePath: string;
-      pathName: string;
-    }
-  >,
+  paths: Map<string, RouteItemConfigType>,
   isDefault: boolean,
+  render?: (props: Required<RouteItemConfigType>) => RenderReturnType,
+  presetsImport?: string,
 ) => {
   let configStr = '';
-  let importStr = '';
+  let importStr = (presetsImport || '') + '\n';
   let otherStr = '';
   let importLazyStr = '';
   let index = 0;
+
   paths.forEach((rowItem) => {
     index++;
     const { pathName, componentName, newFilePath } = rowItem;
-    const ComName = componentName + `${index}`;
-    importStr += `import * as ${ComName} from "${newFilePath}";\n`;
-    otherStr += `const { default:${ComName}Default,...${ComName}Other  } = ${ComName};\n`;
-    const elementStr = isDefault ? `,element:<${ComName}Default />` : '';
-    configStr += `\t{ path:"${pathName}"${elementStr},...${ComName}Other },\n`;
+    /**直接自定义生成配置*/
+    if (render && typeof render === 'function') {
+      const result = render({ ...rowItem, index });
+      importStr += result.importStr || '';
+      otherStr += result.otherStr || '';
+      configStr += result.configStr || '';
+    } else {
+      const ComName = componentName + `${index}`;
+      importStr += `import * as ${ComName} from "${newFilePath}";\n`;
+      otherStr += `const { default:${ComName}Default,...${ComName}Other  } = ${ComName};\n`;
+      const elementStr = isDefault ? `,element:<${ComName}Default />` : '';
+      configStr += `\t{ path:"${pathName}"${elementStr},...${ComName}Other },\n`;
+    }
   });
   return `${importStr}\n${otherStr}\n${importLazyStr}\nexport default [\n${configStr}];\n`;
 };

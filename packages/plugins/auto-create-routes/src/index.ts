@@ -2,10 +2,26 @@ import { Compiler } from '@rspack/core';
 import FS from 'fs-extra';
 import path from 'path';
 import chokidar from 'chokidar';
-import { getFilesPath, Ignores, GetFilesPathProps, getRoutesConfig, getRouterPath } from './utils';
+import {
+  getFilesPath,
+  Ignores,
+  GetFilesPathProps,
+  getRoutesConfig,
+  getRouterPath,
+  RouteItemConfigType,
+  RenderReturnType,
+} from './utils';
 
 export interface AutoCreateRoutesProps extends GetFilesPathProps {
+  /**
+   * 文件是否是默认导出
+   * @default false
+   */
   isDefault?: boolean;
+  /**自定义设置配置*/
+  renderConfig?: (props: Required<RouteItemConfigType>) => RenderReturnType;
+  /**预设导入内容*/
+  presetsImport?: string;
 }
 
 // 插件执行顺序
@@ -48,22 +64,18 @@ class AutoCreateRoutes {
    * @default false
    */
   isDefault?: boolean = false;
-  private tempRoutesPathsMap: Map<
-    string,
-    {
-      // 组件名称
-      componentName: string;
-      // 加载文件地址
-      newFilePath: string;
-      // 跳转路由地址
-      pathName: string;
-    }
-  > = new Map([]);
+  /**自定义设置配置*/
+  renderConfig?: (props: Required<RouteItemConfigType>) => RenderReturnType;
+  /**预设导入内容*/
+  presetsImport?: string;
+  private tempRoutesPathsMap: Map<string, RouteItemConfigType> = new Map([]);
 
   constructor(props: AutoCreateRoutesProps = {}) {
     this.fileExt = props.fileExt;
     this.ignores = props.ignores;
     this.isDefault = props.isDefault || this.isDefault;
+    this.renderConfig = props.renderConfig;
+    this.presetsImport = props.presetsImport || '';
     this._getRoutesPath();
   }
 
@@ -72,7 +84,12 @@ class AutoCreateRoutes {
     const writeFilePath = path.join(process.cwd(), 'src', '.cache', 'routes_config.jsx');
     // 设置缓存文件，把收集的进行存储
     FS.ensureFileSync(writeFilePath);
-    const routes_config = getRoutesConfig(this.tempRoutesPathsMap, this.isDefault);
+    const routes_config = getRoutesConfig(
+      this.tempRoutesPathsMap,
+      this.isDefault,
+      this.renderConfig,
+      this.presetsImport,
+    );
     FS.writeFileSync(writeFilePath, routes_config, { flag: 'w+', encoding: 'utf-8' });
   };
 
