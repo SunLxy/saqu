@@ -46,7 +46,7 @@ export class RouteAst extends Visitor {
     const importCode = printSync({ ...rest, body: importBody } as Program);
     const otherCode = printSync({ ...rest, body: otherBody } as Program);
     const reactStr = this.isImportReact ? '' : `import React from "react";\n`;
-    return `${reactStr}${importCode.code}${this.imports}${this.constValues}${otherCode.code}`;
+    return `${reactStr.trim()}${importCode.code}${this.imports.trim()}${this.constValues.trim()}${otherCode.code}`;
   }
 
   visitImportDefaultSpecifier(node: ImportDefaultSpecifier): ImportSpecifier {

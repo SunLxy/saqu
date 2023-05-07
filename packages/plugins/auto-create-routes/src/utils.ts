@@ -150,5 +150,5 @@ export const getRoutesConfig = (
       configStr += `\t{ path:"${pathName}"${elementStr},...${ComName}Other },\n`;
     }
   });
-  return `${importStr}\n${otherStr}\n${importLazyStr}\nexport default [\n${configStr}];\n`;
+  return `${importStr.trim()}\n${otherStr.trim()}\n${importLazyStr.trim()}\nexport default [\n${configStr.trim()}];\n`;
 };
