@@ -1,5 +1,5 @@
 {
-  "version": "0.0.20",
+  "version": "0.0.21",
   "packages": ["website", "packages/types", "packages/loaders/*", "packages/plugins/*", "core", "examples/*"],
   "useWorkspaces": true
 }

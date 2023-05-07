@@ -1,6 +1,6 @@
 {
   "name": "saqu",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "使用 rspack 进行封装.",
   "author": "SunLxy <1011771396@qq.com>",
   "main": "lib/main.js",
@@ -38,10 +38,10 @@
     "fs-extra": "~11.1.0",
     "less-loader": "~11.1.0",
     "mocker-api": "~2.9.5",
+    "typescript": "5.0.4",
     "webpack-bundle-analyzer": "~4.8.0",
     "webpack-node-externals": "~3.0.0",
-    "yargs-parser": "~21.1.1",
-    "typescript": "5.0.4"
+    "yargs-parser": "~21.1.1"
   },
   "devDependencies": {
     "@types/fs-extra": "~11.0.1",
