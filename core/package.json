@@ -30,7 +30,7 @@
     "@rspack/dev-server": "~0.1.7",
     "@svgr/webpack": "^7.0.0",
     "@swc-node/register": "1.6.3",
-    "@swc/core": "~1.3.50",
+    "@swc/core": "1.3.50",
     "carefree-proload": "~0.0.2",
     "chalk": "4.1.2",
     "chokidar": "~3.5.3",

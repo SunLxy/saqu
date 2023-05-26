@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import sun from './sun.jpg';
 import scgs from './svgs.svg';
-import MDs from '@saqu/loader-md-react-preview/README.md';
+// import MDs from '@saqu/loader-md-react-preview/README.md';
 import styles from './styles.module.less';
+import * as DMMMMM from '@saqu/loader-md-react-preview/lib/main';
 const APP = () => {
-  console.log('MDs', MDs);
+  console.log('MDs', DMMMMM);
 
   useEffect(() => {
     // const getda = async () => {

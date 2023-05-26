@@ -19,8 +19,8 @@
     "url": "git+https://github.com/SunLxy/saqu.git"
   },
   "scripts": {
-    "watch": "tsbb watch src/main.ts src/scripts/index.ts",
-    "build": "tsbb build src/main.ts src/scripts/index.ts"
+    "watch": "tsbb watch src/index.ts src/main.ts",
+    "build": "tsbb build src/index.ts src/main.ts"
   },
   "bugs": {
     "url": "https://github.com/SunLxy/saqu/issues"

@@ -1,7 +1,7 @@
 import { Parent, Node } from 'unist';
 import remark from 'remark';
 import { getTransformValue } from './transform';
-import { Options, FUNNAME_PREFIX, CodeBlockItem, CodeBlockData } from '../';
+import { Options, FUNNAME_PREFIX, CodeBlockItem, CodeBlockData } from '../interface';
 
 /**
  * Creates an object containing the parameters of the current URL.
