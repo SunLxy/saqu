@@ -1,0 +1,43 @@
+/**
+ * Creates an object containing the parameters of the current URL.
+ *
+ * ```js
+ * getURLParameters('name=Adam&surname=Smith');
+ * // 👉 {name: 'Adam', surname: 'Smith'}
+ * ```
+ * @param url `name=Adam&surname=Smith`
+ * @returns
+ */
+export const getURLParameters = (url: string): Record<string, string> => {
+  const regex = /([^?=&]+)=([^&]*)/g;
+  const params: Record<string, string> = {};
+  let match;
+  while ((match = regex.exec(url))) {
+    params[match[1]] = match[2];
+  }
+  return params;
+};
+
+/**
+ * ```js
+ * 'mdx:preview' => ''  // Empty
+ * 'mdx:preview:demo12' => 'demo12' // return meta id => 'demo12'
+ * ```
+ * @param meta string
+ * @returns string?
+ */
+export const getMetaId = (meta: string = '') => {
+  const [metaRaw = ''] = /mdx:(.[\w|:]+)/i.exec(meta) || [];
+  return metaRaw.replace(/^mdx:preview:?/, '');
+};
+
+/**
+ * ```js
+ * isMeta('mdx:preview') => true
+ * isMeta('mdx:preview:demo12') => true
+ * isMeta('mdx:preview--demo12') => false
+ * ```
+ * @param meta
+ * @returns boolean
+ */
+export const isMeta = (meta: string = '') => meta && meta.includes('mdx:preview');
