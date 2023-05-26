@@ -3,7 +3,7 @@ import sun from './sun.jpg';
 import scgs from './svgs.svg';
 // import MDs from '@saqu/loader-md-react-preview/README.md';
 import styles from './styles.module.less';
-import * as DMMMMM from '@saqu/loader-md-react-preview/lib/main';
+import * as DMMMMM from '@saqu/loader-md-react-preview/lib/utils/utils';
 const APP = () => {
   console.log('MDs', DMMMMM);
 
