@@ -1,6 +1,6 @@
 {
   "name": "@saqu/auto-config-to-routes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "author": "SunLxy <1011771396@qq.com>",
   "homepage": "https://github.com/SunLxy/saqu#readme",
@@ -26,7 +26,7 @@
     "url": "https://github.com/SunLxy/saqu/issues"
   },
   "dependencies": {
-    "@saqu/swc-types": "^0.1.0",
+    "@saqu/swc-types": "^0.1.1",
     "@swc/core": "~1.3.35",
     "chokidar": "~3.5.3",
     "fs-extra": "~11.1.0"

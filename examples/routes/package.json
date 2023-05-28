@@ -1,6 +1,6 @@
 {
   "name": "@examples/routes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
@@ -9,10 +9,10 @@
     "react-router-dom": "6.10.0"
   },
   "devDependencies": {
-    "@saqu/auto-create-routes": "^0.1.0",
+    "@saqu/auto-create-routes": "^0.1.1",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
-    "saqu": "^0.1.0"
+    "saqu": "^0.1.1"
   },
   "scripts": {
     "start": "saqu start",
