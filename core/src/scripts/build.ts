@@ -24,6 +24,7 @@ export const rspackBuild = async (argvOptions: SAquArgvOptions) => {
   compiler.run((err, Stats) => {
     if (err) {
       console.error(err);
+      process.exit();
     } else if (Stats) {
       const statsFieldName = path.join(lastConfig.output.path, 'stats.json');
       FS.writeFileSync(statsFieldName, JSON.stringify(Stats.toJson({ all: false, assets: true })), {
@@ -39,5 +40,6 @@ export const rspackBuild = async (argvOptions: SAquArgvOptions) => {
       );
     }
     console.timeEnd('build');
+    process.exit();
   });
 };
