@@ -14,3 +14,10 @@ saqu
 - [X] 支持自动生成路由
 - [ ] 添加项目`app.{ts,tsx,jsx,js}`可以对路由之类的进行操作和配置
 - [ ] 添加支持直接使用md文件做路由进行渲染md内容
+
+## 使用库
+
+**markdow转换库选择**
+
+1. [`marked`](https://www.npmjs.com/package/marked)
+2. [`markdown-it`](https://www.npmjs.com/package/markdown-it)
