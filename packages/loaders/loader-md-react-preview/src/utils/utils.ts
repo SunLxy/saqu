@@ -18,6 +18,9 @@ export const getURLParameters = (url: string): Record<string, string> => {
   return params;
 };
 
+import webpack from 'webpack';
+import { Options } from '../interface';
+
 /**
  * ```js
  * 'mdx:preview' => ''  // Empty
@@ -41,3 +44,23 @@ export const getMetaId = (meta: string = '') => {
  * @returns boolean
  */
 export const isMeta = (meta: string = '') => meta && meta.includes('mdx:preview');
+
+/**
+ * `webpackRulesLoader` method for adding `@saqu/loader-md-react-preview` to webpack config.
+ * @param {webpack.Configuration} config webpack config
+ * @param {Options} option Loader Options
+ * @returns {webpack.Configuration}
+ */
+export const webpackRulesLoader = (config: webpack.Configuration, option: Options = {}): webpack.Configuration => {
+  config.module.rules.forEach((ruleItem) => {
+    if (typeof ruleItem === 'object') {
+      if (ruleItem.oneOf) {
+        ruleItem.oneOf.unshift({
+          test: /.md$/,
+          use: [{ loader: '@saqu/loader-md-react-preview', options: { ...option } }],
+        });
+      }
+    }
+  });
+  return config;
+};
