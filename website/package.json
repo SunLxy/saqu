@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "案例",
   "private": true,
   "scripts": {
@@ -13,11 +13,11 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@saqu/loader-md-react-preview": "^0.1.1",
-    "@saqu/transform-plugin-import-replace-alias": "^0.1.1",
+    "@saqu/loader-md-react-preview": "^0.1.2",
+    "@saqu/transform-plugin-import-replace-alias": "^0.1.2",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
-    "saqu": "^0.1.1"
+    "saqu": "^0.1.2"
   },
   "browserslist": {
     "production": [
