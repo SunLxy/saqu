@@ -1,0 +1,36 @@
+{
+  "name": "@saqu/auto-create-enter",
+  "version": "0.1.2",
+  "description": "",
+  "author": "SunLxy <1011771396@qq.com>",
+  "homepage": "https://github.com/SunLxy/saqu#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SunLxy/saqu.git"
+  },
+  "scripts": {
+    "watch": "tsbb watch",
+    "build": "tsbb build"
+  },
+  "bugs": {
+    "url": "https://github.com/SunLxy/saqu/issues"
+  },
+  "dependencies": {
+    "chokidar": "~3.5.3",
+    "fs-extra": "~11.1.0"
+  },
+  "devDependencies": {
+    "@rspack/core": "~0.1.7",
+    "@types/fs-extra": "~11.0.1"
+  }
+}

@@ -14,7 +14,15 @@ export const getRspackEntryConfig = (
   if (type === 'server') {
     initValue = 'server';
   }
-  const enteyFilePath = fileExists(resolveApp(initEntry || `src/${initValue}.{tsx,jsx,js}`));
+
+  let enteyFilePath: string | boolean = initEntry;
+
+  if (/^!/.test(initEntry)) {
+    const entery = initEntry.replace(/^!/, '');
+    enteyFilePath = resolveApp(entery);
+  } else {
+    enteyFilePath = fileExists(resolveApp(initEntry || `src/${initValue}.{tsx,jsx,js}`));
+  }
   if (typeof enteyFilePath === 'boolean' || !enteyFilePath) {
     console.log(chalk.green('项目入口文件 ', chalk.red(initEntry || `src/${initValue}.{tsx,jsx,js}`), ' 不存在'));
     // console.log('项目入口文件' + initEntry || `src/${initValue}.{tsx,jsx,js}` + '不存在');
