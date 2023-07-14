@@ -4,5 +4,5 @@ import autoCreateEnter from '@saqu/auto-create-enter';
 
 export default defineConfig({
   entry: '!src/.cache/main.jsx',
-  plugins: [new autoCreateRoutes(), new autoCreateEnter({ isRoot: true })],
+  plugins: [new autoCreateRoutes({ isRoot: true }), new autoCreateEnter()],
 });

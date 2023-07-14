@@ -23,6 +23,7 @@ export interface AutoCreateRoutesProps extends GetFilesPathProps {
   renderConfig?: (props: Required<RouteItemConfigType>) => RenderReturnType;
   /**预设导入内容*/
   presetsImport?: string;
+  isRoot?: boolean;
 }
 
 // 插件执行顺序
@@ -70,6 +71,7 @@ class AutoCreateRoutes {
   /**预设导入内容*/
   presetsImport?: string;
   private tempRoutesPathsMap: Map<string, RouteItemConfigType> = new Map([]);
+  isRoot: boolean = false;
 
   constructor(props: AutoCreateRoutesProps = {}) {
     this.fileExt = props.fileExt || 'tsx|js|jsx';
@@ -77,6 +79,7 @@ class AutoCreateRoutes {
     this.isDefault = props.isDefault || this.isDefault;
     this.renderConfig = props.renderConfig;
     this.presetsImport = props.presetsImport || '';
+    this.isRoot = props.isRoot || this.isRoot;
     this._getRoutesPath();
   }
 
@@ -90,6 +93,7 @@ class AutoCreateRoutes {
       this.isDefault,
       this.renderConfig,
       this.presetsImport,
+      this.isRoot,
     );
     FS.writeFileSync(writeFilePath, routes_config, { flag: 'w+', encoding: 'utf-8' });
   };

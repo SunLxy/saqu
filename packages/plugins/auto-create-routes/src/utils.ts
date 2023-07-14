@@ -126,12 +126,15 @@ export const getRoutesConfig = (
   isDefault: boolean,
   render?: (props: Required<RouteItemConfigType>) => RenderReturnType,
   presetsImport?: string,
+  isRoot?: boolean,
 ) => {
   let configStr = '';
   let importStr = (presetsImport || '') + '\n';
   let otherStr = '';
   let importLazyStr = '';
   let index = 0;
+
+  let firstItem = '';
 
   paths.forEach((rowItem) => {
     index++;
@@ -141,14 +144,27 @@ export const getRoutesConfig = (
       const result = render({ ...rowItem, index });
       importStr += result.importStr || '';
       otherStr += result.otherStr || '';
-      configStr += result.configStr || '';
+      if (isRoot && rowItem.pathName === '/') {
+        firstItem = result.otherStr || '';
+      } else {
+        configStr += result.configStr || '';
+      }
     } else {
       const ComName = componentName + `${index}`;
       importStr += `import * as ${ComName} from "${newFilePath}";\n`;
       otherStr += `const { default:${ComName}Default,...${ComName}Other  } = ${ComName};\n`;
       const elementStr = isDefault ? `,element:<${ComName}Default />` : '';
-      configStr += `\t{ path:"${pathName}"${elementStr},...${ComName}Other },\n`;
+      if (isRoot && rowItem.pathName === '/') {
+        firstItem = ` path:"${pathName}"${elementStr},...${ComName}Other `;
+      } else {
+        configStr += `\t{ path:"${pathName}"${elementStr},...${ComName}Other },\n`;
+      }
     }
   });
-  return `${importStr.trim()}\n${otherStr.trim()}\n${importLazyStr.trim()}\nexport default [\n${configStr.trim()}];\n`;
+  let newConfig = ` [\n${configStr.trim()}]`;
+  if (isRoot && firstItem) {
+    newConfig = `[\n\t{${firstItem},\n\tchildren:[\n\t${configStr.trim()}\n\t] \n\t},\n]`;
+  }
+
+  return `${importStr.trim()}\n${otherStr.trim()}\n${importLazyStr.trim()}\nexport default ${newConfig};\n`;
 };
