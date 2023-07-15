@@ -12,7 +12,7 @@ class AutoCreateEnter {
   /**是否把 path==="/" 当成根路径 */
   rootRoutes?: boolean | string;
 
-  constructor(props?: { routeType?: RouteType; rootRoutes?: boolean }) {
+  constructor(props?: { routeType?: RouteType; rootRoutes?: boolean | string }) {
     if (props && props.routeType) {
       this.routeType = props.routeType;
     }
