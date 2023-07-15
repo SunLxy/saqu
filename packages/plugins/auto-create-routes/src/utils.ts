@@ -126,7 +126,7 @@ export const getRoutesConfig = (
   isDefault: boolean,
   render?: (props: Required<RouteItemConfigType>) => RenderReturnType,
   presetsImport?: string,
-  isRoot?: boolean,
+  rootRoutes?: boolean | string,
 ) => {
   let configStr = '';
   let importStr = (presetsImport || '') + '\n';
@@ -144,7 +144,7 @@ export const getRoutesConfig = (
       const result = render({ ...rowItem, index });
       importStr += result.importStr || '';
       otherStr += result.otherStr || '';
-      if (isRoot && rowItem.pathName === '/') {
+      if (rootRoutes && typeof rootRoutes === 'boolean' && rowItem.pathName === '/') {
         firstItem = result.otherStr || '';
       } else {
         configStr += result.configStr || '';
@@ -154,7 +154,7 @@ export const getRoutesConfig = (
       importStr += `import * as ${ComName} from "${newFilePath}";\n`;
       otherStr += `const { default:${ComName}Default,...${ComName}Other  } = ${ComName};\n`;
       const elementStr = isDefault ? `,element:<${ComName}Default />` : '';
-      if (isRoot && rowItem.pathName === '/') {
+      if (rootRoutes && typeof rootRoutes === 'boolean' && rowItem.pathName === '/') {
         firstItem = ` path:"${pathName}"${elementStr},...${ComName}Other `;
       } else {
         configStr += `\t{ path:"${pathName}"${elementStr},...${ComName}Other },\n`;
@@ -162,8 +162,12 @@ export const getRoutesConfig = (
     }
   });
   let newConfig = ` [\n${configStr.trim()}]`;
-  if (isRoot && firstItem) {
+  if (rootRoutes && typeof rootRoutes === 'boolean' && firstItem) {
     newConfig = `[\n\t{${firstItem},\n\tchildren:[\n\t${configStr.trim()}\n\t] \n\t},\n]`;
+  }
+  if (rootRoutes && typeof rootRoutes === 'string') {
+    importStr = `import RootRoutes from "${rootRoutes}";\n` + importStr;
+    return `${importStr.trim()}\n${otherStr.trim()}\n${importLazyStr.trim()}\nexport default [\n\t{ path:"/",element:<RootRoutes />,children: ${newConfig} \n\t}\n\t];\n`;
   }
 
   return `${importStr.trim()}\n${otherStr.trim()}\n${importLazyStr.trim()}\nexport default ${newConfig};\n`;
