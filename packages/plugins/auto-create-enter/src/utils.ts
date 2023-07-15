@@ -23,10 +23,10 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider, ${RouteTypeObj[routeType]} } from 'react-router-dom';
 import router_config from './routes_config';
 ${isRoot ? getRootRoot() : ''}
+
 const router = ${RouteTypeObj[routeType]}(${isRoot ? 'hanldeRouteData()' : 'router_config||[]'})
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
-);
+ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
+
 `;
 };
