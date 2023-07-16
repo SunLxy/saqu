@@ -17,10 +17,15 @@ class AutoCreateEnter {
   globalStylePath: string = path.join(process.cwd(), 'src', 'global.css');
   /**入口文件地址*/
   mainFilePath: string = path.join(process.cwd(), 'src', '.cache', 'main.jsx');
+  /**引入路由地址*/
+  routePath?: string = './routes_config';
 
-  constructor(props?: { routeType?: RouteType; rootRoutes?: boolean | string }) {
+  constructor(props?: { routeType?: RouteType; rootRoutes?: boolean | string; routePath?: string }) {
     if (props && props.routeType) {
       this.routeType = props.routeType;
+    }
+    if (props && props.routePath) {
+      this.routePath = props.routePath;
     }
     if (props && Reflect.has(props, 'rootRoutes')) {
       this.rootRoutes = props.rootRoutes;
@@ -43,7 +48,7 @@ class AutoCreateEnter {
   _create = () => {
     if (!this.mainContent) {
       /**获取配置代码*/
-      this.mainContent = getMainCode(this.routeType, this.rootRoutes);
+      this.mainContent = getMainCode(this.routeType, this.rootRoutes, this.routePath);
     }
     let content = this.mainContent;
     const cssImport = this._checkStyle();

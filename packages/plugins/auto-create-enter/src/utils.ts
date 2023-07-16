@@ -29,7 +29,7 @@ const newRoutesConfig=[
 ]
 `;
 
-export const getMainCode = (routeType: RouteType, rootRoutes: boolean | string) => {
+export const getMainCode = (routeType: RouteType, rootRoutes: boolean | string, routePath: string) => {
   let funStr = '';
   let params = 'router_config || []';
   if (typeof rootRoutes === 'boolean' && rootRoutes) {
@@ -43,7 +43,7 @@ export const getMainCode = (routeType: RouteType, rootRoutes: boolean | string) 
   return `
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, ${RouteTypeObj[routeType]} } from 'react-router-dom';
-import router_config from './routes_config';
+import router_config from '${routePath}';
 ${funStr}
 const router = ${RouteTypeObj[routeType]}(${params})
 
