@@ -2,6 +2,7 @@ import React from 'react';
 import { TransformOptions } from './utils/transform';
 import { LoaderContext } from '@rspack/core';
 import { SourceMap, AdditionalData } from '@rspack/core/dist/config/adapter-rule-use';
+import type { Parent, Node } from 'unist';
 
 export declare interface LoaderFunction {
   (this: LoaderContext, content: string, sourceMap?: string | SourceMap, additionalData?: AdditionalData | undefined):
@@ -38,3 +39,23 @@ export type Options = {
    */
   lang?: string[];
 } & TransformOptions;
+
+export interface MarkdownDataChild extends Node {
+  lang: string;
+  meta: string;
+  value: string;
+  depth?: number;
+  children?: Array<MarkdownDataChild>;
+}
+
+export interface MarkdownParseData extends Parent<MarkdownDataChild> {}
+
+export interface HeadingListType {
+  depth: number;
+  value: string;
+}
+
+export interface HeadingItem extends HeadingListType {
+  /**嵌套子标题*/
+  children?: HeadingItem[];
+}

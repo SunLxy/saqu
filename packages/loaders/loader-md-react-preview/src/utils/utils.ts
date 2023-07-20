@@ -1,3 +1,4 @@
+import { HeadingListType, HeadingItem, MarkdownParseData } from './../interface';
 /**
  * Creates an object containing the parameters of the current URL.
  *
@@ -63,4 +64,62 @@ export const webpackRulesLoader = (config: webpack.Configuration, option: Option
     }
   });
   return config;
+};
+
+/**进行获取同级别数据*/
+export const getSameLevelHeading = (list: HeadingListType[]) => {
+  const newList: { start: number; end: number }[] = [];
+  let level: number = 0;
+  let satrtIndex = 0;
+  let lg = list.length;
+
+  for (let index = 0; index < lg; index++) {
+    const element = list[index];
+    if (index === 0) {
+      satrtIndex = 0;
+      level = element.depth;
+    } else if (element.depth === level) {
+      // 这个位置相等，说明这些数据是一组数据
+      newList.push({ start: satrtIndex, end: index });
+      satrtIndex = index;
+    }
+  }
+  // 如果最后位置没找到
+  if (satrtIndex <= lg - 1) {
+    newList.push({ start: satrtIndex, end: lg });
+  }
+
+  const saveList: HeadingItem[] = [];
+
+  newList.forEach((item) => {
+    const { start, end } = item;
+    const [firstItem, ...lastItems] = list.slice(start, end);
+    const newItem: HeadingItem = { ...firstItem };
+    if (Array.isArray(lastItems) && lastItems.length) {
+      newItem.children = getSameLevelHeading(lastItems);
+    }
+    saveList.push(newItem);
+  });
+  return saveList;
+};
+
+/**获取标题*/
+export const getHeading = (child: MarkdownParseData['children']) => {
+  const headingList: HeadingListType[] = [];
+  child.forEach((item) => {
+    if (item && item.type === 'heading') {
+      const { depth, children } = item;
+      if (Array.isArray(children) && children.length) {
+        const [firstItem] = children || [];
+        if (firstItem && firstItem?.value) {
+          headingList.push({
+            depth,
+            value: firstItem?.value,
+          });
+        }
+      }
+    }
+  });
+
+  return getSameLevelHeading(headingList);
 };

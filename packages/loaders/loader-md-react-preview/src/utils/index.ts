@@ -1,17 +1,8 @@
-import { Parent, Node } from 'unist';
 import remark from 'remark';
 import { getTransformValue } from './transform';
-import { Options, FUNNAME_PREFIX, CodeBlockItem, CodeBlockData } from '../interface';
+import { Options, FUNNAME_PREFIX, CodeBlockItem, CodeBlockData, MarkdownParseData } from '../interface';
 import { getURLParameters, getMetaId, isMeta } from './utils';
 export * from './utils';
-
-export interface MarkdownDataChild extends Node {
-  lang: string;
-  meta: string;
-  value: string;
-}
-
-export interface MarkdownParseData extends Parent<MarkdownDataChild> {}
 
 /** 转换 代码*/
 export const getProcessor = (source: string) => {
