@@ -29,6 +29,7 @@ export type CodeBlockData = {
   source: string;
   components: Record<CodeBlockItem['name'], React.FC>;
   data: Record<CodeBlockItem['name'], CodeBlockItem>;
+  headings: HeadingItem;
 };
 
 export const FUNNAME_PREFIX = '__BaseCode__';
@@ -38,6 +39,8 @@ export type Options = {
    * Language to parse code blocks, default: `["jsx","tsx"]`
    */
   lang?: string[];
+  /**是否解析标题*/
+  isHeading?: boolean;
 } & TransformOptions;
 
 export interface MarkdownDataChild extends Node {

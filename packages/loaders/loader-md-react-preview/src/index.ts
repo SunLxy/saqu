@@ -17,7 +17,7 @@ const codePreviewLoader: LoaderFunction = function (source) {
     this.emitError(error);
   }
 
-  const headings = getHeading(child);
+  const headings = options.isHeading ? getHeading(child) : [];
 
   return `\nexport default {
     components: { ${components} },
