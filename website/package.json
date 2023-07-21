@@ -11,7 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "simple-markdown-preview": "~0.0.2"
   },
   "devDependencies": {
     "@saqu/loader-md-react-preview": "^0.1.7",
