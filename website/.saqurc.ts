@@ -4,9 +4,6 @@ import transformPluginAlias from '@saqu/transform-plugin-import-replace-alias';
 
 // 第一种
 export default {
-  output: {
-    publicPath: './',
-  },
   proxySetup: () => {
     return {
       path: path.join(__dirname, './mocker/index.js'),
