@@ -2,7 +2,7 @@
   "name": "website",
   "version": "0.1.6",
   "description": "案例",
-  "homepage": "https://github.com/SunLxy/saqu",
+  "homepage": "https://sunlxy.github.io/saqu",
   "private": true,
   "scripts": {
     "start": "saqu start",
