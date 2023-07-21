@@ -30,7 +30,7 @@
     "remark": "~13.0.0"
   },
   "devDependencies": {
-    "@rspack/core": "~0.1.2",
+    "@rspack/core": "~0.2.8",
     "@types/unist": "2.0.6"
   }
 }
