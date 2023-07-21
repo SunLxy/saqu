@@ -1,6 +1,4 @@
 import ReactDOM from 'react-dom/client';
-import APP from './App';
-import './index.css';
+import { SimplePreview } from 'simple-markdown-preview';
 import './index.less';
-
-ReactDOM.createRoot(document.getElementById('root')!).render(<APP />);
+ReactDOM.createRoot(document.getElementById('root')!).render(<SimplePreview path={() => import('saqu/README.md')} />);
