@@ -1,6 +1,6 @@
 {
   "name": "create-saqu",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Creates a saqu application using the command line.",
   "author": "SunLxy <1011771396@qq.com>",
   "license": "MIT",
