@@ -1,5 +1,13 @@
 {
   "version": "0.1.7",
-  "packages": ["website", "packages/types", "packages/loaders/*", "packages/plugins/*", "core", "examples/*"],
+  "packages": [
+    "website",
+    "packages/create-saqu",
+    "packages/types",
+    "packages/loaders/*",
+    "packages/plugins/*",
+    "core",
+    "examples/*"
+  ],
   "useWorkspaces": true
 }

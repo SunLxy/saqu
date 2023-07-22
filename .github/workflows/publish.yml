@@ -139,6 +139,7 @@ jobs:
           packages/loaders/*
           packages/plugins/*
           packages/types
+          packages/create-saqu
           core
 
       # 生成案例网站

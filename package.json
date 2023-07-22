@@ -62,6 +62,7 @@
   },
   "workspaces": [
     "examples/*",
+    "packages/create-saqu",
     "packages/types",
     "packages/loaders/*",
     "packages/plugins/*",

@@ -1,0 +1,38 @@
+{
+  "name": "create-saqu",
+  "version": "0.1.7",
+  "description": "Creates a saqu application using the command line.",
+  "author": "SunLxy <1011771396@qq.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": "https://github.com/SunLxy/saqu.git",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "create-saqu": "bin/create-saqu"
+  },
+  "scripts": {
+    "watch": "tsbb watch",
+    "build": "tsbb build"
+  },
+  "files": [
+    "lib",
+    "bin",
+    "src"
+  ],
+  "keywords": [
+    "kkt",
+    "ncc",
+    "nodejs",
+    "cra",
+    "build-tools",
+    "create-react-app",
+    "zero-configuration",
+    "framework"
+  ],
+  "dependencies": {
+    "create-kkt": "3.0.0"
+  }
+}
