@@ -1,6 +1,6 @@
 {
   "name": "@examples/react-native",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": true,
   "dependencies": {
     "@uiw/react-native": "3.2.3",
@@ -11,11 +11,11 @@
     "react-native-web": "0.18.10"
   },
   "devDependencies": {
-    "@saqu/loader-md-react-preview": "^0.1.7",
-    "@saqu/transform-plugin-import-replace-alias": "^0.1.7",
+    "@saqu/loader-md-react-preview": "^0.1.8",
+    "@saqu/transform-plugin-import-replace-alias": "^0.1.8",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
-    "saqu": "^0.1.7"
+    "saqu": "^0.1.8"
   },
   "scripts": {
     "start": "saqu start",
