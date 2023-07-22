@@ -59,9 +59,9 @@ async function run(): Promise<void> {
     await create(argvs, helpExample);
     const pkgPath = path.join(process.cwd(), argvs.output, argvs.appName, 'package.json');
     if (fs.existsSync(pkgPath)) {
-      const pkg = require(pkgPath);
+      const pkg = fs.readJsonSync(pkgPath, 'utf8');
       if (pkg.version) {
-        await fs.writeJSON(pkgPath, { ...pkg, name: argvs.appName || pkg.name, version: '1.0.0' }, { spaces: '  ' });
+        fs.writeJSONSync(pkgPath, { ...pkg, name: argvs.appName || pkg.name, version: '1.0.0' }, { spaces: '  ' });
       }
     }
   } catch (err) {
