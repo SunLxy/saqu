@@ -37,9 +37,9 @@ $ n
 
 ```shell
 # npm 6.x
-$ npm init saqu my-app --example basice
+$ npm init saqu my-app --example base
 # npm 7+, extra double-dash is needed:
-$ npm init saqu my-app -- --example basice
+$ npm init saqu my-app -- --example base
 
 $ yarn create saqu [appName]
 # or npm
@@ -52,14 +52,7 @@ $ npx create-saqu my-app
 
 ```bash
 └─ examples
-   ├── access       # 权限实例
-   ├── auto-routes  # 自动生成路由实例
-   ├── docs         # 基础文档网站实例
-   ├── basic        # 基础示例
-   ├── basic-js     # 基础js示例
-   ├── config       # config配置示例
-   ├── mocker       # 模拟 API 实例
-   ├── rematch      # redux实例
+   ├── base        # 基础示例
    └── routes       # 路由实例
 ```
 
