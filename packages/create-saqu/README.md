@@ -1,6 +1,6 @@
 ## 快速上手
 
-这里是通过 [`kktp`](https://github.com/kktjs/kktp-pro) 命令快速开始一个项目。
+这里是通过 [`create-saqu`](https://github.com/SunLxy/saqu) 命令快速开始一个项目。
 
 ## 环境准备
 
@@ -37,15 +37,15 @@ $ n
 
 ```shell
 # npm 6.x
-$ npm init kktp my-app --example basice
+$ npm init saqu my-app --example basice
 # npm 7+, extra double-dash is needed:
-$ npm init kktp my-app -- --example basice
+$ npm init saqu my-app -- --example basice
 
-$ yarn create kktp [appName]
+$ yarn create saqu [appName]
 # or npm
-$ npm create kktp my-app
+$ npm create saqu my-app
 # or npx
-$ npx create-kktp my-app
+$ npx create-saqu my-app
 ```
 
 使用 `-e auth` 或 `--example auth` 参数生成如下其中之一的示例：
@@ -67,35 +67,30 @@ $ npx create-kktp my-app
 
 你可以通过`--help | h`来查看帮助. 
 
-实例下载： http://kktjs.github.io/kkt-pro/zip/
+实例下载： https://sunlxy.github.io/saqu/zip/
 
 ```bash
-Usage: create-kktp <app-name> [options] [--help|h]
+Usage: create-saqu <app-name> [options] [--help|h]
 
 Options:
 
   --version, -v   Show version number
   --help, -h      Displays help information.
   --output, -o    Output directory.
-  --example, -e   Example from: http://kktjs.github.io/kkt-pro/, default: "auto-routes"
+  --example, -e   Example from: https://github.com/SunLxy/saqu, default: "routes"
   --path, -p      Specify the download target git address.
-                    default: "http://kktjs.github.io/kkt-pro/"
+                    default: "https://sunlxy.github.io/saqu/zip/"
 
 Example:
 
-  yarn create kktp appName
-  npx create-kktp my-app
-  npm create kktp my-app
-  npm create kktp my-app -f
-  npm create kktp my-app -p http://kktjs.github.io/kkt-pro/zip/
+  yarn create saqu appName
+  npx create-saqu my-app
+  npm create saqu my-app
+  npm create saqu my-app -f
+  npm create saqu my-app -p https://sunlxy.github.io/saqu/zip/
 
 Copyright 2023
 ```
-### Contributors
-
-<a href="https://github.com/kktjs/kkt-pro/graphs/contributors">
-  <img src="https://kktjs.github.io/kkt-pro/CONTRIBUTORS.svg" />
-</a>
 
 ### License
 
