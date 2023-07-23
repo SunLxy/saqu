@@ -1,0 +1,40 @@
+{
+  "name": "@saqu/auto-create-tree-routes",
+  "version": "0.1.9",
+  "description": "",
+  "author": "SunLxy <1011771396@qq.com>",
+  "homepage": "https://github.com/SunLxy/saqu#readme",
+  "license": "ISC",
+  "private": true,
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SunLxy/saqu.git"
+  },
+  "scripts": {
+    "watch": "tsbb watch",
+    "build": "tsbb build"
+  },
+  "bugs": {
+    "url": "https://github.com/SunLxy/saqu/issues"
+  },
+  "dependencies": {
+    "minimatch": "~9.0.3",
+    "chokidar": "~3.5.3",
+    "fs-extra": "~11.1.0",
+    "recursive-readdir": "~2.2.3"
+  },
+  "devDependencies": {
+    "@rspack/core": "~0.2.8",
+    "@types/fs-extra": "~11.0.1",
+    "@types/recursive-readdir": "~2.2.1"
+  }
+}
