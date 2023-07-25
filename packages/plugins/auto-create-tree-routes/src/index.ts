@@ -2,9 +2,16 @@ import { Compiler } from '@rspack/core';
 import FS from 'fs-extra';
 import path from 'path';
 import chokidar from 'chokidar';
-import { GetFilesPathProps, RouteItemConfigType, RenderReturnType } from './utils';
-import { toMatcherFunction } from './recursive-readdir';
-import { IgnoreFunction, Ignores } from './interface';
+import { toMatcherFunction, recursiveReaddir } from './recursive-readdir';
+import {
+  IgnoreFunction,
+  Ignores,
+  GetFilesPathProps,
+  RouteItemConfigType,
+  RenderReturnType,
+  RouteTreeDataType,
+} from './interface';
+import { createTreeObjectRoutes, addRoutes, removeRoutes, isCheckIgnoresFile, createRouteCode } from './utils';
 
 export interface AutoCreateTreeRoutesProps extends GetFilesPathProps {
   /**
@@ -65,12 +72,19 @@ class AutoCreateTreeRoutes {
   renderConfig?: (props: Required<RouteItemConfigType>) => RenderReturnType;
   /**预设导入内容*/
   presetsImport?: string;
-  private tempRoutesPathsMap: Map<string, RouteItemConfigType> = new Map([]);
   rootRoutes: boolean | string = false;
 
   matchIgnores: IgnoreFunction[] = [];
 
   isTree?: boolean = false;
+
+  pagesPath = path.join(process.cwd(), 'src', 'pages');
+
+  writeFilePath = path.join(process.cwd(), 'src', '.cache', 'routes_config.jsx');
+
+  routesTreeData: RouteTreeDataType = {};
+
+  mapPaths: Map<string, boolean> = new Map([]);
 
   constructor(props: AutoCreateTreeRoutesProps = {}) {
     this.fileExt = props.fileExt || 'tsx|js|jsx';
@@ -79,27 +93,62 @@ class AutoCreateTreeRoutes {
     this.renderConfig = props.renderConfig;
     this.presetsImport = props.presetsImport || '';
     this.rootRoutes = props.rootRoutes || this.rootRoutes;
-    this._getRoutesPath();
     this.matchIgnores = (props.ignores || []).map(toMatcherFunction);
+    // 设置缓存文件，把收集的进行存储
+    FS.ensureFileSync(this.writeFilePath);
+    this._getRoutesPath();
   }
 
   /**创建配置文件*/
-  _create_config = () => {};
+  _create_config = () => {
+    // render ?: (props: Required<RouteItemConfigType>) => RenderReturnType,
+    //   presetsImport ?: string,
+    //   rootRoutes ?: boolean | string,
+    const resultData = createRouteCode(
+      this.routesTreeData,
+      this.isDefault,
+      this.renderConfig,
+      this.presetsImport,
+      this.rootRoutes,
+    );
+    FS.writeFileSync(this.writeFilePath, resultData, { flag: 'w+', encoding: 'utf-8' });
+  };
 
   /**
    * 获取 src/pages/** index.{tsx|jsx|js}
    */
-  _getRoutesPath = async () => {};
+  _getRoutesPath = async () => {
+    const result = recursiveReaddir(this.pagesPath, this.matchIgnores, this.fileExt, this.pagesPath, this.mapPaths);
+    this.routesTreeData = createTreeObjectRoutes(result);
+    this._create_config();
+  };
 
   /**添加路由*/
-  _addRoute = (filePath: string) => {};
+  _addRoute = (filePath: string) => {
+    /**判断数据是否符合规则*/
+    if (!isCheckIgnoresFile(filePath, this.fileExt, this.matchIgnores)) {
+      return;
+    }
+    /**如果已经存在，则不用进行数据处理*/
+    if (this.mapPaths.get(filePath)) {
+      return;
+    }
+    this.routesTreeData = addRoutes(filePath, this.routesTreeData);
+    this._create_config();
+  };
+
   /**删除路由*/
-  _unlinkRoute = (filePath: string) => {};
+  _unlinkRoute = (filePath: string) => {
+    const result = removeRoutes(filePath, this.routesTreeData);
+    /**判断是否删除数据了*/
+    if (result) {
+      this._create_config();
+    }
+  };
 
   /**监听文件*/
   watch() {
-    const pagesPath = path.join(process.cwd(), 'src', 'pages');
-    const watch = chokidar.watch(pagesPath);
+    const watch = chokidar.watch(this.pagesPath);
     watch.on('add', this._addRoute);
     watch.on('unlink', this._unlinkRoute);
   }
