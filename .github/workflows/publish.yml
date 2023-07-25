@@ -58,6 +58,7 @@ jobs:
           npm i @saqu/transform-plugin-import-replace-alias@${{steps.create_tag.outputs.version}}
           npm i @saqu/auto-create-routes@${{steps.create_tag.outputs.version}}
           npm i @saqu/auto-config-to-routes@${{steps.create_tag.outputs.version}}
+          npm i @saqu/auto-create-tree-routes@${{steps.create_tag.outputs.version}}
           npm i @saqu/swc-types@${{steps.create_tag.outputs.version}}
           ```
           ${{ steps.changelog.outputs.compareurl }}
