@@ -24,8 +24,6 @@ export interface AutoCreateTreeRoutesProps extends GetFilesPathProps {
   /**预设导入内容*/
   presetsImport?: string;
   rootRoutes?: boolean | string;
-  /**是否生成树型结构*/
-  isTree?: boolean;
 }
 
 // 插件执行顺序
@@ -75,8 +73,6 @@ class AutoCreateTreeRoutes {
   rootRoutes: boolean | string = false;
 
   matchIgnores: IgnoreFunction[] = [];
-
-  isTree?: boolean = false;
 
   pagesPath = path.join(process.cwd(), 'src', 'pages');
 

@@ -52,8 +52,6 @@ export interface AutoCreateTreeRoutesProps extends GetFilesPathProps {
   /**预设导入内容*/
   presetsImport?: string;
   rootRoutes?: boolean | string;
-  /**是否生成树型结构*/
-  isTree?: boolean;
 }
 ```
 
@@ -63,9 +61,9 @@ export interface AutoCreateTreeRoutesProps extends GetFilesPathProps {
 
 ```tsx
 // 配置使用方式 .saqurc.ts
-import autoCreateRoutes from '@saqu/auto-create-routes';
+import autoCreateTreeRoutes from '@saqu/auto-create-tree-routes';
 export default {
-  plugins: [new autoCreateRoutes({isDefault:true})],
+  plugins: [new autoCreateTreeRoutes({isDefault:true})],
 }
 
 // 路由加载文件 src/pages/about/index.tsx
@@ -79,9 +77,9 @@ export default ()=>{
 
 ```tsx
 // 配置使用方式 .saqurc.ts
-import autoCreateRoutes from '@saqu/auto-create-routes';
+import autoCreateTreeRoutes from '@saqu/auto-create-tree-routes';
 export default {
-  plugins: [new autoCreateRoutes()],
+  plugins: [new autoCreateTreeRoutes()],
 }
 
 // 路由加载文件  src/pages/about/index.tsx
@@ -97,9 +95,9 @@ export const element = <Index />;
 
 ```tsx
 // 配置使用方式 .saqurc.ts
-import autoCreateRoutes from '@saqu/auto-create-routes';
+import autoCreateTreeRoutes from '@saqu/auto-create-tree-routes;
 export default {
-  plugins: [new autoCreateRoutes()],
+  plugins: [new autoCreateTreeRoutes()],
 }
 
 // 路由加载文件 src/pages/about/index.tsx
