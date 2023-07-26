@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "案例",
   "homepage": "https://sunlxy.github.io/saqu",
   "private": true,
@@ -15,11 +15,11 @@
     "simple-markdown-preview": "~0.0.2"
   },
   "devDependencies": {
-    "@saqu/loader-md-react-preview": "^0.1.10",
-    "@saqu/transform-plugin-import-replace-alias": "^0.1.10",
+    "@saqu/loader-md-react-preview": "^0.1.11",
+    "@saqu/transform-plugin-import-replace-alias": "^0.1.11",
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
-    "saqu": "^0.1.10"
+    "saqu": "^0.1.11"
   },
   "browserslist": {
     "production": [
