@@ -237,9 +237,8 @@ export const createRouteCode = (
       const nextTabs = createPreTabs(level + 1);
       if (childResult.count > 1) {
         // 说明子集数据存在多个
-        routesStr += `${tabs}{ path:"${parentList.concat([key]).join('/')}", children:[\n${
-          childResult.childStr
-        }${nextTabs}],\n${tabs}},\n`;
+        const newPathName = parentList.concat([key]).join('/').replace(/^\//, '');
+        routesStr += `${tabs}{ path:"/${newPathName}", children:[\n${childResult.childStr}${nextTabs}],\n${tabs}},\n`;
       } else {
         routesStr += `${tabs}${childResult.childStr}`;
       }
