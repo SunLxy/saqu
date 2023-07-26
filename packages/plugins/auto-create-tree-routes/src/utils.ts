@@ -77,7 +77,6 @@ export const createTreeObjectRoutes = (data: TreeObjectDataType) => {
         newValue = `/pages/${newValue}`;
       }
       const result = getRoutePath(newValue);
-      console.log('result', result);
       newData[key] = result;
     } else if (value && Object.prototype.toString.call(value) === '[object Object]') {
       const result = createTreeObjectRoutes(value as TreeObjectDataType);
