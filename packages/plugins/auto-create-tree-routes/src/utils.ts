@@ -23,8 +23,10 @@ export const isCheckIgnoresFile = (
       return false;
     }
   }
-  const rgx = new RegExp(`^index.(${fileExt})$`);
-  if (rgx.test(filePath) && stats.isFile()) {
+  const filename = path.basename(filePath);
+
+  const rgx = new RegExp(`index.(${fileExt})$`);
+  if (rgx.test(filename) && stats.isFile()) {
     return true;
   }
   // 表示文件忽略
@@ -90,7 +92,8 @@ export const createTreeObjectRoutes = (data: TreeObjectDataType) => {
 /**添加路由*/
 export const addRoutes = (pathName: string, newData: RouteTreeDataType) => {
   const rootDir = path.join(process.cwd(), 'src', 'pages');
-  const list = pathName.replace(rootDir, '').replace(/\\/g, '/').split('/').filter(Boolean);
+  const newPathName = pathName.replace(rootDir, '').replace(/\\/g, '/');
+  const list = newPathName.split('/').filter(Boolean);
 
   let preData: RouteTreeDataType = newData;
   let lg = list.length;
@@ -110,7 +113,13 @@ export const addRoutes = (pathName: string, newData: RouteTreeDataType) => {
       preData = preData[key] as RouteTreeDataType;
     }
   }
-  const result = getRoutePath(pathName);
+  let newValue = newPathName.replace(/\\/g, '/');
+  if (/^\//.test(newValue)) {
+    newValue = `/pages${newValue}`;
+  } else {
+    newValue = `/pages/${newValue}`;
+  }
+  const result = getRoutePath(newValue);
   preData.index = result;
 
   return newData;

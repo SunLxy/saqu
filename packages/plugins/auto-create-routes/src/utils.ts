@@ -53,8 +53,9 @@ export const isCheckIgnoresFile = (filePath: string, fileExt: string = 'tsx|js|j
       return false;
     }
   }
+  const filename = path.basename(filePath);
   const rgx = new RegExp(`index.(${fileExt})$`);
-  if (rgx.test(filePath) && stats.isFile()) {
+  if (rgx.test(filename) && stats.isFile()) {
     return true;
   }
   // 表示文件忽略

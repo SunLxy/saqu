@@ -105,8 +105,9 @@ class AutoCreateTreeRoutes {
 
   /**添加路由*/
   _addRoute = (filePath: string) => {
+    const check = isCheckIgnoresFile(filePath, this.fileExt, this.matchIgnores);
     /**判断数据是否符合规则*/
-    if (!isCheckIgnoresFile(filePath, this.fileExt, this.matchIgnores)) {
+    if (!check) {
       return;
     }
     /**如果已经存在，则不用进行数据处理*/
