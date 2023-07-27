@@ -3,28 +3,9 @@ import FS from 'fs-extra';
 import path from 'path';
 import chokidar from 'chokidar';
 import { toMatcherFunction, recursiveReaddir } from './recursive-readdir';
-import {
-  IgnoreFunction,
-  Ignores,
-  GetFilesPathProps,
-  RouteItemConfigType,
-  RenderReturnType,
-  RouteTreeDataType,
-} from './interface';
+import { IgnoreFunction, Ignores, RouteTreeDataType, AutoCreateTreeRoutesProps } from './interface';
 import { createTreeObjectRoutes, addRoutes, removeRoutes, isCheckIgnoresFile, createRouteCode } from './utils';
-
-export interface AutoCreateTreeRoutesProps extends GetFilesPathProps {
-  /**
-   * 文件是否是默认导出
-   * @default false
-   */
-  isDefault?: boolean;
-  /**自定义设置配置*/
-  renderConfig?: (props: Required<RouteItemConfigType>) => RenderReturnType;
-  /**预设导入内容*/
-  presetsImport?: string;
-  rootRoutes?: boolean | string;
-}
+export * from './interface';
 
 // 插件执行顺序
 
@@ -67,7 +48,8 @@ class AutoCreateTreeRoutes {
    */
   isDefault?: boolean = false;
   /**自定义设置配置*/
-  renderConfig?: (props: Required<RouteItemConfigType>) => RenderReturnType;
+  renderConfig?: AutoCreateTreeRoutesProps['renderConfig'];
+  renderParent?: AutoCreateTreeRoutesProps['renderParent'];
   /**预设导入内容*/
   presetsImport?: string;
   rootRoutes: boolean | string = false;
@@ -87,6 +69,7 @@ class AutoCreateTreeRoutes {
     this.ignores = props.ignores;
     this.isDefault = props.isDefault || this.isDefault;
     this.renderConfig = props.renderConfig;
+    this.renderParent = props.renderParent;
     this.presetsImport = props.presetsImport || '';
     this.rootRoutes = props.rootRoutes || this.rootRoutes;
     this.matchIgnores = (props.ignores || []).map(toMatcherFunction);
@@ -104,6 +87,7 @@ class AutoCreateTreeRoutes {
       this.routesTreeData,
       this.isDefault,
       this.renderConfig,
+      this.renderParent,
       this.presetsImport,
       this.rootRoutes,
     );

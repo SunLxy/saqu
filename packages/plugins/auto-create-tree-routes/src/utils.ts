@@ -6,6 +6,7 @@ import {
   RouteTreeDataType,
   RouteItemConfigType,
   RenderReturnType,
+  AutoCreateTreeRoutesProps,
 } from './interface';
 
 export const isCheckIgnoresFile = (
@@ -171,6 +172,7 @@ export const createRouteCode = (
   newData: RouteTreeDataType,
   isDefault: boolean = false,
   render?: (props: Required<RouteItemConfigType>) => RenderReturnType,
+  renderParent?: AutoCreateTreeRoutesProps['renderParent'],
   presetsImport?: string,
   rootRoutes?: boolean | string,
 ) => {
@@ -236,8 +238,17 @@ export const createRouteCode = (
       const nextTabs = createPreTabs(level + 1);
       if (childResult.count > 1) {
         // 说明子集数据存在多个
-        const newPathName = parentList.concat([key]).join('/').replace(/^\//, '');
-        routesStr += `${tabs}{ path:"/${newPathName}", children:[\n${childResult.childStr}${nextTabs}],\n${tabs}},\n`;
+        let currentData: { path?: string; configStr?: string } = {};
+        if (typeof renderParent === 'function') {
+          currentData = renderParent(key);
+        }
+        const newPathListName = [...parentList];
+        if (currentData && currentData.path) {
+          newPathListName.push(currentData.path);
+        }
+        const newPathName = newPathListName.join('/').replace(/^\//, '');
+        const otherStr = (currentData?.configStr || '').trim().replace(/^,/, '').replace(/,$/, '');
+        routesStr += `${tabs}{ path:"/${newPathName}",${otherStr}, children:[\n${childResult.childStr}${nextTabs}],\n${tabs}},\n`;
       } else {
         routesStr += `${tabs}${childResult.childStr}`;
       }

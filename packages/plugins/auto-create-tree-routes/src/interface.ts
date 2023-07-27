@@ -55,3 +55,17 @@ export interface TreeObjectDataType {
   index?: string;
   [x: string]: TreeObjectDataType | string;
 }
+
+export interface AutoCreateTreeRoutesProps extends GetFilesPathProps {
+  /**
+   * 文件是否是默认导出
+   * @default false
+   */
+  isDefault?: boolean;
+  /**自定义设置配置*/
+  renderConfig?: (props: Required<RouteItemConfigType>) => RenderReturnType;
+  /**预设导入内容*/
+  presetsImport?: string;
+  rootRoutes?: boolean | string;
+  renderParent?: (pathName: string) => { path: string; configStr: string };
+}
