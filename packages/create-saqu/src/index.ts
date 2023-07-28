@@ -20,7 +20,7 @@ const helpCli: string = `
     --version, -v   Show version number
     --help, -h      Displays help information.
     --output, -o    Output directory.
-    --example, -e   Example from: \x1b[34mhttps://github.com/SunLxy/saqu\x1b[0m, default: "routes"
+    --example, -e   Example from: \x1b[34mhttps://github.com/SunLxy/saqu\x1b[0m, default: "base"
     --path, -p      Specify the download target git address.
                       default: "\x1b[34mhttps://sunlxy.github.io/saqu/zip/\x1b[0m"
   
@@ -41,7 +41,7 @@ async function run(): Promise<void> {
       path: 'https://sunlxy.github.io/saqu/zip/',
       output: '.',
       force: false,
-      example: 'routes',
+      example: 'base',
     },
   });
   if (argvs.h || argvs.help) {

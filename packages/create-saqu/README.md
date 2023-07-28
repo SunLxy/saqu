@@ -70,7 +70,7 @@ Options:
   --version, -v   Show version number
   --help, -h      Displays help information.
   --output, -o    Output directory.
-  --example, -e   Example from: https://github.com/SunLxy/saqu, default: "routes"
+  --example, -e   Example from: https://github.com/SunLxy/saqu, default: "base"
   --path, -p      Specify the download target git address.
                     default: "https://sunlxy.github.io/saqu/zip/"
 
