@@ -29,7 +29,7 @@ export type CodeBlockData = {
   source: string;
   components: Record<CodeBlockItem['name'], React.FC>;
   data: Record<CodeBlockItem['name'], CodeBlockItem>;
-  headings: HeadingItem;
+  headings: HeadingItem[];
 };
 
 export const FUNNAME_PREFIX = '__BaseCode__';
