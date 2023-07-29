@@ -4,7 +4,7 @@
   width: 100%;
   z-index: 999;
   background: rgba(255,255,255,0.5);
-  ${e=>"false"===e.loading&&(0,i.css)`
+  ${e=>!e.$loading&&(0,i.css)`
       width: 0px;
       height: 0px;
       z-index: -99;
@@ -14,7 +14,7 @@
   left: 50%;
   top: 50%;
   transform: translateX(-50%);
-`;t.default=({loading:e})=>(0,a.jsx)(t.Wrapper,{loading:`${e}`,className:"simple-loading",children:e&&(0,a.jsx)(t.LoadBox,{className:"simple-loading-content",children:"Loading..."})})},22615:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.SimplePreview=void 0;let r=n("35685"),a=n("22825"),i=n("73156"),o=r.__importDefault(n("2666")),s=r.__importDefault(n("77830")),l=n("97266"),u=r.__importDefault(n("27368")),c=n("5936"),d=r.__importDefault(n("28943")),p=r.__importDefault(n("66392")),f=u.default.Preview,m=u.default.Code,g=u.default.Toolbar,h=o.default.div`
+`;t.default=({loading:e})=>(0,a.jsx)(t.Wrapper,{$loading:e,className:"simple-loading",children:e&&(0,a.jsx)(t.LoadBox,{className:"simple-loading-content",children:"Loading..."})})},22615:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.SimplePreview=void 0;let r=n("35685"),a=n("22825"),i=n("73156"),o=r.__importDefault(n("2666")),s=r.__importDefault(n("77830")),l=n("97266"),u=r.__importDefault(n("27368")),c=n("5936"),d=r.__importDefault(n("28943")),p=r.__importDefault(n("66392")),f=u.default.Preview,m=u.default.Code,g=u.default.Toolbar,h=o.default.div`
   width:100% ;
   height:100% ;
   overflow: auto;
