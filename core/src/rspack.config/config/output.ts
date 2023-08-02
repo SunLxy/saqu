@@ -46,6 +46,8 @@ export const getRspackOutputConfig = (
     path: 'dist',
     /**引用资源的URL前缀*/
     publicPath: publicPath,
+    /**在生成产物前，删除输出目录下的所有文件。*/
+    clean: true,
     ...output,
     ...getFileNames(type, isEnvProduction),
   };
