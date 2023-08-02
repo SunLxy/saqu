@@ -109,7 +109,9 @@ export const getTransformValue = (str: string, filename: string, otherOptions: T
     };
     /**代码转换*/
     const res = transformSync(str, options);
-    return `${res.code}\nreturn BaseCode_Export__default__value;\n`;
+    /**临时解决报错问题 exports is not defined 问题 */
+    const newCode = res.code.replace(/Object.defineProperty\(exports/g, 'Object.defineProperty(__webpack_exports__');
+    return `${newCode}\nreturn BaseCode_Export__default__value;\n`;
   } catch (err) {
     console.error('打印错误===>', filename, str, err);
     throw new Error(err);
