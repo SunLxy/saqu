@@ -10,6 +10,7 @@ import { getRspackOutputConfig } from './config/output';
 import { getRspackModolesConfig } from './config/modules';
 import { getRspackPluginsConfig } from './config/plugins';
 import { getRspackResolveConfig } from './config/resolve';
+import { getRspackExperimentsConfig } from './config/experiments';
 
 export const getRspackConfig = async (
   env: 'development' | 'production',
@@ -62,6 +63,8 @@ export const getRspackConfig = async (
     plugins: getRspackPluginsConfig(env, type, argvOptions, loadConfig.plugins),
     /**用于配置Rspack模块解析逻辑*/
     resolve: getRspackResolveConfig(env, type, loadConfig.resolve),
+    /**实验性功能：该选项通过此配置项可以开启并试用一些实验的功能。*/
+    experiments: getRspackExperimentsConfig(env, type, loadConfig.experiments),
   };
   if (type === 'server') {
     /**
