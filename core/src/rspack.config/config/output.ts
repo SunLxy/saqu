@@ -35,11 +35,9 @@ export const getRspackOutputConfig = (
   /**是否是开发环境*/
   const isEnvDevelopment = env === 'development';
   /**设置 publicPath 值*/
-  const publicPath = getPublicUrlOrPath(
-    isEnvDevelopment,
-    require(resolveApp('package.json')).homepage,
-    output?.publicPath || process.env.PUBLIC_URL,
-  );
+  const publicPath =
+    output?.publicPath ||
+    getPublicUrlOrPath(isEnvDevelopment, require(resolveApp('package.json')).homepage, process.env.PUBLIC_URL);
 
   const newOutPut: RspackOptions['output'] = {
     /**默认输出文件夹地址*/
