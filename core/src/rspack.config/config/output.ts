@@ -34,16 +34,12 @@ export const getRspackOutputConfig = (
   const isEnvProduction = env === 'production';
   /**是否是开发环境*/
   const isEnvDevelopment = env === 'development';
-  /**设置 publicPath 值*/
-  const publicPath =
-    output?.publicPath ||
-    getPublicUrlOrPath(isEnvDevelopment, require(resolveApp('package.json')).homepage, process.env.PUBLIC_URL);
 
   const newOutPut: RspackOptions['output'] = {
     /**默认输出文件夹地址*/
     path: 'dist',
-    /**引用资源的URL前缀*/
-    publicPath: publicPath,
+    // /**引用资源的URL前缀*/
+    // publicPath: publicPath,
     /**在生成产物前，删除输出目录下的所有文件。*/
     clean: true,
     ...output,
@@ -57,5 +53,14 @@ export const getRspackOutputConfig = (
     /**输出地址*/
     newOutPut.path = newOutPut.path.replace(/\/$/, '') + '/server';
   }
+  /**设置 publicPath 值*/
+  const publicPath =
+    output?.publicPath ||
+    getPublicUrlOrPath(isEnvDevelopment, require(resolveApp('package.json')).homepage, process.env.PUBLIC_URL);
+
+  if (isEnvProduction) {
+    newOutPut.publicPath = publicPath;
+  }
+
   return { ...newOutPut };
 };
