@@ -60,6 +60,12 @@ export const getRspackOutputConfig = (
 
   if (isEnvProduction) {
     newOutPut.publicPath = publicPath;
+  } else {
+    newOutPut.publicPath = getPublicUrlOrPath(
+      isEnvDevelopment,
+      require(resolveApp('package.json')).homepage,
+      process.env.PUBLIC_URL,
+    );
   }
 
   return { ...newOutPut };
