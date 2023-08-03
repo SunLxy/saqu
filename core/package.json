@@ -1,6 +1,6 @@
 {
   "name": "saqu",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "使用 rspack 进行封装.",
   "author": "SunLxy <1011771396@qq.com>",
   "main": "lib/main.js",
