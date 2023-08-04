@@ -53,12 +53,12 @@ export const getRspackOutputConfig = (
     /**输出地址*/
     newOutPut.path = newOutPut.path.replace(/\/$/, '') + '/server';
   }
-  /**设置 publicPath 值*/
-  const publicPath =
-    output?.publicPath ||
-    getPublicUrlOrPath(isEnvDevelopment, require(resolveApp('package.json')).homepage, process.env.PUBLIC_URL);
 
   if (isEnvProduction) {
+    /**设置 publicPath 值*/
+    const publicPath =
+      output?.publicPath ||
+      getPublicUrlOrPath(isEnvDevelopment, require(resolveApp('package.json')).homepage, process.env.PUBLIC_URL);
     newOutPut.publicPath = publicPath;
   } else {
     newOutPut.publicPath = getPublicUrlOrPath(isEnvDevelopment, '', process.env.PUBLIC_URL);
