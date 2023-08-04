@@ -121,5 +121,8 @@ export const getHeading = (child: MarkdownParseData['children']) => {
     }
   });
 
-  return getSameLevelHeading(headingList);
+  return {
+    headings: getSameLevelHeading(headingList),
+    headingsList: headingList,
+  };
 };

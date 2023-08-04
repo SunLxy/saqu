@@ -17,13 +17,14 @@ const codePreviewLoader: LoaderFunction = function (source) {
     this.emitError(error);
   }
 
-  const headings = options.isHeading ? getHeading(child) : [];
+  const { headings, headingsList } = options.isHeading ? getHeading(child) : { headings: [], headingsList: [] };
 
   return `\nexport default {
     components: { ${components} },
     data: ${JSON.stringify(codeBlock, null, 2)},
     source: ${JSON.stringify(source)},
     headings:${JSON.stringify(headings)},
+    headingsList:${JSON.stringify(headingsList)},
   }`;
 };
 
