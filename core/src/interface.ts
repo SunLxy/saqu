@@ -7,7 +7,7 @@ import yargsParser from 'yargs-parser';
 /**
  * @description rspack 运行配置
  */
-export interface SAquConfig extends Omit<RspackOptions, 'entry'> {
+export interface SAquConfig extends RspackOptions {
   /**
    * @description 配置代理，可用于解决跨域等问题
    * @example
@@ -28,10 +28,6 @@ export interface SAquConfig extends Omit<RspackOptions, 'entry'> {
         options?: MockerOption;
       }
     | undefined;
-  /**
-   * @description 入口文件
-   */
-  entry?: string;
   /**
    * @description 重写环境配置
    */
