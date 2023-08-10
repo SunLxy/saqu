@@ -134,9 +134,9 @@ class AutoCreateTreeRoutes {
     watch.on('unlink', this._unlinkRoute);
   }
 
-  apply(compiler: Compiler) {
+  apply(compiler: any) {
     /**在开始编译之前执行，只执行一次*/
-    compiler.hooks.afterPlugins.tap('AutoCreateTreeRoutes', () => {
+    (compiler as Compiler).hooks.afterPlugins.tap('AutoCreateTreeRoutes', () => {
       this.watch();
     });
   }
