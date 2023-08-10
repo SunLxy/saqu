@@ -31,6 +31,7 @@
     "minimatch": "~9.0.3"
   },
   "devDependencies": {
+    "saqu": "~0.1.24",
     "@rspack/core": "~0.2.8",
     "@types/fs-extra": "~11.0.1"
   }

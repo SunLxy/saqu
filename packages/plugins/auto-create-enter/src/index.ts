@@ -3,6 +3,7 @@ import FS from 'fs-extra';
 import path from 'path';
 import { getMainCode, RouteType } from './utils';
 import chokidar from 'chokidar';
+import { S_Compiler } from 'saqu';
 
 /**
  * 自动生成入口文件
@@ -66,9 +67,9 @@ class AutoCreateEnter {
     FS.writeFileSync(this.mainFilePath, content, { flag: 'w+', encoding: 'utf-8' });
   };
 
-  apply(compiler: any) {
+  apply(compiler: S_Compiler) {
     /**在开始编译之前执行，只执行一次*/
-    (compiler as Compiler).hooks.afterPlugins.tap('AutoCreateEnter', () => {
+    compiler.hooks.afterPlugins.tap('AutoCreateEnter', () => {
       this.watch();
     });
   }

@@ -3,6 +3,7 @@ import FS from 'fs-extra';
 import path from 'path';
 import chokidar from 'chokidar';
 import { RouteAst } from './utils';
+import { S_Compiler } from 'saqu';
 
 export interface AutoConfigToRoutesProps {
   /**
@@ -177,9 +178,9 @@ class AutoConfigToRoutes {
     this.watch.on('unlink', this._unlinkRoute);
   }
 
-  apply(compiler: any) {
+  apply(compiler: S_Compiler) {
     /**在开始编译之前执行，只执行一次*/
-    (compiler as Compiler).hooks.afterPlugins.tap('AutoConfigToRoutes', () => {
+    compiler.hooks.afterPlugins.tap('AutoConfigToRoutes', () => {
       console.log('AutoConfigToRoutes');
       this._watch();
     });

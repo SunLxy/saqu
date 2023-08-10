@@ -5,6 +5,7 @@ import chokidar from 'chokidar';
 import { toMatcherFunction, recursiveReaddir } from './recursive-readdir';
 import { IgnoreFunction, Ignores, RouteTreeDataType, AutoCreateTreeRoutesProps } from './interface';
 import { createTreeObjectRoutes, addRoutes, removeRoutes, isCheckIgnoresFile, createRouteCode } from './utils';
+import { S_Compiler } from 'saqu';
 export * from './interface';
 
 // 插件执行顺序
@@ -134,9 +135,9 @@ class AutoCreateTreeRoutes {
     watch.on('unlink', this._unlinkRoute);
   }
 
-  apply(compiler: any) {
+  apply(compiler: S_Compiler) {
     /**在开始编译之前执行，只执行一次*/
-    (compiler as Compiler).hooks.afterPlugins.tap('AutoCreateTreeRoutes', () => {
+    compiler.hooks.afterPlugins.tap('AutoCreateTreeRoutes', () => {
       this.watch();
     });
   }

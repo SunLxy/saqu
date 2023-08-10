@@ -12,6 +12,7 @@ import {
   RenderReturnType,
   isCheckIgnoresFile,
 } from './utils';
+import { S_Compiler } from 'saqu';
 
 export interface AutoCreateRoutesProps extends GetFilesPathProps {
   /**
@@ -138,9 +139,9 @@ class AutoCreateRoutes {
     watch.on('unlink', this._unlinkRoute);
   }
 
-  apply(compiler: any) {
+  apply(compiler: S_Compiler) {
     /**在开始编译之前执行，只执行一次*/
-    (compiler as Compiler).hooks.afterPlugins.tap('AutoCreateRoutes', () => {
+    compiler.hooks.afterPlugins.tap('AutoCreateRoutes', () => {
       this.watch();
     });
   }

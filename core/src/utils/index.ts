@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+export * from './overridesInterface';
 // export * from './printFileSizes';
 /**
  * @description 如果存在返回匹配的 URL
