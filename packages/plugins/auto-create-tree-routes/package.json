@@ -1,6 +1,6 @@
 {
   "name": "@saqu/auto-create-tree-routes",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "description": "",
   "author": "SunLxy <1011771396@qq.com>",
   "homepage": "https://github.com/SunLxy/saqu#readme",
@@ -31,8 +31,8 @@
     "minimatch": "~9.0.3"
   },
   "devDependencies": {
-    "saqu": "~0.1.24",
     "@rspack/core": "~0.2.8",
-    "@types/fs-extra": "~11.0.1"
+    "@types/fs-extra": "~11.0.1",
+    "saqu": "^0.1.25"
   }
 }
