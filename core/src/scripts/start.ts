@@ -29,7 +29,7 @@ export const rspackStart = async (argvOptions: SAquArgvOptions) => {
         serverConfig.open = false;
       }
       const compiler = rspack({ ...lastConfig, devServer: serverConfig });
-      server = new RspackDevServer(serverConfig, compiler);
+      server = new RspackDevServer(serverConfig, compiler as any);
       /**启动服务*/
       await server.start();
     };
