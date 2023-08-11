@@ -7,6 +7,7 @@ export * from './overridesInterface';
 export function fileExists(fileName: string = ''): string | boolean {
   const [matchStr, extnames] = fileName.match(/{(.*?)}$/) || [];
   let result: boolean | string = false;
+  console.log('enteyFilePath', matchStr, extnames, fileName);
   if (matchStr) {
     extnames?.split(',').forEach((name) => {
       const filePath = fileName.replace(matchStr, name);

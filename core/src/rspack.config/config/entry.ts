@@ -52,7 +52,7 @@ export const getRspackEntryConfig = (
 
 /**当是字符串获取不存在值的时候*/
 const checkString = (initValue: string, initEntry?: string) => {
-  const result = getEnteyPath(initValue, initEntry);
+  const result = getEnteyPath(initEntry, initValue);
   if (typeof result === 'boolean' || !result) {
     console.log(chalk.green('项目入口文件 ', chalk.red(initEntry || `src/${initValue}.{tsx,jsx,js}`), ' 不存在'));
     process.exit();
@@ -77,7 +77,7 @@ const checkArray = (initValue: string, initEntry: string[]) => {
       let list: string[] = [];
       for (index; index < lg; index++) {
         const element = newList[index];
-        const result = getEnteyPath(initValue, element);
+        const result = getEnteyPath(element, initValue);
         if (typeof result === 'boolean') {
           break;
         }
