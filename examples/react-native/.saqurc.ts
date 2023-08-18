@@ -9,6 +9,7 @@ export default {
           {
             loader: '@saqu/loader-md-react-preview',
             options: {
+              isHeading: true,
               plugin: [
                 (m: any) => {
                   return new transformPluginAlias({

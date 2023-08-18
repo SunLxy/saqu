@@ -57,6 +57,7 @@ export interface MarkdownParseData extends Parent<MarkdownDataChild> {}
 export interface HeadingListType {
   depth: number;
   value: string;
+  key: number;
 }
 
 export interface HeadingItem extends HeadingListType {

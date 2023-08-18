@@ -106,15 +106,16 @@ export const getSameLevelHeading = (list: HeadingListType[]) => {
 /**获取标题*/
 export const getHeading = (child: MarkdownParseData['children']) => {
   const headingList: HeadingListType[] = [];
-  child.forEach((item) => {
+  child.forEach((item, index) => {
     if (item && item.type === 'heading') {
       const { depth, children } = item;
       if (Array.isArray(children) && children.length) {
-        const [firstItem] = children || [];
-        if (firstItem && firstItem?.value) {
+        if (Array.isArray(children) && children.length) {
+          const value = children.map((item) => item.value).join('');
           headingList.push({
+            key: index,
+            value,
             depth,
-            value: firstItem?.value,
           });
         }
       }

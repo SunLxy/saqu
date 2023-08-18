@@ -4,12 +4,13 @@ export * from './interface';
 
 const codePreviewLoader: LoaderFunction = function (source) {
   const options: Options = this.getOptions();
+  const { isHeading, ...rest } = options;
   // console.log("文件路径===>", path.dirname(this.resourcePath))
   let components = '';
   let codeBlock = {} as CodeBlockData['data'];
   const child = getProcessor(source);
   try {
-    codeBlock = getCodeBlock(child, options, this.resourcePath);
+    codeBlock = getCodeBlock(child, rest, this.resourcePath);
     Object.keys(codeBlock).forEach((key) => {
       components += `${key}: (function() { ${codeBlock[key].code} })(),`;
     });
@@ -17,7 +18,7 @@ const codePreviewLoader: LoaderFunction = function (source) {
     this.emitError(error);
   }
 
-  const { headings, headingsList } = options.isHeading ? getHeading(child) : { headings: [], headingsList: [] };
+  const { headings, headingsList } = isHeading ? getHeading(child) : { headings: [], headingsList: [] };
 
   return `\nexport default {
     components: { ${components} },
