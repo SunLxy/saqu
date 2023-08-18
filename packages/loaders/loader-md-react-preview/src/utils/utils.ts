@@ -110,14 +110,12 @@ export const getHeading = (child: MarkdownParseData['children']) => {
     if (item && item.type === 'heading') {
       const { depth, children } = item;
       if (Array.isArray(children) && children.length) {
-        if (Array.isArray(children) && children.length) {
-          const value = children.map((item) => item.value).join('');
-          headingList.push({
-            key: index,
-            value,
-            depth,
-          });
-        }
+        const value = children.map((item) => item.value).join('');
+        headingList.push({
+          key: index,
+          value,
+          depth,
+        });
       }
     }
   });
