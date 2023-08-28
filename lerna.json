@@ -3,10 +3,10 @@
   "packages": [
     "website",
     "packages/create-saqu",
-    "packages/types",
+    "packages/swc/types",
     "packages/loaders/*",
     "packages/plugins/*",
-    "packages/register",
+    "packages/swc/register",
     "core",
     "examples/*"
   ],

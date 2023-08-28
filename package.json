@@ -63,8 +63,8 @@
   "workspaces": [
     "examples/*",
     "packages/create-saqu",
-    "packages/types",
-    "packages/register",
+    "packages/swc/types",
+    "packages/swc/register",
     "packages/loaders/*",
     "packages/plugins/*",
     "core",
