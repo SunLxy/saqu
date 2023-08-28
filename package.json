@@ -44,7 +44,11 @@
     "react-dom": "~18.2.0",
     "react-native-web": "0.18.10",
     "react-native": "0.69.7",
-    "react-native-reanimated": "~2.13.0"
+    "react-native-reanimated": "~2.13.0",
+    "@swc-node/core": "1.10.4"
+  },
+  "resolutions": {
+    "@swc-node/core": "1.10.4"
   },
   "dependencies": {
     "husky": "~8.0.0",
