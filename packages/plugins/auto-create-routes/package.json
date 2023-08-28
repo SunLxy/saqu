@@ -1,6 +1,6 @@
 {
   "name": "@saqu/auto-create-routes",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "",
   "author": "SunLxy <1011771396@qq.com>",
   "homepage": "https://github.com/SunLxy/saqu#readme",
@@ -34,6 +34,6 @@
     "@rspack/core": "~0.2.8",
     "@types/fs-extra": "~11.0.1",
     "@types/recursive-readdir": "~2.2.1",
-    "saqu": "^0.1.27"
+    "saqu": "^0.1.28"
   }
 }
