@@ -9,7 +9,7 @@ const helpExample: string = `Example:
     \x1b[35mnpx\x1b[0m create-saqu \x1b[33mmy-app\x1b[0m
     \x1b[35mnpm\x1b[0m create saqu \x1b[33mmy-app\x1b[0m
     \x1b[35mnpm\x1b[0m create saqu \x1b[33mmy-app\x1b[0m -f
-    \x1b[35mnpm\x1b[0m create saqu \x1b[33mmy-app\x1b[0m -p \x1b[34mhttps://sunlxy.github.io/saqu/zip/\x1b[0m
+    \x1b[35mnpm\x1b[0m create saqu \x1b[33mmy-app\x1b[0m -p \x1b[34mhttps://autumnstale.github.io/create-saqu-template/\x1b[0m
 `;
 
 const helpCli: string = `
@@ -22,7 +22,7 @@ const helpCli: string = `
     --output, -o    Output directory.
     --example, -e   Example from: \x1b[34mhttps://github.com/SunLxy/saqu\x1b[0m, default: "base"
     --path, -p      Specify the download target git address.
-                      default: "\x1b[34mhttps://sunlxy.github.io/saqu/zip/\x1b[0m"
+                      default: "\x1b[34mhttps://autumnstale.github.io/create-saqu-template/\x1b[0m"
   
   ${helpExample}
   
@@ -38,7 +38,7 @@ async function run(): Promise<void> {
       example: 'e',
     },
     default: {
-      path: 'https://sunlxy.github.io/saqu/zip/',
+      path: 'https://autumnstale.github.io/create-saqu-template/',
       output: '.',
       force: false,
       example: 'base',

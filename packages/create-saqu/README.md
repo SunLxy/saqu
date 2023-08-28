@@ -60,7 +60,7 @@ $ npx create-saqu my-app
 
 你可以通过`--help | h`来查看帮助. 
 
-实例下载： https://sunlxy.github.io/saqu/zip/
+实例下载： https://autumnstale.github.io/create-saqu-template/
 
 ```bash
 Usage: create-saqu <app-name> [options] [--help|h]
@@ -72,7 +72,7 @@ Options:
   --output, -o    Output directory.
   --example, -e   Example from: https://github.com/SunLxy/saqu, default: "base"
   --path, -p      Specify the download target git address.
-                    default: "https://sunlxy.github.io/saqu/zip/"
+                    default: "https://autumnstale.github.io/create-saqu-template/"
 
 Example:
 
@@ -80,7 +80,7 @@ Example:
   npx create-saqu my-app
   npm create saqu my-app
   npm create saqu my-app -f
-  npm create saqu my-app -p https://sunlxy.github.io/saqu/zip/
+  npm create saqu my-app -p https://autumnstale.github.io/create-saqu-template/
 
 Copyright 2023
 ```
