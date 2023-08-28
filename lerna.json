@@ -6,6 +6,7 @@
     "packages/types",
     "packages/loaders/*",
     "packages/plugins/*",
+    "packages/register",
     "core",
     "examples/*"
   ],
