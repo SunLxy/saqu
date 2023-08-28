@@ -69,5 +69,24 @@
     "packages/plugins/*",
     "core",
     "website"
-  ]
+  ],
+  "zipConfig": {
+    "output": "../../autumns_tale/create-saqu-template",
+    "dirs": [
+      {
+        "path": "./examples/base",
+        "ignore": [
+          "!**/lib",
+          "!**/pnpm-lock.yaml"
+        ]
+      },
+      {
+        "path": "./examples/routes",
+        "ignore": [
+          "!**/lib",
+          "!**/pnpm-lock.yaml"
+        ]
+      }
+    ]
+  }
 }
