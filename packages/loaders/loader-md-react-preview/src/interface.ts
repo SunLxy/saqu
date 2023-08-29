@@ -29,8 +29,8 @@ export type CodeBlockData = {
   source: string;
   components: Record<CodeBlockItem['name'], React.FC>;
   data: Record<CodeBlockItem['name'], CodeBlockItem>;
-  headings: HeadingItem[];
-  headingsList: HeadingListType[];
+  headings?: HeadingItem[];
+  headingsList?: HeadingListType[];
 };
 
 export const FUNNAME_PREFIX = '__BaseCode__';
