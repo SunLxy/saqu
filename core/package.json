@@ -36,7 +36,6 @@
     "chokidar": "~3.5.3",
     "file-loader": "~6.2.0",
     "fs-extra": "~11.1.0",
-    "less-loader": "~11.1.0",
     "mocker-api": "~2.9.5",
     "typescript": "5.0.4",
     "webpack-bundle-analyzer": "~4.8.0",
