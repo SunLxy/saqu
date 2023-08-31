@@ -1,11 +1,13 @@
 [
   {
     "path": "/",
-    "element": "@/pages"
-  },
-  {
-    "path": "/about",
-    "element": "@/pages/about"
+    "element": "@/pages",
+    "children": [
+      {
+        "path": "/about",
+        "element": "@/pages/about"
+      }
+    ]
   },
   {
     "path": "/doc",

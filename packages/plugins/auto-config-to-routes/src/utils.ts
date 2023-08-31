@@ -1,5 +1,13 @@
 import { Visitor } from '@swc/core/Visitor';
-import { ImportDefaultSpecifier, ImportSpecifier, ObjectExpression, parseSync, printSync, Program } from '@swc/core';
+import {
+  ImportDefaultSpecifier,
+  ImportSpecifier,
+  ObjectExpression,
+  parseSync,
+  printSync,
+  Program,
+  KeyValueProperty,
+} from '@swc/core';
 import types from '@saqu/swc-types';
 
 export const toPascalCase = (str: string = '') =>
@@ -45,8 +53,10 @@ export class RouteAst extends Visitor {
     const otherBody = body.filter((item) => item.type !== 'ImportDeclaration');
     const importCode = printSync({ ...rest, body: importBody } as Program);
     const otherCode = printSync({ ...rest, body: otherBody } as Program);
-    const reactStr = this.isImportReact ? '' : `import React from "react";\n`;
-    return `${reactStr.trim()}${importCode.code}${this.imports.trim()}${this.constValues.trim()}${otherCode.code}`;
+    const reactStr = this.isImportReact ? '\n' : `import React from "react";\n`;
+    return `${reactStr.trim()}${importCode.code}\n${this.imports.trim()}\n${this.constValues.trim()}\n${
+      otherCode.code
+    }`;
   }
 
   visitImportDefaultSpecifier(node: ImportDefaultSpecifier): ImportSpecifier {
@@ -55,8 +65,7 @@ export class RouteAst extends Visitor {
     }
     return node;
   }
-
-  visitObjectExpression(n: ObjectExpression) {
+  _update_Child = (n: ObjectExpression) => {
     const element = n.properties.find(
       (ite) =>
         ite.type === 'KeyValueProperty' &&
@@ -92,6 +101,21 @@ export class RouteAst extends Visitor {
       }
       n.properties.push(types.SpreadElement(types.Identifier(`${componentName}Other`)));
     }
+    const child = n.properties.find(
+      (ite) =>
+        ite.type === 'KeyValueProperty' &&
+        (ite.key.type === 'Identifier' || ite.key.type === 'StringLiteral') &&
+        ite.key.value === 'children',
+    ) as KeyValueProperty;
+    if (child && child.value.type === 'ArrayExpression' && child.value.elements) {
+      child.value.elements.forEach((item) => {
+        if (item.expression) this._update_Child(item.expression as ObjectExpression);
+      });
+    }
     return n;
+  };
+
+  visitObjectExpression(n: ObjectExpression) {
+    return this._update_Child(n);
   }
 }
