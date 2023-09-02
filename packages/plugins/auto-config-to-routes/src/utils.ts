@@ -31,6 +31,7 @@ export class RouteAst extends Visitor {
   /**是否已经导入 React*/
   isImportReact: boolean = false;
   isDefault = false;
+  count = 0;
   constructor(isDefault: boolean) {
     super();
     this.isDefault = isDefault || false;
@@ -80,8 +81,10 @@ export class RouteAst extends Visitor {
       element.value.type === 'StringLiteral'
     ) {
       const value = element.value.value;
-      const componentName = toPascalCase(value.replace('@/pages/', '').replace('/', ' '));
+      this.count++;
+      const componentName = toPascalCase(value.replace('@/pages/', '').replace('/', ' ')) + this.count;
       this.imports += `import * as ${componentName}All from "${value}";\n`;
+
       this.constValues += `const { default: ${componentName}Default,...${componentName}Other } = ${componentName}All;\n`;
       this.elements.set(element.value.value, { componentName, path: value });
       if (this.isDefault) {
