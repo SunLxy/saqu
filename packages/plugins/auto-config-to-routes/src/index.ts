@@ -181,7 +181,6 @@ class AutoConfigToRoutes {
   apply(compiler: S_Compiler) {
     /**在开始编译之前执行，只执行一次*/
     compiler.hooks.afterPlugins.tap('AutoConfigToRoutes', () => {
-      console.log('AutoConfigToRoutes');
       this._watch();
     });
   }
