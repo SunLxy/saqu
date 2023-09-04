@@ -3,7 +3,7 @@ import defaultConfig from './config';
 import { SAquConfig, SAquArgvOptions } from './../interface';
 
 export const getLoadConfig = async (
-  env: 'development' | 'production',
+  env: 'development' | 'production' | 'preview',
   argvOptions: SAquArgvOptions,
 ): Promise<{ loadConfig: SAquConfig; filePath: string }> => {
   load.use(defaultConfig);

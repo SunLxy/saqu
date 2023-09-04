@@ -22,6 +22,9 @@ import { help } from './../utils/help';
     } else if (scriptName === 'build') {
       /**判断执行打包*/
       (await import('./build')).rspackBuild(argvOptions);
+    } else if (scriptName === 'preview') {
+      /**判断执行打包*/
+      (await import('./preview')).rspackPreview(argvOptions);
     }
   } catch (err) {
     console.error(err);

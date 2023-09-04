@@ -33,7 +33,7 @@ export interface SAquConfig extends RspackOptions {
    */
   overridesRspack?: (
     config: RspackOptions,
-    env: 'development' | 'production',
+    env: 'development' | 'production' | 'preview',
     argvOptions: SAquArgvOptions,
     type: 'server' | 'client',
   ) => Promise<RspackOptions> | RspackOptions;
@@ -47,6 +47,9 @@ export interface SAquArgvOptions extends yargsParser.Arguments {
    * @description 使用 webpack-bundle-analyzer
    */
   analyze?: boolean;
+
+  /**输出目录*/
+  dir?: string;
 
   /**帮助*/
   help?: boolean;

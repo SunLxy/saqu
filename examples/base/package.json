@@ -13,6 +13,7 @@
   },
   "scripts": {
     "start": "saqu start",
+    "preview": "saqu preview",
     "build": "saqu build"
   },
   "browserslist": {

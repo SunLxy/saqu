@@ -13,11 +13,13 @@ import { getRspackResolveConfig } from './config/resolve';
 import { getRspackExperimentsConfig } from './config/experiments';
 
 export const getRspackConfig = async (
-  env: 'development' | 'production',
+  env: 'development' | 'production' | 'preview',
   type: 'server' | 'client',
   argvOptions: SAquArgvOptions,
   loadConfigs: SAquConfig,
 ) => {
+  const newEnv = env === 'preview' ? 'production' : env;
+
   /**加载需要重写的配置*/
   const { overridesRspack, proxy, proxySetup, ...rest } = loadConfigs;
   const loadConfig = { ...rest, proxy, proxySetup };
@@ -25,7 +27,7 @@ export const getRspackConfig = async (
   const isEnvProduction = env === 'production';
 
   // 输出配置
-  const output = getRspackOutputConfig(env, type, loadConfig.output);
+  const output = getRspackOutputConfig(newEnv, type, loadConfig.output);
 
   /**额外 define 参数*/
   const otherDefine = {
@@ -39,7 +41,7 @@ export const getRspackConfig = async (
     /**用于配置Rspack输出的目标环境和Rspack运行时代码的ECMAScript版本*/
     target: type === 'client' ? 'web' : 'node',
     /**mode配置用于设置Rspack的构建模式以启用默认优化策略*/
-    mode: env,
+    mode: newEnv,
     /**生成可用于分析模块依赖项和优化编译速度的打包信息*/
     stats: {
       /***/
@@ -54,17 +56,17 @@ export const getRspackConfig = async (
     /**devtool配置用于控制源映射生成的行为*/
     devtool: isEnvProduction ? false : 'cheap-module-source-map',
     /**entry配置用于设置Rspack构建的入口模块。*/
-    entry: getRspackEntryConfig(env, type, loadConfig.entry),
+    entry: getRspackEntryConfig(newEnv, type, loadConfig.entry),
     /**用于设置Rspack提供的内置函数*/
-    builtins: getRspackBuiltinsConfig(env, type, loadConfig.builtins, { define: otherDefine }),
+    builtins: getRspackBuiltinsConfig(newEnv, type, loadConfig.builtins, { define: otherDefine }),
     /**用于决定如何处理项目中不同类型的模块。*/
-    module: getRspackModolesConfig(env, type, loadConfig.module),
+    module: getRspackModolesConfig(newEnv, type, loadConfig.module),
     /**自定义生成过程*/
-    plugins: getRspackPluginsConfig(env, type, argvOptions, loadConfig.plugins),
+    plugins: getRspackPluginsConfig(newEnv, type, argvOptions, loadConfig.plugins),
     /**用于配置Rspack模块解析逻辑*/
-    resolve: getRspackResolveConfig(env, type, loadConfig.resolve),
+    resolve: getRspackResolveConfig(newEnv, type, loadConfig.resolve),
     /**实验性功能：该选项通过此配置项可以开启并试用一些实验的功能。*/
-    experiments: getRspackExperimentsConfig(env, type, loadConfig.experiments),
+    experiments: getRspackExperimentsConfig(newEnv, type, loadConfig.experiments),
   };
   if (type === 'server') {
     /**
