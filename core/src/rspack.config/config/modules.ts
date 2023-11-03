@@ -87,7 +87,7 @@ export const defaultModolesRules = (props: FefaultRulesProps): RuleSetRule[] => 
   {
     test: /\.module\.s(c|a)ss$/,
     // use: 'less-loader',
-    type: 'css',
+    type: 'css/module',
   },
   {
     test: /\.module\.less$/,
