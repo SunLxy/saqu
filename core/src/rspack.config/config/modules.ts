@@ -31,7 +31,6 @@ export const defaultModolesRules = (props: FefaultRulesProps): RuleSetRule[] => 
     test: /\.ts$/,
     type: 'tsx',
   },
-
   {
     test: [/\.avif$/],
     type: 'asset',
@@ -75,9 +74,18 @@ export const defaultModolesRules = (props: FefaultRulesProps): RuleSetRule[] => 
     ],
     issuer: { and: [/\.(ts|tsx|js|jsx|md|mdx)$/] },
   },
-
   {
     test: /\.less$/,
+    // use: 'less-loader',
+    type: 'css',
+  },
+  {
+    test: /\.s(c|a)ss$/,
+    // use: 'less-loader',
+    type: 'css',
+  },
+  {
+    test: /\.module\.s(c|a)ss$/,
     // use: 'less-loader',
     type: 'css',
   },

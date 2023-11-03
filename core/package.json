@@ -24,6 +24,7 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
+    "webpack-chain": "~6.5.1",
     "@saqu/swc-register": "^0.1.36",
     "@proload/plugin-json": "~0.3.1",
     "@proload/plugin-rc": "~0.2.1",
