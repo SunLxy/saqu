@@ -1,37 +1,41 @@
 /**
  * rspack plugins 配置
  */
+import type { SwcJsMinimizerRspackPluginOptions, RspackOptions, RspackPluginInstance, Compiler } from '@rspack/core';
 import {
-  RspackOptions,
-  RspackPluginInstance,
-  Compiler,
   DefinePlugin,
   ProgressPlugin,
   HtmlRspackPlugin,
   CopyRspackPlugin,
+  SwcJsMinimizerRspackPlugin,
 } from '@rspack/core';
 import { SAquArgvOptions } from './../../interface';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
-interface OtherConfigProps {
+interface BuiltinsReplaceConfigProps {
   define?: Record<string, string>;
-  otherConfig?: OtherConfigProps;
+  _JS_minifyOptions?: SwcJsMinimizerRspackPluginOptions;
 }
 export const getRspackPluginsConfig = (
   env: 'development' | 'production',
   type: 'server' | 'client',
   argvOptions: SAquArgvOptions,
   plugins: RspackOptions['plugins'] = [],
-  otherConfig?: OtherConfigProps,
+  builtinsReplaceConfig?: BuiltinsReplaceConfigProps,
 ): RspackOptions['plugins'] => {
+  /**是否是开发环境*/
+  const isEnvDevelopment = env === 'development';
+  const isEnvProduction = env === 'production';
+
   const newPlugins = [
     new DefinePlugin({
       /** 解决报错: User defined `process.env.NODE_ENV` always has highest priority than default define*/
       'process.env.NODE_ENV': JSON.stringify(env),
       /**react-native 组件中使用的环境变量*/
       __DEV__: JSON.stringify(env),
-      ...otherConfig?.define,
+      ...builtinsReplaceConfig?.define,
     }),
+    new SwcJsMinimizerRspackPlugin({ dropConsole: isEnvProduction, ...builtinsReplaceConfig._JS_minifyOptions }),
     /**进度条*/
     new ProgressPlugin(),
     /**此配置简化了HTML文件的创建*/

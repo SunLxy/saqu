@@ -21,7 +21,7 @@ export const getRspackConfig = async (
   const newEnv = env === 'preview' ? 'production' : env;
 
   /**加载需要重写的配置*/
-  const { overridesRspack, proxy, proxySetup, ...rest } = loadConfigs;
+  const { overridesRspack, proxy, proxySetup, _JS_minifyOptions, ...rest } = loadConfigs;
   const loadConfig = { ...rest, proxy, proxySetup };
   /**是否是生产*/
   const isEnvProduction = env === 'production';
@@ -63,7 +63,10 @@ export const getRspackConfig = async (
     /**用于决定如何处理项目中不同类型的模块。*/
     module: getRspackModolesConfig(newEnv, type, loadConfig.module),
     /**自定义生成过程*/
-    plugins: getRspackPluginsConfig(newEnv, type, argvOptions, loadConfig.plugins, { define: otherDefine }),
+    plugins: getRspackPluginsConfig(newEnv, type, argvOptions, loadConfig.plugins, {
+      define: otherDefine,
+      _JS_minifyOptions,
+    }),
     /**用于配置Rspack模块解析逻辑*/
     resolve: getRspackResolveConfig(newEnv, type, loadConfig.resolve),
     /**实验性功能：该选项通过此配置项可以开启并试用一些实验的功能。*/

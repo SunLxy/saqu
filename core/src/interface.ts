@@ -1,4 +1,4 @@
-import { RspackOptions } from '@rspack/core';
+import { RspackOptions, SwcJsMinimizerRspackPluginOptions } from '@rspack/core';
 import express from 'express';
 import { MockerProxyRoute, MockerOption } from 'mocker-api';
 import { DevServer } from '@rspack/core';
@@ -37,6 +37,9 @@ export interface SAquConfig extends RspackOptions {
     argvOptions: SAquArgvOptions,
     type: 'server' | 'client',
   ) => Promise<RspackOptions> | RspackOptions;
+
+  /**用来压缩 JS 产物 配置*/
+  _JS_minifyOptions?: SwcJsMinimizerRspackPluginOptions;
 }
 
 /**
