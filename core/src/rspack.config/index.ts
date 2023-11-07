@@ -32,6 +32,7 @@ export const getRspackConfig = async (
   /**额外 define 参数*/
   const otherDefine = {
     'process.env.PUBLIC_URL': JSON.stringify(output.publicPath.slice(0, -1)),
+    ...(loadConfig?.builtins?.define || {}),
   };
 
   // 配置
@@ -58,11 +59,11 @@ export const getRspackConfig = async (
     /**entry配置用于设置Rspack构建的入口模块。*/
     entry: getRspackEntryConfig(newEnv, type, loadConfig.entry),
     /**用于设置Rspack提供的内置函数*/
-    builtins: getRspackBuiltinsConfig(newEnv, type, loadConfig.builtins, { define: otherDefine }),
+    builtins: getRspackBuiltinsConfig(newEnv, type, loadConfig.builtins),
     /**用于决定如何处理项目中不同类型的模块。*/
     module: getRspackModolesConfig(newEnv, type, loadConfig.module),
     /**自定义生成过程*/
-    plugins: getRspackPluginsConfig(newEnv, type, argvOptions, loadConfig.plugins),
+    plugins: getRspackPluginsConfig(newEnv, type, argvOptions, loadConfig.plugins, { define: otherDefine }),
     /**用于配置Rspack模块解析逻辑*/
     resolve: getRspackResolveConfig(newEnv, type, loadConfig.resolve),
     /**实验性功能：该选项通过此配置项可以开启并试用一些实验的功能。*/
