@@ -21,7 +21,7 @@ export const getRspackConfig = async (
   const newEnv = env === 'preview' ? 'production' : env;
 
   /**加载需要重写的配置*/
-  const { overridesRspack, proxy, proxySetup, _JS_minifyOptions, ...rest } = loadConfigs;
+  const { overridesRspack, proxy, proxySetup, _JS_minifyOptions, optimization, ...rest } = loadConfigs;
   const loadConfig = { ...rest, proxy, proxySetup };
   /**是否是生产*/
   const isEnvProduction = env === 'production';
@@ -53,7 +53,7 @@ export const getRspackConfig = async (
     /**用于指示Rspack如何以及在何处输出生成文件的内容*/
     output,
     /**Rspack 会根据mode. 您还可以通过自定义配置optimization。*/
-    optimization: { minimize: isEnvProduction },
+    optimization: { minimize: isEnvProduction, ...optimization },
     /**devtool配置用于控制源映射生成的行为*/
     devtool: isEnvProduction ? false : 'cheap-module-source-map',
     /**entry配置用于设置Rspack构建的入口模块。*/
