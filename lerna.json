@@ -4,9 +4,9 @@
     "website",
     "packages/create-saqu",
     "packages/swc/types",
+    "packages/swc/register",
     "packages/loaders/*",
     "packages/plugins/*",
-    "packages/swc/register",
     "core",
     "examples/*"
   ],

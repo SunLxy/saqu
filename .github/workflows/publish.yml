@@ -139,7 +139,8 @@ jobs:
         workspaces: | 
           packages/loaders/*
           packages/plugins/*
-          packages/types
+          packages/swc/register
+          packages/swc/types
           packages/create-saqu
           core
 
