@@ -6,7 +6,6 @@ import {
   ClassDeclaration,
   Program,
   FunctionDeclaration,
-  plugins,
   Plugin,
   TsParserConfig,
 } from '@swc/core';
@@ -62,6 +61,16 @@ export interface TransformOptions extends Omit<SWCoptions, 'plugin' | 'filename'
   plugin?: Plugin[];
 }
 
+const mapPlugins = (plugins: Plugin[]) => {
+  return (m: Program) => {
+    let newM = m;
+    plugins.forEach((plugin) => {
+      newM = plugin(newM);
+    });
+    return newM;
+  };
+};
+
 export const getTransformValue = (str: string, filename: string, otherOptions: TransformOptions = {}) => {
   try {
     const options: SWCoptions = {
@@ -86,7 +95,7 @@ export const getTransformValue = (str: string, filename: string, otherOptions: T
         ...otherOptions?.module,
       },
       filename,
-      plugin: plugins([
+      plugin: mapPlugins([
         (m) => {
           const { body, ...rest } = m;
           const newBody = body.map((item) => {
@@ -113,7 +122,9 @@ export const getTransformValue = (str: string, filename: string, otherOptions: T
     const newCode = res.code.replace(/Object.defineProperty\(exports/g, 'Object.defineProperty(__webpack_exports__');
     return `${newCode}\nreturn BaseCode_Export__default__value;\n`;
   } catch (err) {
-    console.error('打印错误===>', filename, str, err);
+    console.log(222);
+    process.exit();
+
     throw new Error(err);
   }
 };

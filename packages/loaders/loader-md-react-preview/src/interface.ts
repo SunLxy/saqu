@@ -1,15 +1,10 @@
 import React from 'react';
 import { TransformOptions } from './utils/transform';
 import { LoaderContext } from '@rspack/core';
-import { SourceMap, AdditionalData } from '@rspack/core/dist/config/adapter-rule-use';
 import type { Parent, Node } from 'unist';
 
 export declare interface LoaderFunction {
-  (this: LoaderContext, content: string, sourceMap?: string | SourceMap, additionalData?: AdditionalData | undefined):
-    | string
-    | void
-    | Buffer
-    | Promise<string | Buffer>;
+  (this: LoaderContext, content: string): string | void | Buffer | Promise<string | Buffer>;
 }
 
 export type CodeBlockItem = {

@@ -7,7 +7,11 @@ export const getRspackExperimentsConfig = (
   experiments?: Experiments,
 ): Experiments => {
   return {
-    incrementalRebuild: true,
+    // incrementalRebuild: true,
     ...experiments,
+    rspackFuture: {
+      ...experiments?.rspackFuture,
+      disableTransformByDefault: false, // 开启默认转换
+    },
   };
 };

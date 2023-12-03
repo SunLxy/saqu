@@ -25,7 +25,6 @@ export default {
             },
           },
         ],
-        type: 'typescript',
       },
     ],
   },

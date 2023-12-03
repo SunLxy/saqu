@@ -30,7 +30,7 @@
     "fs-extra": "~11.1.0"
   },
   "devDependencies": {
-    "@rspack/core": "~0.2.8",
+    "@rspack/core": "^0.4.1",
     "@types/fs-extra": "~11.0.1",
     "saqu": "^0.1.37"
   }

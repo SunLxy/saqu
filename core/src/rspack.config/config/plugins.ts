@@ -9,6 +9,7 @@ import {
   CopyRspackPlugin,
   SwcJsMinimizerRspackPlugin,
 } from '@rspack/core';
+import ReactRefreshPlugin from '@rspack/plugin-react-refresh';
 import { SAquArgvOptions } from './../../interface';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
@@ -28,6 +29,7 @@ export const getRspackPluginsConfig = (
   const isEnvProduction = env === 'production';
 
   const newPlugins = [
+    isEnvDevelopment && new ReactRefreshPlugin(),
     new DefinePlugin({
       /** 解决报错: User defined `process.env.NODE_ENV` always has highest priority than default define*/
       'process.env.NODE_ENV': JSON.stringify(env),

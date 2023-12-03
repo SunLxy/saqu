@@ -7,9 +7,9 @@ export const getRspackBuiltinsConfig = (
 ): Builtins => {
   const newBuiltins: Builtins = builtins || {};
   const { define, ...rest } = newBuiltins;
-  /**是否是开发环境*/
-  const isEnvDevelopment = env === 'development';
-  const isEnvProduction = env === 'production';
+  // /**是否是开发环境*/
+  // const isEnvDevelopment = env === 'development';
+  // const isEnvProduction = env === 'production';
   return {
     ...rest,
     /**进度条设置*/
@@ -23,11 +23,11 @@ export const getRspackBuiltinsConfig = (
     //   dropConsole: isEnvProduction,
     //   ...newBuiltins?.minifyOptions,
     // },
-    /**控制关于react的代码转换*/
-    react: {
-      // 这个添加 false 解决控制台 $refreshSig$ 报错
-      refresh: false,
-      ...newBuiltins?.react,
-    },
+    // /**控制关于react的代码转换*/
+    // react: {
+    //   // 这个添加 false 解决控制台 $refreshSig$ 报错
+    //   // refresh: false,
+    //   ...newBuiltins?.react,
+    // },
   };
 };
