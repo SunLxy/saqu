@@ -23,11 +23,11 @@ export const getRspackBuiltinsConfig = (
     //   dropConsole: isEnvProduction,
     //   ...newBuiltins?.minifyOptions,
     // },
-    // /**控制关于react的代码转换*/
-    // react: {
-    //   // 这个添加 false 解决控制台 $refreshSig$ 报错
-    //   // refresh: false,
-    //   ...newBuiltins?.react,
-    // },
+    /**控制关于react的代码转换*/
+    react: {
+      // 这个添加 false 解决控制台 $refreshSig$ 报错
+      refresh: false,
+      ...newBuiltins?.react,
+    },
   };
 };
