@@ -62,6 +62,7 @@
   },
   "workspaces": [
     "examples/*",
+    "packages/core",
     "packages/create-saqu",
     "packages/swc/types",
     "packages/swc/register",

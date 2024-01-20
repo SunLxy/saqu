@@ -2,6 +2,7 @@
   "version": "0.1.37",
   "packages": [
     "website",
+    "packages/core",
     "packages/create-saqu",
     "packages/swc/types",
     "packages/swc/register",
