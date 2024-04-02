@@ -55,7 +55,7 @@ export const getRspackConfig = async (
     /**Rspack 会根据mode. 您还可以通过自定义配置optimization。*/
     optimization: { minimize: isEnvProduction, ...optimization },
     /**devtool配置用于控制源映射生成的行为*/
-    devtool: isEnvProduction ? false : 'cheap-module-source-map',
+    devtool: isEnvProduction ? false : 'source-map',
     /**entry配置用于设置Rspack构建的入口模块。*/
     entry: getRspackEntryConfig(newEnv, type, loadConfig.entry),
     /**用于设置Rspack提供的内置函数*/
