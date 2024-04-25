@@ -11,6 +11,7 @@ export const getRspackExperimentsConfig = (
     ...experiments,
     rspackFuture: {
       ...experiments?.rspackFuture,
+      disableApplyEntryLazily: true,
       disableTransformByDefault: false, // 开启默认转换
     },
   };
