@@ -3,7 +3,7 @@
   "version": "0.1.39",
   "private": true,
   "dependencies": {
-    "@uiw/react-native": "3.2.3",
+    "@uiw/react-native": "4.1.1",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
     "react-native": "0.69.7",
