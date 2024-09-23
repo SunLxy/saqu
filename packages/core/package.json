@@ -3,8 +3,13 @@
   "version": "0.1.37",
   "description": "使用 rspack 进行封装.",
   "author": "SunLxy <1011771396@qq.com>",
-  "main": "lib/main.js",
-  "types": "lib/main.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": "./lib/index.js",
+  "type": "module",
+  "bin": {
+    "saqus": "./bin/saqus.js"
+  },
   "files": [
     "lib",
     "src",
@@ -21,20 +26,14 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
-    "webpack-chain": "~6.5.1",
+    "rspack-chain": "~1.0.1",
     "react-refresh": "0.14.0",
-    "@proload/plugin-json": "~0.3.1",
-    "@proload/plugin-rc": "~0.2.1",
     "@rspack/plugin-react-refresh": "~0.4.1",
     "@rspack/core": "^0.4.1",
     "@rspack/dev-server": "^0.4.1",
-    "@saqu/swc-register": "^0.1.37",
     "@svgr/webpack": "^7.0.0",
-    "@swc/core": "1.3.96",
-    "carefree-proload": "~0.0.2",
     "chalk": "4.1.2",
     "chokidar": "~3.5.3",
-    "file-loader": "~6.2.0",
     "fs-extra": "~11.1.0",
     "mocker-api": "~2.9.5",
     "typescript": "~5.2.2",
@@ -43,6 +42,7 @@
     "yargs-parser": "~21.1.1"
   },
   "devDependencies": {
+    "@types/node": "~22.5.5",
     "@types/fs-extra": "~11.0.1",
     "@types/recursive-readdir": "~2.2.1",
     "@types/webpack-bundle-analyzer": "~4.6.0",

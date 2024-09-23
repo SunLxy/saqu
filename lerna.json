@@ -10,6 +10,5 @@
     "packages/plugins/*",
     "core",
     "examples/*"
-  ],
-  "useWorkspaces": true
+  ]
 }
