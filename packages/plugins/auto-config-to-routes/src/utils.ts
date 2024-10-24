@@ -30,11 +30,13 @@ export class RouteAst extends Visitor {
   constValues: string = ``;
   /**是否已经导入 React*/
   isImportReact: boolean = false;
+  loadType?: 'lazy' | 'default' | 'params' | 'default_params';
   isDefault = false;
   count = 0;
-  constructor(isDefault: boolean) {
+  constructor(isDefault: boolean, loadType?: 'lazy' | 'default' | 'params' | 'default_params') {
     super();
     this.isDefault = isDefault || false;
+    this.loadType = loadType;
   }
 
   _init(value: string) {
@@ -55,9 +57,10 @@ export class RouteAst extends Visitor {
     const importCode = printSync({ ...rest, body: importBody } as Program);
     const otherCode = printSync({ ...rest, body: otherBody } as Program);
     const reactStr = this.isImportReact ? '\n' : `import React from "react";\n`;
-    return `${reactStr.trim()}${importCode.code}\n${this.imports.trim()}\n${this.constValues.trim()}\n${
-      otherCode.code
-    }`;
+    const reactStr2 = this.loadType === 'lazy' ? '\n' : `import { Suspense } from "react";\n`;
+    return `${reactStr2.trim()}${reactStr.trim()}${
+      importCode.code
+    }\n${this.imports.trim()}\n${this.constValues.trim()}\n${otherCode.code}`;
   }
 
   visitImportDefaultSpecifier(node: ImportDefaultSpecifier): ImportSpecifier {
@@ -83,11 +86,27 @@ export class RouteAst extends Visitor {
       const value = element.value.value;
       this.count++;
       const componentName = toPascalCase(value.replace('@/pages/', '').replace('/', ' ')) + this.count;
-      this.imports += `import * as ${componentName}All from "${value}";\n`;
+      if (this.loadType && this.loadType !== 'default_params') {
+        if (this.loadType === 'default') {
+          this.imports += `import ${componentName}Default from "${value}";\n`;
+        } else if (this.loadType === 'params') {
+          this.imports += `import * as ${componentName}All from "${value}";\n`;
+          this.constValues += `const { default: ${componentName}Default,...${componentName}Other } = ${componentName}All;\n`;
+        } else if (this.loadType === 'lazy') {
+          this.imports += `const ${componentName}Default = React.lazy(() => import('${value}'));\n`;
+        }
+      } else {
+        this.imports += `import * as ${componentName}All from "${value}";\n`;
+        this.constValues += `const { default: ${componentName}Default,...${componentName}Other } = ${componentName}All;\n`;
+      }
 
-      this.constValues += `const { default: ${componentName}Default,...${componentName}Other } = ${componentName}All;\n`;
       this.elements.set(element.value.value, { componentName, path: value });
-      if (this.isDefault) {
+
+      if (this.loadType && this.loadType === 'lazy') {
+        element.value = types.JSXElement(types.JSXOpeningElement(types.Identifier('Suspense'), [], true), [
+          types.JSXElement(types.JSXOpeningElement(types.Identifier(`${componentName}Default`), [], true), []),
+        ]);
+      } else if (this.isDefault || this.loadType) {
         element.value = types.JSXElement(
           types.JSXOpeningElement(types.Identifier(`${componentName}Default`), [], true),
           [],
@@ -102,7 +121,9 @@ export class RouteAst extends Visitor {
             ),
         );
       }
-      n.properties.push(types.SpreadElement(types.Identifier(`${componentName}Other`)));
+      if (!this.loadType || this.loadType === 'default_params' || this.loadType === 'params') {
+        n.properties.push(types.SpreadElement(types.Identifier(`${componentName}Other`)));
+      }
     }
     const child = n.properties.find(
       (ite) =>

@@ -29,7 +29,12 @@ const newRoutesConfig=[
 ]
 `;
 
-export const getMainCode = (routeType: RouteType, rootRoutes: boolean | string, routePath: string) => {
+export const getMainCode = (
+  routeType: RouteType,
+  rootRoutes: boolean | string,
+  routePath: string,
+  warpOutlet?: string,
+) => {
   let funStr = '';
   let params = 'router_config || []';
   if (typeof rootRoutes === 'boolean' && rootRoutes) {
@@ -39,15 +44,22 @@ export const getMainCode = (routeType: RouteType, rootRoutes: boolean | string, 
     funStr = getImportRoutes(rootRoutes);
     params = 'newRoutesConfig';
   }
-
+  let warp = '';
+  if (typeof warpOutlet === 'string') {
+    warp = `import WarpOutlet from '${warpOutlet}';\n`;
+  }
+  let createRoot = `ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);`;
+  if (warp) {
+    createRoot = `ReactDOM.createRoot(document.getElementById('root')).render(<WarpOutlet routerConfig={router_config} router={router}><RouterProvider router={router} /></WarpOutlet>);`;
+  }
   return `
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, ${RouteTypeObj[routeType]} } from 'react-router-dom';
 import router_config from '${routePath}';
+${warp}
 ${funStr}
 const router = ${RouteTypeObj[routeType]}(${params})
 
-ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
 
 `;
 };

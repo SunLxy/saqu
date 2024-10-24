@@ -11,6 +11,8 @@ export interface AutoConfigToRoutesProps {
    * @default false
    */
   isDefault?: boolean;
+  /**加载类型*/
+  loadType?: 'lazy' | 'default' | 'params' | 'default_params';
 }
 
 // 插件执行顺序
@@ -46,6 +48,7 @@ class AutoConfigToRoutes {
    * @default false
    */
   isDefault?: boolean = false;
+  loadType?: 'lazy' | 'default' | 'params' | 'default_params';
   /**路由配置地址*/
   config_route_path: string = '';
   /**配置文件内容*/
@@ -64,6 +67,7 @@ class AutoConfigToRoutes {
 
   constructor(props: AutoConfigToRoutesProps = {}) {
     this.isDefault = props.isDefault || this.isDefault;
+    this.loadType = props.loadType || this.loadType;
     this._addRoute();
     this.firstRead = true;
   }
@@ -119,7 +123,7 @@ class AutoConfigToRoutes {
       }
       if (config_content !== this.config_content) {
         this.config_content = config_content;
-        this.crate_routes_content = new RouteAst(this.isDefault)._init(config_content);
+        this.crate_routes_content = new RouteAst(this.isDefault, this.loadType)._init(config_content);
       } else {
         this.is_update_routes = false;
       }

@@ -128,6 +128,7 @@ export const getRoutesConfig = (
   render?: (props: Required<RouteItemConfigType>) => RenderReturnType,
   presetsImport?: string,
   rootRoutes?: boolean | string,
+  loadType?: 'lazy' | 'default' | 'params' | 'default_params',
 ) => {
   let configStr = '';
   let importStr = (presetsImport || '') + '\n';
@@ -152,13 +153,32 @@ export const getRoutesConfig = (
       }
     } else {
       const ComName = componentName + `${index}`;
-      importStr += `import * as ${ComName} from "${newFilePath}";\n`;
-      otherStr += `const { default:${ComName}Default,...${ComName}Other  } = ${ComName};\n`;
-      const elementStr = isDefault ? `,element:<${ComName}Default />` : '';
-      if (rootRoutes && typeof rootRoutes === 'boolean' && rowItem.pathName === '/') {
-        firstItem = ` path:"${pathName}"${elementStr},...${ComName}Other `;
+      if (loadType && loadType !== 'default_params') {
+        if (loadType === 'default') {
+          importStr += `import ${ComName} from "${newFilePath}";\n`;
+        } else if (loadType === 'params') {
+          importStr += `import * as ${ComName} from "${newFilePath}";\n`;
+          otherStr += `const { default:${ComName}Default, ...${ComName}Other  } = ${ComName};\n`;
+        } else if (loadType === 'lazy') {
+          importStr += `const ${ComName} = React.lazy(() => import('${newFilePath}'));\n`;
+        }
+        const elementStr = loadType !== 'params' ? `,element:<${ComName} />` : '';
+        const otherStrs = loadType === 'params' ? `,...${ComName}Other` : '';
+
+        if (rootRoutes && typeof rootRoutes === 'boolean' && rowItem.pathName === '/') {
+          firstItem = ` path:"${pathName}"${elementStr}${otherStrs} `;
+        } else {
+          configStr += `\t{ path:"${pathName}"${elementStr}${otherStrs} },\n`;
+        }
       } else {
-        configStr += `\t{ path:"${pathName}"${elementStr},...${ComName}Other },\n`;
+        importStr += `import * as ${ComName} from "${newFilePath}";\n`;
+        otherStr += `const { default:${ComName}Default,...${ComName}Other  } = ${ComName};\n`;
+        const elementStr = isDefault ? `,element:<${ComName}Default />` : '';
+        if (rootRoutes && typeof rootRoutes === 'boolean' && rowItem.pathName === '/') {
+          firstItem = ` path:"${pathName}"${elementStr},...${ComName}Other `;
+        } else {
+          configStr += `\t{ path:"${pathName}"${elementStr},...${ComName}Other },\n`;
+        }
       }
     }
   });

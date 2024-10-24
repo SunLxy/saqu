@@ -25,6 +25,8 @@ export interface AutoCreateRoutesProps extends GetFilesPathProps {
   /**预设导入内容*/
   presetsImport?: string;
   rootRoutes?: boolean | string;
+  /**加载类型*/
+  loadType?: 'lazy' | 'default' | 'params' | 'default_params';
 }
 
 // 插件执行顺序
@@ -73,10 +75,12 @@ class AutoCreateRoutes {
   presetsImport?: string;
   private tempRoutesPathsMap: Map<string, RouteItemConfigType> = new Map([]);
   rootRoutes: boolean | string = false;
-
+  /**加载类型*/
+  loadType?: 'lazy' | 'default' | 'params' | 'default_params';
   constructor(props: AutoCreateRoutesProps = {}) {
     this.fileExt = props.fileExt || 'tsx|js|jsx';
     this.ignores = props.ignores;
+    this.loadType = props.loadType;
     this.isDefault = props.isDefault || this.isDefault;
     this.renderConfig = props.renderConfig;
     this.presetsImport = props.presetsImport || '';
@@ -95,6 +99,7 @@ class AutoCreateRoutes {
       this.renderConfig,
       this.presetsImport,
       this.rootRoutes,
+      this.loadType,
     );
     FS.writeFileSync(writeFilePath, routes_config, { flag: 'w+', encoding: 'utf-8' });
   };

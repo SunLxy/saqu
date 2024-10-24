@@ -21,13 +21,23 @@ class AutoCreateEnter {
   mainFilePath: string = path.join(process.cwd(), 'src', '.cache', 'main.jsx');
   /**引入路由地址*/
   routePath?: string = './routes_config';
+  /**加载路由外层组件*/
+  warpOutlet?: string;
 
-  constructor(props?: { routeType?: RouteType; rootRoutes?: boolean | string; routePath?: string }) {
+  constructor(props?: {
+    routeType?: RouteType;
+    rootRoutes?: boolean | string;
+    routePath?: string;
+    warpOutlet?: string;
+  }) {
     if (props && props.routeType) {
       this.routeType = props.routeType;
     }
     if (props && props.routePath) {
       this.routePath = props.routePath;
+    }
+    if (props && props.warpOutlet) {
+      this.warpOutlet = props.warpOutlet;
     }
     if (props && Reflect.has(props, 'rootRoutes')) {
       this.rootRoutes = props.rootRoutes;
@@ -51,7 +61,7 @@ class AutoCreateEnter {
   _create = () => {
     if (!this.mainContent) {
       /**获取配置代码*/
-      this.mainContent = getMainCode(this.routeType, this.rootRoutes, this.routePath);
+      this.mainContent = getMainCode(this.routeType, this.rootRoutes, this.routePath, this.warpOutlet);
     }
     let content = this.mainContent;
     const cssImport = this._checkStyle();
