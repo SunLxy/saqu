@@ -1,6 +1,6 @@
 {
   "name": "@examples/base",
-  "version": "0.1.39",
+  "version": "0.1.40",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
@@ -9,7 +9,7 @@
   "devDependencies": {
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "saqu": "^0.1.39"
+    "saqu": "^0.1.40"
   },
   "scripts": {
     "start": "saqu start",
