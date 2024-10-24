@@ -4,7 +4,7 @@ import autoCreateEnter from '@saqu/auto-create-enter';
 
 export default defineConfig({
   entry: '!src/.cache/main.jsx',
-  plugins: [new autoCreateEnter({}), new autoCreateRoutes({})],
+  plugins: [new autoCreateEnter({}), new autoCreateRoutes({ loadType: 'lazy' })],
   overridesRspack: (config) => {
     return config;
   },

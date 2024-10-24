@@ -13,3 +13,5 @@ const About = () => {
   );
 };
 export const element = <About />;
+
+export default About;

@@ -71,6 +71,14 @@ class createSwcAstTypes {
     };
   }
 
+  JSXClosingElement(name: JSXElementName): JSXClosingElement {
+    return {
+      type: 'JSXClosingElement',
+      span: this._span(),
+      name: name,
+    };
+  }
+
   JSXElement(opening: JSXOpeningElement, children: JSXElementChild[], closing?: JSXClosingElement): JSXElement {
     return {
       type: 'JSXElement',

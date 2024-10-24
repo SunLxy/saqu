@@ -15,3 +15,5 @@ const Index = () => {
   );
 };
 export const element = <Index />;
+
+export default Index;

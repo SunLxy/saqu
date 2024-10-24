@@ -57,8 +57,7 @@ export class RouteAst extends Visitor {
     const importCode = printSync({ ...rest, body: importBody } as Program);
     const otherCode = printSync({ ...rest, body: otherBody } as Program);
     const reactStr = this.isImportReact ? '\n' : `import React from "react";\n`;
-    const reactStr2 = this.loadType === 'lazy' ? '\n' : `import { Suspense } from "react";\n`;
-    return `${reactStr2.trim()}${reactStr.trim()}${
+    return `import { Suspense } from "react";\n${reactStr.trim()}${
       importCode.code
     }\n${this.imports.trim()}\n${this.constValues.trim()}\n${otherCode.code}`;
   }
@@ -90,8 +89,7 @@ export class RouteAst extends Visitor {
         if (this.loadType === 'default') {
           this.imports += `import ${componentName}Default from "${value}";\n`;
         } else if (this.loadType === 'params') {
-          this.imports += `import * as ${componentName}All from "${value}";\n`;
-          this.constValues += `const { default: ${componentName}Default,...${componentName}Other } = ${componentName}All;\n`;
+          this.imports += `import * as ${componentName}Other from "${value}";\n`;
         } else if (this.loadType === 'lazy') {
           this.imports += `const ${componentName}Default = React.lazy(() => import('${value}'));\n`;
         }
@@ -103,9 +101,20 @@ export class RouteAst extends Visitor {
       this.elements.set(element.value.value, { componentName, path: value });
 
       if (this.loadType && this.loadType === 'lazy') {
-        element.value = types.JSXElement(types.JSXOpeningElement(types.Identifier('Suspense'), [], true), [
-          types.JSXElement(types.JSXOpeningElement(types.Identifier(`${componentName}Default`), [], true), []),
-        ]);
+        element.value = types.JSXElement(
+          types.JSXOpeningElement(types.Identifier('Suspense'), [], false),
+          [types.JSXElement(types.JSXOpeningElement(types.Identifier(`${componentName}Default`), [], true), [])],
+          types.JSXClosingElement(types.Identifier('Suspense')),
+        );
+      } else if (this.loadType === 'params') {
+        n.properties = n.properties.filter(
+          (ite) =>
+            !(
+              ite.type === 'KeyValueProperty' &&
+              (ite.key.type === 'Identifier' || ite.key.type === 'StringLiteral') &&
+              ite.key.value === 'element'
+            ),
+        );
       } else if (this.isDefault || this.loadType) {
         element.value = types.JSXElement(
           types.JSXOpeningElement(types.Identifier(`${componentName}Default`), [], true),

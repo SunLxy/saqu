@@ -59,7 +59,6 @@ import router_config from '${routePath}';
 ${warp}
 ${funStr}
 const router = ${RouteTypeObj[routeType]}(${params})
-
-
+${createRoot}
 `;
 };

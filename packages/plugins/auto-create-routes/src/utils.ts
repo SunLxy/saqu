@@ -158,13 +158,14 @@ export const getRoutesConfig = (
           importStr += `import ${ComName} from "${newFilePath}";\n`;
         } else if (loadType === 'params') {
           importStr += `import * as ${ComName} from "${newFilePath}";\n`;
-          otherStr += `const { default:${ComName}Default, ...${ComName}Other  } = ${ComName};\n`;
         } else if (loadType === 'lazy') {
           importStr += `const ${ComName} = React.lazy(() => import('${newFilePath}'));\n`;
         }
-        const elementStr = loadType !== 'params' ? `,element:<${ComName} />` : '';
-        const otherStrs = loadType === 'params' ? `,...${ComName}Other` : '';
-
+        let elementStr = loadType !== 'params' ? `,element:<${ComName} />` : '';
+        const otherStrs = loadType === 'params' ? `,...${ComName}` : '';
+        if (loadType === 'lazy') {
+          elementStr = `,element:<Suspense><${ComName} /></Suspense>`;
+        }
         if (rootRoutes && typeof rootRoutes === 'boolean' && rowItem.pathName === '/') {
           firstItem = ` path:"${pathName}"${elementStr}${otherStrs} `;
         } else {
@@ -191,5 +192,5 @@ export const getRoutesConfig = (
     return `${importStr.trim()}\n${otherStr.trim()}\n${importLazyStr.trim()}\nexport default [\n\t{ path:"/",element:<RootRoutes />,children: ${newConfig} \n\t}\n\t];\n`;
   }
 
-  return `${importStr.trim()}\n${otherStr.trim()}\n${importLazyStr.trim()}\nexport default ${newConfig};\n`;
+  return `import { Suspense } from "react";\nimport React from "react";\n${importStr.trim()}\n${otherStr.trim()}\n${importLazyStr.trim()}\nexport default ${newConfig};\n`;
 };

@@ -15,3 +15,5 @@ const Home = () => {
   );
 };
 export const element = <Home />;
+
+export default Home;
