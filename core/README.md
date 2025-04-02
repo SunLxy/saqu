@@ -1,6 +1,8 @@
 saqu
 ===
 
+建议使用[rsbuild](https://rsbuild.dev/zh/guide/start/)构建工具
+
 ## 参考对象
 
 1. 参考 `react-scripts` webpack 进行 配置
